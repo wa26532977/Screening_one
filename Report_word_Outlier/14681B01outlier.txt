@@ -1,0 +1,6 @@
+Barcode	Outlier
+455150	OK
+455154	OK
+455153	Outlier-High
+455152	Outlier-High
+455151	Outlier-Low

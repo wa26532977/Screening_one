@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="Images">
+    <file>check3.png</file>
+    <file>Check2.png</file>
+    <file>battery1.gif</file>
+    <file>Battery2.jpg</file>
+    <file>Battery3.jpg</file>
+  </qresource>
+</RCC>

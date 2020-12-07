@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScreeningSys_mainWindow</class>
+ <widget class="QMainWindow" name="ScreeningSys_mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>910</width>
+    <height>1143</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>BTC-Screening System</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>910</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuTemplate_File">
+     <property name="title">
+      <string>Template File</string>
+     </property>
+     <addaction name="actionAdd_New_Tempate_File"/>
+     <addaction name="actionOpen_Template_File"/>
+     <addaction name="actionDupplicate_a_Template_File"/>
+    </widget>
+    <widget class="QMenu" name="menuData_File">
+     <property name="title">
+      <string>Data File</string>
+     </property>
+     <addaction name="actionAdd_New_Date_File"/>
+     <addaction name="actionOpen_Date_File"/>
+     <addaction name="actionConverting_Final_Screening_Data_to_excel_Format"/>
+    </widget>
+    <addaction name="menuTemplate_File"/>
+    <addaction name="separator"/>
+    <addaction name="menuData_File"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <widget class="QMenu" name="menuHardware">
+     <property name="title">
+      <string>Hardware</string>
+     </property>
+     <addaction name="actionBarcode_Config"/>
+     <addaction name="actionBK_Power_Bank_Config"/>
+    </widget>
+    <addaction name="menuHardware"/>
+    <addaction name="separator"/>
+    <addaction name="actionSet_Path"/>
+   </widget>
+   <widget class="QMenu" name="menuAnalysis">
+    <property name="title">
+     <string>Analysis</string>
+    </property>
+    <addaction name="actionSample_Data_Viewing"/>
+    <addaction name="actionSample_Search"/>
+   </widget>
+   <widget class="QMenu" name="menuReport">
+    <property name="title">
+     <string>Report</string>
+    </property>
+    <addaction name="actionView_All_Report_And_Graph"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrint_All_Peport_And_Graph"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
+   <addaction name="menuAnalysis"/>
+   <addaction name="menuReport"/>
+   <addaction name="menuHelp"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Print</string>
+   </property>
+  </action>
+  <action name="actionPrinter_Setup">
+   <property name="text">
+    <string>Printer Setup</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionSet_Path">
+   <property name="text">
+    <string>Set Path</string>
+   </property>
+  </action>
+  <action name="actionSample_Data_Viewing">
+   <property name="text">
+    <string>Sample Data Viewing</string>
+   </property>
+  </action>
+  <action name="actionSample_Search">
+   <property name="text">
+    <string>Sample Search</string>
+   </property>
+  </action>
+  <action name="actionUser_Guide">
+   <property name="text">
+    <string>Pre-Graph</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>Post-Graph</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_Tempate_File">
+   <property name="text">
+    <string>Add New Tempate File</string>
+   </property>
+  </action>
+  <action name="actionOpen_Template_File">
+   <property name="text">
+    <string>Open Template File</string>
+   </property>
+  </action>
+  <action name="actionDupplicate_a_Template_File">
+   <property name="text">
+    <string>Duplicate a Template File</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_Date_File">
+   <property name="text">
+    <string>Add New Data File</string>
+   </property>
+  </action>
+  <action name="actionOpen_Date_File">
+   <property name="text">
+    <string>Open Data File</string>
+   </property>
+  </action>
+  <action name="actionConverting_Final_Screening_Data_to_excel_Format">
+   <property name="text">
+    <string>Converting Final Screening Data to excel Format</string>
+   </property>
+  </action>
+  <action name="actionBarcode_Config">
+   <property name="text">
+    <string>Barcode Config.</string>
+   </property>
+  </action>
+  <action name="actionBK_Power_Bank_Config">
+   <property name="text">
+    <string>BK-Power Bank Config.</string>
+   </property>
+  </action>
+  <action name="actionView_All_Report_And_Graph">
+   <property name="text">
+    <string>View All Report And Graph</string>
+   </property>
+  </action>
+  <action name="actionRaw_Data_Table">
+   <property name="text">
+    <string>Raw Data Table</string>
+   </property>
+  </action>
+  <action name="actionFront_Page">
+   <property name="text">
+    <string>Front Page</string>
+   </property>
+  </action>
+  <action name="actionPrint_All_Peport_And_Graph">
+   <property name="text">
+    <string>Print All Peport And Graph</string>
+   </property>
+  </action>
+  <action name="actionUser_Gulid">
+   <property name="text">
+    <string>User Guide</string>
+   </property>
+  </action>
+  <action name="actionAbout_2">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionPost_Graph">
+   <property name="text">
+    <string>Post-Graph</string>
+   </property>
+  </action>
+  <action name="actionPre_Graph">
+   <property name="text">
+    <string>Pre-Graph</string>
+   </property>
+  </action>
+  <action name="actionPre_Graph_2">
+   <property name="text">
+    <string>Pre-Graph</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,11 @@
+Lot No	Test No	Cell Name	Chemistry	Form Factor	Capacity	Request Number	Task Number	Tech POC.	Test Purpose	Mfg Date	Date Received	Dimension (mm)	Screening Temp(°C)	Begin Date	Finished Date	Total Sample Count	Profile One Values	Profile One Timer	Profile One OCV Min	Profile One CCV Min	High Rate Min(Y-axis)	High Rate Max (Y-axis)	Pre-Tab OCV	Post-Tab OCV	Post-Tab CCV	OCV Tab Tolerance	Profile Two Value	Profile Two Timer	Profile Two OCV Min	Profile Two CCV Min	Battery/Cell	Tabbed?	Profile No.	Section No.	High Rate?	Profile One Type	Profile Two Type	Note
+10203	14575A00	Duracell MX2500	Zn/MnO2	Cylindrical AAAA	0.53		10106	RDW	Test BTC Screening System	2/4/2016	5/23/2017	42.5(H) X 8.3(D)	24	1/8/2020	1/8/2020	50	20	5	1.57	1.2			1.57	1.57	1.2	0.002					Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"

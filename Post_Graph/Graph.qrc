@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="Post_Graph">
+    <file>Testing.png</file>
+    <file>2.png</file>
+    <file>2 - Copy.png</file>
+  </qresource>
+</RCC>

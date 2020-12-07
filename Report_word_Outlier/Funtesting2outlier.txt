@@ -1,0 +1,4 @@
+Barcode	Outlier
+455488	OK
+455489	OK
+455490	OK

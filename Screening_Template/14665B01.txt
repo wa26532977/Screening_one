@@ -1,0 +1,11 @@
+Lot No	Test No	Cell Name	Chemistry	Form Factor	Capacity	Request Number	Task Number	Tech POC.	Test Purpose	Mfg Date	Date Received	Dimension (mm)	Screening Temp(°C)	Begin Date	Finished Date	Total Sample Count	Profile One Values	Profile One Timer	Profile One OCV Min	Profile One CCV Min	High Rate Min(Y-axis)	High Rate Max (Y-axis)	Pre-Tab OCV	Post-Tab OCV	Post-Tab CCV	OCV Tab Tolerance	Profile Two Value	Profile Two Timer	Profile Two OCV Min	Profile Two CCV Min	Battery/Cell	Tabbed?	Profile No.	Section No.	High Rate?	Profile One Type	Profile Two Type	Note
+10588	14665B01	Sony/Murata VTC6-18650	Li-Ion	Cylindrical 18650	3.0	Request02	Task02	PeterWang	SiteRestockb	2016-09-25	2017-12-26	65.15(H) X 18.35(D)	24	2019-12-09	2019-12-09	9	200	5	1.7	1.6							250	4	1.6	1.5	Cell	Not Tabbed	1	2	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"

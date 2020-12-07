@@ -1,0 +1,11 @@
+Lot No	Test No	Cell Name	Chemistry	Form Factor	Capacity	Request Number	Task Number	Tech POC.	Test Purpose	Mfg Date	Date Received	Dimension (mm)	Screening Temp(°C)	Begin Date	Finished Date	Total Sample Count	Profile One Values	Profile One Timer	Profile One OCV Min	Profile One CCV Min	High Rate Min(Y-axis)	High Rate Max (Y-axis)	Pre-Tab OCV	Post-Tab OCV	Post-Tab CCV	OCV Tab Tolerance	Profile Two Value	Profile Two Timer	Profile Two OCV Min	Profile Two CCV Min	Battery/Cell	Tabbed?	Profile No.	Section No.	High Rate?	Profile One Type	Profile Two Type	Note
+10945	14681B01	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PeterRequest	PeterTask	PeterPOC	PeterTest	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2020-01-03	2020-01-03	5	200	4	1.6	1.5							250	5	1.7	1.5	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"

@@ -1,0 +1,946 @@
+Lot No	Test No	Cell Name	Chemistry	Form Factor	Capacity	Request Number	Request Title	Tech POC.	Test Purpose	Mfg Date	Date Received	Dimension (mm)	Screening Temp(°C)	Begin Date	Finished Date	Total Sample Count	Profile One Values	Profile One Timer	Profile Onc OCV Min	Profile One CCV Min	High Rate Min(Y-axis)	High Rate Max (Y-axis)	Pre-Tab OCV	Post-Tab OCV	Post-Tab CCV	OCV Tab Tolerance	Profile Two Value	Profile Two Timer	Profile Two OCV Min	Profile Two CCV Min	Battery/Cell	Tabbed?	Profile No.	Section No.	High Rate?	Profile One Type	Profile Two Type	Note
+10851.0	32186A	Maccor BT920349-001		None N.A.	None					None	2018-02-26		24.0	2019-06-17	2019-06-17	956.0	fq	asf	fg	34r	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12.0	321.0	Cell	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+peter 
+ewang
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+asdas"
+10851.0	32186A	Maccor BT920349-001		None N.A.	None					None	2018-02-26		24.0	2019-06-17	2019-06-17	956.0	fq	asf	fg	34r	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12.0	321.0	Battery	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+peter 
+ewang
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+asdas"
+10851.0	32186A	Maccor BT920349-001		None N.A.	None					None	2018-02-26		24.0	2019-06-17	2019-06-17	956.0	fq	asf	fg	34r	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12.0	321.0	Cell	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+peter 
+ewang
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+asdas"
+10851.0	32186A	Maccor BT920349-001		None N.A.	None					None	2018-02-26		24.0	2019-06-17	2019-06-17	956.0	fq	asf	fg	34r	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12.0	321.0	Battery	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+peter 
+ewang
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+asdas"
+10851.0	32186A	Maccor BT920349-001		None N.A.	None					None	2018-02-26		24.0	2019-06-17	2019-06-17	956.0	fq	asf	fg	34r	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12.0	321.0	Cell	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10521peter	152351peter	awe		asf	12e	vasdf		sdfa		4	123	vc	r1	e	124	123.0	2134	ewq	234	123							123	123.0	ewf	12333.0	Cell	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+ppppppp
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10521peter	152351peter	awe		asf	12e	vasdf		sdfa		4	123	vc	r1	e	124	123.0	2134	ewq	234	123							123	123.0	ewf	12333.0	Cell	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+ppppppp
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2018-02-26		24	2019-06-17	2019-06-17	956.0	fq	asf	fg	34r	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Battery	Tabbed	1	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2018-02-26		24	2019-06-17	2019-06-17	956.0	fq	asf	fg	34r	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Cell	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	7	10	25	21	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Battery	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	10	25	21	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Cell	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	8	25	21	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Battery	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	5	25	21	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Cell	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	5	1.5	1.3	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Battery	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	5	1.6	1.3	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Cell	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	5	1.5	1.5	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Battery	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	5	1.5	1.3	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Cell	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	2	1.5	1.3	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Battery	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	2	1.6	1.3	21.0	5153.0	asdf	34.0	ef	234.0	a4	1234.0	12	321.0	Cell	Not Tabbed	1	2	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					None	2/26/2018		24	6/17/2019	6/17/2019	956.0	100	2	1.6	1.3	21.0	5153.0	1.3	1.2	1.2	0.2	110	3.0	1.5	1.3	Battery	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0											Cell	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0	1.0	2.0	3	4.0	5	6.0	7	8.0	9	10.0	Cell	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0	1.0	2.0	3	4.0	5	6.0	7	8.0	9	10.0	Battery	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0			3	4.0	5	6.0	7	8.0	9	10.0	Battery	Not Tabbed	2	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0			3	4.0	5	6.0	7	8.0	9	10.0	Cell	Not Tabbed	2	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0			3	4.0	5	6.0	7	8.0	9	10.0	Battery	Not Tabbed	2	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0			3	4.0	5	6.0	1	8.0	9	10.0	Cell	Not Tabbed	2	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0			3	4.0	5	6.0					Battery	Not Tabbed	2	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10215	peterwang_123	BTC 50404-01	Li/FeS2	B.P. B.P.	12					2015-06-15	2017-07-14		24	2019-07-10	2019-07-10	3.0	120	4	1.2	1.0			3	4.0	5	6.0	119	3.0	1.2	1.3	Cell	Not Tabbed	2	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-01	2019-08-01	50.0															Cell	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-01	2019-08-01	50.0	150	3	1.5	1.3											Battery	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-01	2019-08-01	50.0	15	3	1.5	1.3											Cell	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-01	2019-08-01	50.0	15	2	1.5	1.3			1.59	1.6	1.3	0.2					Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-01	2019-08-01	50.0	15	2	1.5	1.3			1.59	1.6	1.3	0.2	150	3.0	1.6	1.5	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-01	2019-08-01	50.0	150	3	1.5	1.3			1.59	1.6	1.3	0.2	150	3.0	1.6	1.5	Battery	Not Tabbed	1	2	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-01	2019-08-01	50.0	150	3	1.5	1.3			1.59	1.6	1.3	0.2	150	3.0	1.6	1.5	Cell	Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					7/15/2017	3/16/2018	50.0(H) X40.0(W) X5.0(D)	24	8/1/2019	8/1/2019	50.0	20	2	1.5	1.3			9.9	9.8	9.7	0.2	150	3.0	1.6	1.5	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					7/15/2017	3/16/2018	50.0(H) X40.0(W) X5.0(D)	24	8/1/2019	8/1/2019	50.0	100	2					9.9	9.8	9.7	0.2					Cell	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	Test Case One	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25	12451	Tesing123	JAK	JUSTforFune	2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-08-05	2019-08-05	3.0	15	2					1.5	1.5	1.4	0.2					Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10321	CR15with2SecTest	A123 Systems/Lithiumwerks 18650M1-B	LiFePO4/C	Cylindrical 18650	1.1					2016-11-15	2017-07-13	65.0(H) X 18.0(D)	24	2019-08-28	2019-08-28	2.0	15	2					1	2.0	3						Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10541	ProfileCR25Test	BTC 50434-01	Li/SOCl2	B.P. B.P.	7.5					2011-10-07	2018-01-10		24	2019-08-28	2019-08-28	3.0	25	3	1	2							100	5.0	3	4.0	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8747	DryRunTest1	Duracell QU1500	Zn/MnO2	Cylindrical AA	2.1					2014-10-15	2015-05-20	50.5(H) X 14.5(D)	24	2019-08-28	2019-08-28	2.0	15	5					1.5	1.6	1.5	0.2					Cell	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8747	DryRunTest1	Duracell QU1500	Zn/MnO2	Cylindrical AA	2.1					2014-10-15	2015-05-20	50.5(H) X 14.5(D)	24	2019-08-28	2019-08-28	2.0	15	5					1.5	1.6	1.5	0.2					Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8747	DryRunTest1	Duracell QU1500	Zn/MnO2	Cylindrical AA	2.1					2014-10-15	2015-05-20	50.5(H) X 14.5(D)	24	2019-08-28	2019-08-28	2.0	15	5					1.5	1.6	1.6	0.2					Cell	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	DryRun2	Energizer L91	Li/FeS2	Cylindrical AA	3					2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-08-28	2019-08-28	3.0	25	3	1.7	1.5							100	5.0	1.7	1.5	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9615	DryRun3	Duracell MN1300	Zn/MnO2	Cylindrical D	15					2015-12-01	2016-06-23	61.5(H) X 34.2(D)	24	2019-08-28	2019-08-28	2.0	150	3	1.5	1.4											Battery	Not Tabbed	1	2	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9615	DryRun3	Duracell MN1300	Zn/MnO2	Cylindrical D	15					2015-12-01	2016-06-23	61.5(H) X 34.2(D)	24	2019-08-28	2019-08-28	2.0	150	3	1.5	1.4											Cell	Not Tabbed	1	2	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9654	Testing Section2	Polymagnet Correlated Magnetics 1001067		None N.A.	None					None	2016-07-08		24	2019-08-28	2019-08-28	123.0	150	5	1.2	1.3											Cell	Not Tabbed	1	2	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	DryRun2	Energizer L91	Li/FeS2	Cylindrical AA	3					2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-08-28	2019-08-28	4.0	25	3	1.6	1.5							100	5.0	1.6	1.5	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	DryRun2	Energizer L91	Li/FeS2	Cylindrical AA	3					2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-08-28	2019-08-28	10.0	25	3	1.4	1.4							100	5.0	1.6	1.5	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8747	DryRunTest1	Duracell QU1500	Zn/MnO2	Cylindrical AA	2.1					2014-10-15	2015-05-20	50.5(H) X 14.5(D)	24	2019-08-28	2019-08-28	2.0	15	5					1.5	1.3	1.3	0.2					Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	DryRun2	Energizer L91	Li/FeS2	Cylindrical AA	3					2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-08-28	2019-08-28	10.0	25	3	1.4	1.4							100	5.0	1.4	1.4	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9654	Testing Section2	Polymagnet Correlated Magnetics 1001067		None N.A.	None					None	2016-07-08		24	2019-08-28	2019-08-28	123.0	150	5	1.2	1.3											Battery	Not Tabbed	1	2	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9654	Testing Section2	Polymagnet Correlated Magnetics 1001067		None N.A.	None					None	2016-07-08		24	2019-08-28	2019-08-28	2.0	150	5	1.2	1.3											Cell	Not Tabbed	1	2	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10561	10421	Molex Inc. 504185-1000		None N.A.	None					None	2017-11-15		24	2019-08-28	2019-08-28	3.0	15	2									150	5.0			Battery	Tabbed	1	1	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10325	DDryRun1	Molex Inc. 105307-2202		None N.A.						None	2017-07-21		24	2019-08-28	2019-08-28	20.0	15	2					1.6	1.5	1.5	0.2					Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10211	PeterDry1	BTC 50402-01	Li/FeS2	B.P.	3					2015-06-15	2017-07-03		24	2019-08-29	2019-08-29	3.0	15	3					1.6	1.5	1.4	0.2					Cell	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10321	PeterDry2	A123 Systems/Lithiumwerks 18650M1-B	LiFePO4/C	Cylindrical 18650	1.1					2016-11-15	2017-07-13	65.0(H) X 18.0(D)	24	2019-08-29	2019-08-29	2.0	100	3	1.5	1.6							25	4.0	1.6	1.5	Cell	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8326	DryPeter1	Energizer LX91	Li/FeS2	Cylindrical AA	2.8					2014-08-15	2014-10-14	50.5(H) X 14.0(D)	24	2019-08-29	2019-08-29	2.0	25	4					1.77	1.9	1.3	0.2					Cell	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8649	DryPeter2	Duracell MN1500	Zn/MnO2	Cylindrical AA	2.5					2015-01-14	2015-03-10	50.5(H) X 14.5(D)	24	2019-08-29	2019-08-29	3.0	100	8	1.5	1.5							35	9.0	1.5	1.5	Battery	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8063	Drypeter3	Duracell MN2400	Zn/MnO2	Cylindrical AAA 	1.15					2014-03-15	2014-05-07	44.5(H) X 10.5(D)	24	2019-08-29	2019-08-29	3.0	13	30	1.5	1.5											Cell	Not Tabbed	1	2	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					peter Testing	2/26/2018		24	6/17/2019	6/17/2019	5.0	100	2	1.6	1.3	21.0	5153.0	1.3	1.2	1.2	0.2	110	3.0	1.5	1.3	Cell	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10212	Peter!!!!!!!	BTC 50402-02	Li/FeS2	B.P. B.P.	1.2					2015-08-15	2017-07-03		24	2019-10-08	2019-10-08																Cell	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10212	Peter!!!!!!!	BTC 50402-02	Li/FeS2	B.P. B.P.	1.2					2015-08-15	2017-07-03		24	2019-10-08	2019-10-08																Battery	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s): PEter
+
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					peter Testing	2/26/2018		24	6/17/2019	6/17/2019	5.0	100	2	1.6	1.3	21.0	5153.0	1.3	1.2	1.2	0.2	110	3.0	1.5	1.3	Battery	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date: PEter Wang
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					peter Testing	2/26/2018		24	6/17/2019	6/17/2019	5.0	100	2	1.6	1.3	21.0	5153.0	1.3	1.2	1.2	0.2	110	3.0	1.5	1.3	Cell	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+Peter
+1. Report Date: PEter Wang
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10321	PeterDry2	A123 Systems/Lithiumwerks 18650M1-B	LiFePO4/C	Cylindrical 18650	1.1					2016-11-15	2017-07-13	65.0(H) X 18.0(D)	24	2019-08-29	2019-08-29	2.0	100	3	1.5	1.6							25	4.0	1.6	1.5	Battery	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	14512A	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25					7/15/2017	3/16/2018	50.0(H) X40.0(W) X5.0(D)	24	8/1/2019	8/1/2019	50.0	100	2					9.9	9.8	9.7	0.2					Battery	Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s): PPPPP
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					peter Testing	2/26/2018		24	6/17/2019	6/17/2019	5.0	100	2	1.6	1.3	21.0	5153.0	1.3	1.2	1.2	0.2	110	3.0	1.5	1.3	Battery	Tabbed	1	1	Yes	Constant Current	Constant Current	"Note(s):
+Peter
+1. Report Date: PEter Wang
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					peter Testing	2/26/2018		24	6/17/2019	6/17/2019	5.0	100	2	1.6	1.3	21.0	5153.0	1.3	1.2	1.2	0.2	110	3.0	1.5	1.3	Cell	Not Tabbed	1	1	Yes	Constant Current	Constant Current	"Note(s):
+Peter
+1. Report Date: PEter Wang
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					peter Testing	2/26/2018		24	6/17/2019	6/17/2019	5.0	100	2	1.6	1.3	21.0	5153.0	1.3	1.2	1.2	0.2	110	3.0	1.5	1.3	Battery	Tabbed	1	1	Yes	Constant Current	Constant Current	"Note(s):
+Peter
+1. Report Date: PEter Wang
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10851	32186A	Maccor BT920349-001		None N.A.	None					peter Testing	2/26/2018		24	6/17/2019	6/17/2019	5.0	100	2	1.6	1.3	21.0	5153.0	1.517	1.515	1.3	0.2	110	3.0	1.5	1.3	Cell	Not Tabbed	2	1	Yes	Constant Current	Constant Current	"Note(s):
+Peter
+1. Report Date: PEter Wang
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	Demo1	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25	Peter	Wang	Petyee	WWa	2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-10-14	2019-10-14	4.0	100	3	1.5	1.3							20	2.0	1.4	1.2	Battery	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	Demo1	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25	Peter	Wang	Petyee	WWa	2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-10-14	2019-10-14	4.0	100	3	1.5	1.5							20	2.0	1.4	1.2	Cell	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10899	Demo1	IBT Power S504050-001	Li-Ion (Polymer)	Pouch Pouch	1.25	Peter	Wang	Petyee	WWa	2017-07-15	2018-03-16	50.0(H) X40.0(W) X5.0(D)	24	2019-10-14	2019-10-14	4.0	100	3	1.5	1.6							20	2.0	1.4	1.2	Battery	Not Tabbed	2	1	No	Constant Current	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	Demo2	Energizer L91	Li/FeS2	Cylindrical AA	3	wang	Peter	jizhan	Waaaaaaa	2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-10-15	2019-10-15	3.0	2	5	1.77	1.40							100	3.0	1.77	1.2	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	DemoPeter	Energizer L91	Li/FeS2	Cylindrical AA	3	191511-1	Site Restock	Peter	Site Retock	2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-10-15	2019-10-15	3.0	2	5	1.770	1.40											Cell	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	Demo3	Energizer L91	Li/FeS2	Cylindrical AA	3	Site Retock	191510-1	Peter	Site Retock	2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-10-15	2019-10-15	3.0	2	5	1.770	1.40											Cell	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+8063	Drypeter3	Duracell MN2400	Zn/MnO2	Cylindrical AAA 	1.15					2014-03-15	2014-05-07	44.5(H) X 10.5(D)	24	2019-08-29	2019-08-29	3.0	13	30	1.5	1.5											Battery	Not Tabbed	1	2	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9615	DryRun3	Duracell MN1300	Zn/MnO2	Cylindrical D	15					2015-12-01	2016-06-23	61.5(H) X 34.2(D)	24	2019-08-28	2019-08-28	2.0	150	3	1.6	1.4											Battery	Not Tabbed	1	2	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9613	TwoProfiles	Energizer L91	Li/FeS2	Cylindrical AA	3	Req	Tas	TecPOe	Prupose	2016-02-15	2016-06-23	50.5(H) X 14.0(D)	24	2019-11-05	2019-11-05		3	2	1	1							1	2.0	3	4.0	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9011	14665A01	A123 Systems ANR26650	LiFePO4/C	Cylindrical 26650	2.2	Request123	Task123	PW	Site A Restock	2015-01-15	2015-09-09	65.0(H) X 26.0(D)	24	2019-12-05	2019-12-05	9.0	25	3	1.6	1.5											Battery	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation: PW
+     b. Technical review:
+     c. Final review:
+"
+10588	14665B01	Sony/Murata VTC6-18650	Li-Ion	Cylindrical 18650	3.0	Request02	Task02	PeterWang	SiteRestockb	2016-09-25	2017-12-26	65.15(H) X 18.35(D)	24	2019-12-09	2019-12-09	9.0	200	5	1.7	1.6							250	4.0	1.6	1.5	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10588	14665B01	Sony/Murata VTC6-18650	Li-Ion	Cylindrical 18650	3.0	Request02	Task02	PeterWang	SiteRestockb	2016-09-25	2017-12-26	65.15(H) X 18.35(D)	24	2019-12-09	2019-12-09	9.0	200	5	1.7	1.6							250	4.0	1.6	1.5	Cell	Not Tabbed	1	2	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10945	14681B01	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PReqest	ETask	RTech	EPurpose	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2019-12-31	2019-12-31	5.0	200	4	1.6	1.5							150	3.0	1.5	1.6	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10945	14681B01	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PeterRequest	PeterTask	PeterPOC	PeterTest	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2020-01-03	2020-01-03	5.0	200	4	1.6	1.5							250	5.0	1.7	1.5	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9011	14665A01	A123 Systems ANR26650	LiFePO4/C	Cylindrical 26650	2.2	Request123	Task123	PW	Site A Restock	2015-01-15	2015-09-09	65.0(H) X 26.0(D)	24	2019-12-05	2019-12-05	9.0	25	3	1.6	1.5											Cell	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation: PW
+     b. Technical review:
+     c. Final review:
+"
+10945	14681B01	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PeterRequest	PeterTask	PeterPOC	PeterTest	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2020-01-03	2020-01-03	5.0	200	4	1.6	1.5							250	5.0	1.7	1.5	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10588	14665B011	Sony/Murata VTC6-18650	Li-Ion	Cylindrical 18650	3.0	Request02	Task02	PeterWang	SiteRestockb	2016-09-25	2017-12-26	65.15(H) X 18.35(D)	24	2019-12-09	2019-12-09	9.0	200	5	1.7	1.6							250	4.0	1.6	1.5	Battery	Not Tabbed	1	2	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+10945	14681B01	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PeterRequest	PeterTask	PeterPOC	PeterTest	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2020-01-03	2020-01-03	5.0	200	4	1.6	1.5							250	5.0	1.7	1.5	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9011	14665A01	A123 Systems ANR26650	LiFePO4/C	Cylindrical 26650	2.2	Request123	Task123	PW	Site A Restock	2015-01-15	2015-09-09	65.0(H) X 26.0(D)	24	2019-12-05	2019-12-05	9.0	25	3	1.6	1.5											Battery	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation: PW
+     b. Technical review:
+     c. Final review:
+"
+9011	14665A01	A123 Systems ANR26650	LiFePO4/C	Cylindrical 26650	2.2	Request123	Task123	PW	Site A Restock	2015-01-15	2015-09-09	65.0(H) X 26.0(D)	24	2019-12-05	2019-12-05	9.0	250	3	1.6	1.5											Cell	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation: PW
+     b. Technical review:
+     c. Final review:
+"
+9015	PeterABC	TE Connectivity/Alcoswitch PKG40B1/8		None N.A.	None	Reqest	Nuimber	PC	Petr	None	2015-09-09	321	24	2020-02-13	2020-02-13	20.0	300	2	1.7	1.6											Battery	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+9011	asdfasd1234	A123 Systems ANR26650	LiFePO4/C	Cylindrical 26650	2.2	asdas	asdas	asdas	dasdas	2015-01-15	2015-09-09	65.0(H) X 26.0(D)	24	2020-03-09	2020-03-09	20	300	2	1.5	1.6											Cell	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"

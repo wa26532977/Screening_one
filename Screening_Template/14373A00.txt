@@ -1,0 +1,11 @@
+Lot No	Test No	Cell Name	Chemistry	Form Factor	Capacity	Request Number	Task Number	Tech POC.	Test Purpose	Mfg Date	Date Received	Dimension (mm)	Screening Temp(°C)	Begin Date	Finished Date	Total Sample Count	Profile One Values	Profile One Timer	Profile One OCV Min	Profile One CCV Min	High Rate Min(Y-axis)	High Rate Max (Y-axis)	Pre-Tab OCV	Post-Tab OCV	Post-Tab CCV	OCV Tab Tolerance	Profile Two Value	Profile Two Timer	Profile Two OCV Min	Profile Two CCV Min	Battery/Cell	Tabbed?	Profile No.	Section No.	High Rate?	Profile One Type	Profile Two Type	Note
+8974	14373A00	Ultralife U9VL	Li/MnO2	Prismatic None	1.20		10106	RDW	Test BTC Screen System	2015-07-09	2015-08-26	48.4(H) X25.8(W) X16.8(D)	24	2020-01-14	2020-01-14	50	120	5	9.5	8.5											Battery	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"

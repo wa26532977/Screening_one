@@ -1,0 +1,11 @@
+Lot No	Test No	Cell Name	Chemistry	Form Factor	Capacity	Request Number	Task Number	Tech POC.	Test Purpose	Mfg Date	Date Received	Dimension (mm)	Screening Temp(°C)	Begin Date	Finished Date	Total Sample Count	Profile One Values	Profile One Timer	Profile One OCV Min	Profile One CCV Min	High Rate Min(Y-axis)	High Rate Max (Y-axis)	Pre-Tab OCV	Post-Tab OCV	Post-Tab CCV	OCV Tab Tolerance	Profile Two Value	Profile Two Timer	Profile Two OCV Min	Profile Two CCV Min	Battery/Cell	Tabbed?	Profile No.	Section No.	High Rate?	Profile One Type	Profile Two Type	Note
+9616	14462C00	Renata CR2032REN	Li/MnO2	Coin N.A.	.225		10106	RDW	Test BTC Screen System	2015-08-15	2016-06-22	3.2(H) X 20.0(D)	24	2020-01-10	2020-01-10	50	1421 	5	3.2	2.7											Cell	Not Tabbed	1	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
