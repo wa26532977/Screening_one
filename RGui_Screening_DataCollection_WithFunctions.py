@@ -14,12 +14,7 @@ from PyQt5.QtCore import QThread
 import time
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 
-#try:
 from win32com.client import Dispatch
-#    print("Dispath founded")
-#except:
-#    print("Dispath Not Forund")
-#    pass
 from PyQt5.QtCore import QTimer, QTime
 
 pd.options.display.max_columns = 999
@@ -113,6 +108,7 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.pushButton.clicked.connect(self.CancelButton)
         self.pushButton_2.clicked.connect(self.SaveButton)
         self.pushButton_3.clicked.connect(self.date_ReturnPressed)
+        self.pushButton_4.clicked.connect(self.startProgessBar)
         self.timer = QTimer()
         self.counter = 0
 
@@ -168,12 +164,16 @@ class Screening_DataCollection_WithFunction(QDialog):
         test("Set to local control", load.SetLocalControl())
         value = min(values)
         self.lineEdit_5.setText(str(value))
-        if self.label.text() is not "Pre-Tabbed":
+        if self.label.text() != "Pre-Tabbed":
             print("Not Pre Tabbed")
             if float(value) < float(self.label_35.text()):
                 self.label_15.setText(self.label_15.text() + "The CCV criteria was not met!")
             else:
                 self.label_15.setText(self.label_15.text() + " ")
+        # adding OCV tolerance:
+        if self.label.text() == "Post-Tabbed":
+            if abs(float(self.label_39.text()) - float(self.lineEdit_4.text())) > float(self.label_40.text()):
+                self.label_15.setText(self.label_15.text() + " The ocv tolerance is exceed!")
         self.lineEdit_6.setFocus()
 
     def CancelButton(self):
@@ -273,9 +273,9 @@ class Screening_DataCollection_WithFunction(QDialog):
             #self.calc.finalOutput.connect(self.onCountChanged2)
             #self.calc.start()
 
-    def onCountChanged(self, value):
-        # receive the emit singal to change ProgressBar
-        self.progressBar.setValue(value)
+    # def onCountChanged(self, value):
+    #     # receive the emit singal to change ProgressBar
+    #     self.progressBar.setValue(value)
 
     def onCountChanged2(self, value):
         self.lineEdit_5.setText(str(value))
@@ -352,6 +352,13 @@ class Screening_DataCollection_WithFunction(QDialog):
                     self.lineEdit_2.setFocus()
             else:
                 if int(self.lineEdit_1.text()) in data_file["Barcode"].values and math.isnan(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Post-OCV"]):
+                    # pre-value show up
+                    self.label_36.setText('Pre-Value: ')
+                    print(str(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-OCV"]))
+                    self.label_39.setText(str(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-OCV"].item()))
+                    if self.label.text() != "Post-Tabbed":
+                        self.label_37.setText('Pre-Value: ' + str(
+                            data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-CCV"].values))
                     self.lineEdit_2.setFocus()
                 else:
                     msgbox = QtWidgets.QMessageBox(self)
@@ -362,11 +369,11 @@ class Screening_DataCollection_WithFunction(QDialog):
     def getTestNumber(self, x):
         if "Post" in x:
             y = x[4:]
-            #dir_path = os.path.dirname(os.path.realpath(__file__))
+            # dir_path = os.path.dirname(os.path.realpath(__file__))
             dir_path = os.path.dirname(sys.argv[0])
             path_Template = dir_path + r"\\Screening_Template\\" + y
         else:
-            #dir_path = os.path.dirname(os.path.realpath(__file__))
+            # dir_path = os.path.dirname(os.path.realpath(__file__))
             dir_path = os.path.dirname(sys.argv[0])
             path_Template = dir_path + r"\\Screening_Template\\" + x
         data_file = pd.read_csv(path_Template, sep="\t")
@@ -430,6 +437,8 @@ class Screening_DataCollection_WithFunction(QDialog):
             self.lcdNumber.display(columns_1[18])
             self.label_33.setText(str(columns_1[24]))
             self.label_35.setText(str(columns_1[25]))
+            self.label_38.setText("Tolerance: ")
+            self.label_40.setText(str(columns_1['OCV Tab Tolerance']))
             if columns_1[36] == "Constant Current":
                 self.label_28.setText("Constant Current")
             else:

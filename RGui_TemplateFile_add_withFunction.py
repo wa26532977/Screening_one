@@ -13,6 +13,7 @@ pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
 pd.set_option("display.precision", 6)
 
+
 class Lift2Coding(QDialog):
     def __init__(self):
         super(Lift2Coding, self).__init__()
@@ -70,10 +71,10 @@ class Lift2Coding(QDialog):
 
         if columns_1[31] == "Cell":
             print("Cell")
-            self.radioButton.setChecked(True)
+            self.radioButton_2.setChecked(True)
         else:
             print("Battery")
-            self.radioButton_2.setChecked(True)
+            self.radioButton.setChecked(True)
 
         if columns_1[32] == "Not Tabbed":
             print("not Tabbed")
