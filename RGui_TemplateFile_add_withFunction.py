@@ -149,7 +149,8 @@ class Lift2Coding(QDialog):
         for i in range(1, 32):
             x = "self.lineEdit_" + str(i) + ".text()"
             columns_1.append(eval(x))
-        #checking all criteria is all number
+
+        # checking all criteria is all number
         res = []
         for val in columns_1[16:31]:
             if val != "":

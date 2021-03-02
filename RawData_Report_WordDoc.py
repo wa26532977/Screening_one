@@ -35,31 +35,29 @@ def RawData_report_wordDoc(x):
     page_number = len(data_file["Barcode"]) // 24
     if len(data_file["Barcode"]) % 24 != 0:
         page_number = page_number + 1
-    #print(data_file.iloc[2]["Pre-screen pass"])
 
     indexCount = 0
     current_page = 1
     testing = 0
 
-
     while indexCount < len(data_file["Barcode"]):
-        #if indexCount == 0:
-           # doc.paragraphs[0].runs[5].text = str(1)
-        #elif indexCount % 24 == 0:
+        # if indexCount == 0:
+        #    doc.paragraphs[0].runs[5].text = str(1)
+        # elif indexCount % 24 == 0:
         current_page += 1
-         #   doc.paragraphs[0].runs[5].text = str(current_page)
+        #   doc.paragraphs[0].runs[5].text = str(current_page)
         # add data into the table
         table = doc.tables[0]
         if indexCount == 0:
             # set the Test Number
             doc.paragraphs[1].runs[1].text = str(x[:-4])
             # set the chemistry
-            doc.paragraphs[1].runs[9].text = str(columns_1["Chemistry"])
+            doc.paragraphs[1].runs[9].text = str(columns_1["Chemistry"]).translate(str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉"))
             # Set the sample name
             doc.paragraphs[2].runs[2].text = str(columns_1["Cell Name"])
             # set load
             if columns_1["Profile No."] == 2:
-                #set the table index
+                # set the table index
                 table.rows[0].cells[3].text = "Profile 1 OCV"
                 table.rows[0].cells[4].text = "Profile 1 CCV"
                 table.rows[0].cells[5].text = "Profile 2 OCV"
@@ -103,8 +101,6 @@ def RawData_report_wordDoc(x):
                 doc.paragraphs[2].runs[11].text = "Ω"
             else:
                 doc.paragraphs[2].runs[11].text = "mV"
-
-
 
         # add new row to the table
         cell_info = table.add_row()

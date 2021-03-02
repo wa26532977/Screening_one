@@ -200,6 +200,7 @@ class Graph_Pre_WithFunction(QDialog):
         return graphData, status
 
     def screeningGraphsmallOCVorCCV(self, data, columns_1, type):
+        sub = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
         # for building graphs in PyQt5
         graphData, status = self.findingCriteraforGraph(data, columns_1, type)
         if "confidence interval" in type:
@@ -301,7 +302,7 @@ class Graph_Pre_WithFunction(QDialog):
         plt.text(0.005, 0.955, 'Status: ' + status, horizontalalignment='left',
                  verticalalignment='top',
                  transform=ax.transAxes)
-        plt.suptitle("Chemistry: " + str(columns_1["Chemistry"]), fontsize=22, x=0.83, y=0.95)
+        plt.suptitle("Chemistry: " + str(columns_1["Chemistry"]).translate(sub), fontsize=22, x=0.83, y=0.95)
         plt.grid(which="major", axis='y')
         # make the Yaxis increment in integer
         for axis in [ax.yaxis]:
@@ -396,7 +397,7 @@ class Graph_Pre_WithFunction(QDialog):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     qt_app = Graph_Pre_WithFunction()
-    qt_app.getTestNumber5("14462C00.txt", "Pre")
+    qt_app.getTestNumber5("14856-00.txt", "Pre")
     qt_app.show()
     app.exec_()
 

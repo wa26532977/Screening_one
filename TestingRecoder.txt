@@ -994,7 +994,37 @@ Peter
      b. Technical review:
      c. Final review:
 "
-12779	14856-00	UHE-ER34615-H	Li/SoCl2	Cylindrical	19	201027-1	12735	JRK	Evaluation Screening	8/15/2020	9/24/2020	D (Cylinder)	24	12/11/2020		72	184	5	3.63	3							400	1	3.63	2.0	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+12779	14856-00	UHE-ER34615-H	Li/SoCl2	Cylindrical	19	201027-1	12735	JRK	Evaluation Screening	8/15/2020	9/24/2020	D (Cylinder)	24	12/11/2020		72.0	184	5	3.63	3							400	1.0	3.63	2.0	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+12779	14856-00	UHE-ER34615-H	Li/SoCl2	Cylindrical	19	201027-1	12735	JRK	Evaluation Screening	8/15/2020	9/24/2020	D (Cylinder)	24	12/11/2020		72.0	184	5	3.63	3							400	1.0	3.63	2.0	Cell	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+12779	14856-00	UHE-ER34615-H	Li/SoCl2	Cylindrical	19	201027-1	12735	JRK	Evaluation Screening	8/15/2020	9/24/2020	D (Cylinder)	24	12/11/2020		72.0	184	5	3.63	3							400	1.0	3.63	2.0	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+12779	14856-00	UHE-ER34615-H	Li/SOCl2	Cylindrical	19	201027-1	12735	JRK	Evaluation Screening	8/15/2020	9/24/2020	D (Cylinder)	24	12/11/2020		72	184	5	3.63	3							400	1	3.63	2.0	Battery	Not Tabbed	2	1	No	Constant Resistor	Constant Current	"Note(s):
 
 1. Report Date:
 

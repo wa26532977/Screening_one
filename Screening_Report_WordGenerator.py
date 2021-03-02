@@ -25,7 +25,9 @@ def combine_word_documents(files):
         print(os.getcwd() + r"\\Report_Word\\" + 'merged' + files[0])
     merged_document.save(os.getcwd() + r"\\Report_Word\\" + 'merged' + files[0])
 
+
 def screening_Report_wordGenerator(x):
+    sub = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
     # import the template
     doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\demo.docx")
     # get the template info
@@ -53,7 +55,7 @@ def screening_Report_wordGenerator(x):
     # Battery Name
     doc.paragraphs[2].runs[1].text = columns_1["Cell Name"]
     # Chemistry Name
-    doc.paragraphs[3].runs[1].text = columns_1["Chemistry"]
+    doc.paragraphs[3].runs[1].text = columns_1["Chemistry"].translate(sub)
     # request Number
     doc.paragraphs[5].runs[5].text = str(columns_1["Request Number"])
     # Test Number
