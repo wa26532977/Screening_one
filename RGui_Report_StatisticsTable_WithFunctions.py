@@ -14,6 +14,7 @@ from PyQt5.uic import loadUi
 from scipy import stats
 from docx import Document
 import docx
+from docxtpl import DocxTemplate
 
 
 pd.options.display.max_columns = 999
@@ -36,7 +37,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         allData = round(data_file2["Post-OCV"].dropna(), 3)
         passingData = allData[allData >= column_1["Post-Tab OCV"]]
         ocvpassingdata = data_file2[data_file2["Post-OCV"] >= column_1["Post-Tab OCV"]]["Pre-OCV"]
-        print("Post-Tab OCV " + str(column_1["Post-Tab OCV"]))
         pdata = {"OCV": ocvpassingdata, "POCV": passingData}
         df = pd.DataFrame(pdata)
         df = df[round(abs(df["OCV"] - df["POCV"]), 3) <= column_1["OCV Tab Tolerance"]]
@@ -115,10 +115,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 int(float(table_one.item(9, 0).text()) - float(table_one.item(10, 0).text())))
             # set ocv total failling criteria
             doc.paragraphs[13].runs[3].text = str(table_one.item(10, 0).text())
-            # set ocv 95% confidence Interval
-            doc.paragraphs[14].runs[3].text = str(table_one.item(6, 0).text()) + "/" + str(table_one.item(7, 0).text())
-            # set total sample outside the range
-            doc.paragraphs[15].runs[3].text = str(table_one.item(8, 0).text())
             # set OCV critria
             doc.paragraphs[12].runs[6].text = str(table_one.item(0, 0).text())
 
@@ -142,12 +138,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 int(float(table_one.item(9, 0).text()) - float(table_one.item(10, 0).text())))
             # set ocv total failling criteria
             doc.paragraphs[13].runs[4].text = str(table_one.item(10, 0).text())
-            # set ocv 95% confidence Interval
-            doc.paragraphs[14].runs[5].text = str(table_one.item(6, 0).text()) + "/" + str(table_one.item(7, 0).text())
-            # set total sample outside the range
-            doc.paragraphs[15].runs[4].text = str(table_one.item(8, 0).text())
-            # set OCV critria
-            doc.paragraphs[16].runs[0].text = "OCV >or= " + str(table_one.item(0, 0).text())
 
         if table_one.horizontalHeaderItem(1).text() == "Profile One CCV" or \
                 table_one.horizontalHeaderItem(1).text() == "Section One CCV" or \
@@ -169,27 +159,19 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             doc.paragraphs[12].runs[8].text = str(int(float(table_one.item(9, 1).text()) - float(table_one.item(10, 1).text())))
             # total failing criterion
             doc.paragraphs[13].runs[8].text = str(table_one.item(10, 1).text())
-            # set ocv 95% confidence Interval
-            doc.paragraphs[14].runs[8].text = str(table_one.item(6, 1).text()) + "/" + str(table_one.item(7, 1).text())
-            # set total sample outside the range
-            doc.paragraphs[15].runs[8].text = str(table_one.item(8, 1).text())
-            # set OCV critria
-            doc.paragraphs[16].runs[0].text = "OCV >or= " + str(table_one.item(0, 0).text())
-            # set CCV criteria
-            doc.paragraphs[17].runs[0].text = "               CCV >or= " + str(table_one.item(0, 1).text()) + " @ " + str(label_4.text())
 
     def screening_Report_partTwo(self, doc, x, column_1, table_one, label_5):
 
         i = 0
         # the paragraphs
-        print("Checking321")
-        for text in doc.paragraphs:
-            run_i = 0
-            for runs in text.runs:
-                print(runs.text)
-                print("This is " + str(i) + " lin and " + str(run_i) + " runs")
-                run_i = run_i + 1
-            i = i + 1
+        # print("Checking321")
+        # for text in doc.paragraphs:
+        #     run_i = 0
+        #     for runs in text.runs:
+        #         print(runs.text)
+        #         print("This is " + str(i) + " lin and " + str(run_i) + " runs")
+        #         run_i = run_i + 1
+        #     i = i + 1
 
         # pre-tab report for Pre-Tab OCv
         if table_one.horizontalHeaderItem(0).text() == "Pre-Tab OCV":
@@ -222,10 +204,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 int(float(table_one.item(9, 2).text()) - float(table_one.item(10, 2).text())))
             # set ocv total failling criteria
             doc.paragraphs[13].runs[2].text = str(table_one.item(10, 2).text())
-            # set ocv 95% confidence Interval
-            doc.paragraphs[14].runs[3].text = str(table_one.item(6, 2).text()) + "/" + str(table_one.item(7, 2).text())
-            # set total sample outside the range
-            doc.paragraphs[15].runs[5].text = str(table_one.item(8, 2).text())
             # set OCV critria
             doc.paragraphs[11].runs[11].text = str(table_one.item(0, 2).text())
 
@@ -248,18 +226,10 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 int(float(table_one.item(9, 3).text()) - float(table_one.item(10, 3).text()))) + "      "
             # total failing criterion
             doc.paragraphs[13].runs[6].text = str(table_one.item(10, 3).text()) + "         "
-            # set ocv 95% confidence Interval
-            doc.paragraphs[14].runs[6].text = "    " + str(table_one.item(6, 3).text()) + "/" + str(table_one.item(7, 3).text())
-            doc.paragraphs[14].runs[7].text = ""
-            doc.paragraphs[14].runs[8].text = ""
-            doc.paragraphs[14].runs[9].text = ""
-            # set total sample outside the range Peter Change
-            doc.paragraphs[15].runs[9].text = str(table_one.item(8, 3).text())
             # set CCV criteria
             doc.paragraphs[12].runs[10].text = str(table_one.item(0, 3).text())
             doc.paragraphs[12].runs[13].text = str(label_5.text())
-            # set tab tolerance
-            doc.paragraphs[14].runs[13].text = str(column_1["OCV Tab Tolerance"])
+
         else:
             # se the testNumber
             doc.paragraphs[1].runs[1].text = str(x)
@@ -290,12 +260,7 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 int(float(table_one.item(9, 2).text()) - float(table_one.item(10, 2).text())))
             # set ocv total failling criteria
             doc.paragraphs[13].runs[4].text = str(table_one.item(10, 2).text())
-            # set ocv 95% confidence Interval
-            doc.paragraphs[14].runs[5].text = str(table_one.item(6, 2).text()) + "/" + str(table_one.item(7, 2).text())
-            # set total sample outside the range
-            doc.paragraphs[15].runs[4].text = str(table_one.item(8, 2).text())
-            # set OCV critria
-            doc.paragraphs[16].runs[0].text = "OCV >or= " + str(table_one.item(0, 2).text())
+
             # post_CCV report
             # CCV max
             doc.paragraphs[6].runs[9].text = str(table_one.item(1, 3).text())
@@ -313,15 +278,8 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             doc.paragraphs[12].runs[8].text = str(int(float(table_one.item(9, 3).text()) - float(table_one.item(10, 3).text())))
             # total failing criterion
             doc.paragraphs[13].runs[8].text = str(table_one.item(10, 3).text())
-            # set ocv 95% confidence Interval
-            doc.paragraphs[14].runs[8].text = str(table_one.item(6, 3).text()) + "/" + str(table_one.item(7, 3).text())
-            # set total sample outside the range Peter Change
-            doc.paragraphs[15].runs[8].text = str(table_one.item(8, 3).text())
-            # set CCV criteria
-            doc.paragraphs[17].runs[0].text = "               CCV >or= " + str(table_one.item(0, 3).text()) + " @ " + str(label_5.text())
 
     def screening_Report_wordGenerator(self, x, column_1, table_one, table_four, table_two, table_five, table_three, label_4, label_5):
-        print(column_1)
         # to use Pre-Tab template
         if table_one.horizontalHeaderItem(0).text() == "Pre-Tab OCV":
             # report for the pre-tab
@@ -337,7 +295,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             allData = round(data_file2["Post-OCV"].dropna(), 3)
             passingData = allData[allData >= column_1["Post-Tab OCV"]]
             ocvpassingdata = data_file2[data_file2["Post-OCV"] >= column_1["Post-Tab OCV"]]["Pre-OCV"]
-            print("Post-Tab OCV " + str(column_1["Post-Tab OCV"]))
             pdata = {"OCV": ocvpassingdata, "POCV": passingData}
             df = pd.DataFrame(pdata)
             df = df[round(abs(df["OCV"] - df["POCV"]), 3) <= column_1["OCV Tab Tolerance"]]
@@ -354,8 +311,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 doc.paragraphs[9].runs[12].text = str("%.3f" % round(df3.mean(), 3))
                 # pre_tab OCV Stander Deivation
                 doc.paragraphs[10].runs[11].text = str(round(df3.std(), 5))
-                # set the Tab Tolerance
-                doc.paragraphs[14].runs[5].text = str(column_1["OCV Tab Tolerance"])
 
             sampleTabTolerance = self.samplePassingTabTolerance(data_file, column_1, "Pre-OCV")
 
@@ -370,6 +325,22 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                         cell_info.cells[3].text = str(sampleTabTolerance[1][i])
 
             doc.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+
+            # update the info with docxtpl
+            doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            # set ocv 95% confidence Interval
+            context = {'c_1': table_one.item(6, 2).text(), "c_2": table_one.item(7, 2).text()}
+            # set total sample outside the range
+            context['c_6'] = table_one.item(8, 0).text()
+            # set the Tab Tolerance
+            context['c_3'] = str(column_1["OCV Tab Tolerance"])
+            #find min and max outlier
+            data_file_2 = data_file["Pre-OCV"].dropna()
+            outlier_max_min = self.findSampleOutlierMinMax(data_file_2)
+            context['c_4'] = str(outlier_max_min[0])
+            context['c_5'] = str(outlier_max_min[1])
+            doc_1.render(context)
+            doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
 
             # report for the post
             doc1 = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template-PostTab-New.docx")
@@ -438,39 +409,44 @@ class Report_StatisticsTable_WithFunctions(QDialog):
 
             doc1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
 
-        elif table_one.horizontalHeaderItem(0).text() == "OCV":
-            doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template.docx")
-            self.screening_Report_partone(doc, x, column_1, table_one, label_4)
+            # update the info with docxtpl_post
+            doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
 
-            PostTab_table = doc.tables[0]
+            # post-ocv
+            # set ocv 95% confidence Interval
+            context = {'c_1': table_one.item(6, 2).text(), "c_2": table_one.item(7, 2).text()}
+            # set total sample outside the range
+            context['c_11'] = table_one.item(8, 0).text()
+            # set outlier max min
+            data_file_2 = data_file["Post-OCV"].dropna()
+            outlier_max_min = self.findSampleOutlierMinMax(data_file_2)
+            context['c_6'] = str(outlier_max_min[0])
+            context['c_7'] = str(outlier_max_min[1])
 
-            if table_four.rowCount() > table_two.rowCount():
-                HowmanyTablerows = table_four.rowCount()
-            else:
-                HowmanyTablerows = table_two.rowCount()
-            for i in range(HowmanyTablerows):
-                # check if the item is none type
-                cell_info = PostTab_table.add_row()
-                if type(table_four.item(i, 0)) is type(table_four.item(0, 0)):
-                    cell_info.cells[0].text = str(table_four.item(i, 0).text()) + "-" + str(
-                        table_four.item(i, 1).text())
-                    cell_info.cells[1].text = str(table_four.item(i, 2).text())
-                else:
-                    cell_info.cells[0].text = ""
-                    cell_info.cells[1].text = ""
-                if type(table_two.item(i, 0)) is type(table_two.item(0, 0)):
-                    cell_info.cells[2].text = str(table_two.item(i, 0).text()) + "-" + str(
-                        table_two.item(i, 1).text())
-                    cell_info.cells[3].text = str(table_two.item(i, 2).text())
-                else:
-                    cell_info.cells[2].text = ""
-                    cell_info.cells[3].text = ""
-            doc.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            # post-ccv
+            # set ocv 95% confidence Interval
+            context['c_3'] = table_one.item(6, 3).text()
+            context['c_4'] = table_one.item(7, 3).text()
+            # set total sample outside the range Peter Change
+            context['c_12'] = table_one.item(8, 3).text()
+            # set tab tolerance
+            context['c_5'] = str(column_1["OCV Tab Tolerance"])
+            # set the outlier max min
+            data_file_2 = data_file["Post-CCV"].dropna()
+            outlier_max_min = self.findSampleOutlierMinMax(data_file_2)
+            context['c_8'] = str(outlier_max_min[0])
+            context['c_9'] = str(outlier_max_min[1])
+
+            doc_1.render(context)
+            doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
         else:
             # pre_report
             doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template.docx")
             self.screening_Report_partone(doc, x, column_1, table_one, label_4)
 
+            path_datafile = os.getcwd() + r"\\Screening_Data\\" + x + ".txt"
+            data_file = pd.read_csv(path_datafile, sep="\t")
+
             PostTab_table = doc.tables[0]
 
             if table_four.rowCount() > table_two.rowCount():
@@ -496,34 +472,108 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                     cell_info.cells[3].text = ""
             doc.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
 
-            # report for the post
-            doc1 = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template.docx")
-            self.screening_Report_partTwo(doc1, x, column_1, table_one, label_5)
-            PostTab_table = doc1.tables[0]
+            # update the info with docxtpl
+            # pre-ocv
+            doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            # set ocv 95% confidence Interval
+            context = {'c_1': table_one.item(6, 0).text(), "c_2": table_one.item(7, 0).text()}
+            # set total sample outside the range
+            context['c_9'] = table_one.item(8, 0).text()
+            # set OCV criteria
+            context['c_11'] = table_one.item(0, 0).text()
+            # find min and max outlier
+            data_file_2 = data_file["Pre-OCV"].dropna()
+            outlier_max_min = self.findSampleOutlierMinMax(data_file_2)
+            context['c_5'] = str(outlier_max_min[0])
+            context['c_6'] = str(outlier_max_min[1])
 
-            if table_five.rowCount() > table_three.rowCount():
-                HowmanyTablerows = table_five.rowCount()
-            else:
-                HowmanyTablerows = table_three.rowCount()
-            for i in range(HowmanyTablerows):
-                # check if the item is none type
-                cell_info = PostTab_table.add_row()
-                if type(table_five.item(i, 0)) is type(table_five.item(0, 0)):
-                    cell_info.cells[0].text = str(table_five.item(i, 0).text()) + "-" + str(
-                        table_five.item(i, 1).text())
-                    cell_info.cells[1].text = str(table_five.item(i, 2).text())
-                else:
-                    cell_info.cells[0].text = ""
-                    cell_info.cells[1].text = ""
-                if type(table_three.item(i, 0)) is type(table_three.item(0, 0)):
-                    cell_info.cells[2].text = str(table_three.item(i, 0).text()) + "-" + str(
-                        table_three.item(i, 1).text())
-                    cell_info.cells[3].text = str(table_three.item(i, 2).text())
-                else:
-                    cell_info.cells[2].text = ""
-                    cell_info.cells[3].text = ""
-            doc1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+            # pre-ccv
+            # set ccv 95% confidence Interval
+            context['c_3'] = table_one.item(6, 1).text()
+            context['c_4'] = table_one.item(7, 1).text()
+            # set total sample outside the range
+            context['c_10'] = table_one.item(8, 1).text()
+            # set CCV criteria
+            context['c_12'] = table_one.item(0, 1).text()
+            context['c_13'] = label_4.text()
+            # find min and max outlier
+            data_file_2 = data_file["Pre-CCV"].dropna()
+            outlier_max_min = self.findSampleOutlierMinMax(data_file_2)
+            context['c_7'] = str(outlier_max_min[0])
+            context['c_8'] = str(outlier_max_min[1])
 
+            doc_1.render(context)
+            doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+
+            if table_one.horizontalHeaderItem(3).text() != '':
+                # report for the post
+                doc1 = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template.docx")
+                self.screening_Report_partTwo(doc1, x, column_1, table_one, label_5)
+                PostTab_table = doc1.tables[0]
+
+                if table_five.rowCount() > table_three.rowCount():
+                    HowmanyTablerows = table_five.rowCount()
+                else:
+                    HowmanyTablerows = table_three.rowCount()
+                for i in range(HowmanyTablerows):
+                    # check if the item is none type
+                    cell_info = PostTab_table.add_row()
+                    if type(table_five.item(i, 0)) is type(table_five.item(0, 0)):
+                        cell_info.cells[0].text = str(table_five.item(i, 0).text()) + "-" + str(
+                            table_five.item(i, 1).text())
+                        cell_info.cells[1].text = str(table_five.item(i, 2).text())
+                    else:
+                        cell_info.cells[0].text = ""
+                        cell_info.cells[1].text = ""
+                    if type(table_three.item(i, 0)) is type(table_three.item(0, 0)):
+                        cell_info.cells[2].text = str(table_three.item(i, 0).text()) + "-" + str(
+                            table_three.item(i, 1).text())
+                        cell_info.cells[3].text = str(table_three.item(i, 2).text())
+                    else:
+                        cell_info.cells[2].text = ""
+                        cell_info.cells[3].text = ""
+                doc1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+
+                # update the info with docxtpl
+                # post-ocv
+                doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+                # set ocv 95% confidence Interval
+                context = {'c_1': table_one.item(6, 2).text(), "c_2": table_one.item(7, 2).text()}
+                # set total sample outside the range
+                context['c_9'] = table_one.item(8, 2).text()
+                # set OCV criteria
+                context['c_11'] = table_one.item(0, 2).text()
+                # find min and max outlier
+                data_file_2 = data_file["Post-OCV"].dropna()
+                outlier_max_min = self.findSampleOutlierMinMax(data_file_2)
+                context['c_5'] = str(outlier_max_min[0])
+                context['c_6'] = str(outlier_max_min[1])
+
+                # post-ccv
+                # set ccv 95% confidence Interval
+                context['c_3'] = table_one.item(6, 3).text()
+                context['c_4'] = table_one.item(7, 3).text()
+                # set total sample outside the range
+                context['c_10'] = table_one.item(8, 3).text()
+                # set CCV criteria
+                context['c_12'] = table_one.item(0, 3).text()
+                context['c_13'] = label_5.text()
+                # find min and max outlier
+                data_file_2 = data_file["Post-CCV"].dropna()
+                outlier_max_min = self.findSampleOutlierMinMax(data_file_2)
+                context['c_7'] = str(outlier_max_min[0])
+                context['c_8'] = str(outlier_max_min[1])
+
+                doc_1.render(context)
+                doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+    
+    def findSampleOutlierMinMax(self, data):
+        iqr = stats.iqr(data)
+        q1, q3 = np.percentile(data, [25, 75])
+        outlier_min = round(q1 - (1.5 * iqr), 3)
+        outlier_max = round(q3 + (1.5 * iqr), 3)
+        return outlier_min, outlier_max
+    
     def findSampleOutlier(self, data):
         iqr = stats.iqr(data)
         q1, q3 = np.percentile(data, [25, 75])
@@ -542,11 +592,9 @@ class Report_StatisticsTable_WithFunctions(QDialog):
 
     def getTestNumber2(self, x):
         path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
-        print(path_datafile)
         data_file = pd.read_csv(path_datafile, sep="\t")
         #Load the template info for report
         path_template = os.getcwd() + r"\\Screening_Template\\" + x
-        print(path_template)
         data_file1 = pd.read_csv(path_template, sep="\t")
         columns_1 = data_file1.loc[0].fillna("")
         testNumber = x[:-4]
@@ -561,7 +609,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                     self.label_4.setText(loadinfo)
         else:
             self.label_4.setText("Pre-Tab")
-        print("Will this be printed? 6")
         # Get the load infor for Post-Screening
         # Change to Post Table
         if columns_1["Tabbed?"] == "Not Tabbed":
@@ -596,14 +643,11 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         # Set Post-OCV Criteria check it to see if cell is being tabbed
         if columns_1["Tabbed?"] == "Not Tabbed":
             if columns_1["Profile No."] == 2:
-                print("Will this be printed? 5.1")
                 post_OCV_Criteria_NotTabbed = "%.3f" % round(columns_1["Profile Two OCV Min"], 3)
                 self.tableWidget.setItem(0, 2, QTableWidgetItem(str(post_OCV_Criteria_NotTabbed)))
-                print("Will this be printed? 5.2")
                 # Set Post-CCV Criteria
                 post_CCV_Criteria_NotTabbed = "%.3f" % round(columns_1["Profile Two CCV Min"], 3)
                 self.tableWidget.setItem(0, 3, QTableWidgetItem(str(post_CCV_Criteria_NotTabbed)))
-                print("Will this be printed? 5.3")
             if columns_1["Section No."] == 2:
                 post_OCV_Criteria_NotTabbed = "%.3f" % round(columns_1["Profile One OCV Min"], 3)
                 self.tableWidget.setItem(0, 2, QTableWidgetItem(str(post_OCV_Criteria_NotTabbed)))
@@ -618,31 +662,26 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             # Post-CCV Criteria for tabbing
             post_CCV_Criteria = "%.3f" % round(columns_1["Post-Tab CCV"], 3)
             self.tableWidget.setItem(0, 3, QTableWidgetItem(str(post_CCV_Criteria)))
-        print("Will this be printed? 5")
         # Set The Max value for Post-OCV
         if not data_file["Post-OCV"].isnull().all():
             post_OCV_Max = "%.3f" % round(data_file.loc[data_file["Post-OCV"].idxmax()]["Post-OCV"], 3)
             self.tableWidget.setItem(1, 2, QTableWidgetItem(str(post_OCV_Max)))
-        print("Will this be printed? 6")
         # Set The Max Value for Post-CCV & first check if there is a CCV value
         if not data_file["Post-CCV"].isnull().all():
             post_CCV_Max = "%.3f" % round(data_file.loc[data_file["Post-CCV"].idxmax()]["Post-CCV"], 3)
             self.tableWidget.setItem(1, 3,
                                      QTableWidgetItem(str(post_CCV_Max)))
-        print("Will this be printed? 7")
         # Set The Min value for Post-OCV
         if not data_file["Post-OCV"].isnull().all():
             post_OCV_Mix = "%.3f" % round(data_file.loc[data_file["Post-OCV"].idxmin()]["Post-OCV"], 3)
             self.tableWidget.setItem(2, 2,
                                      QTableWidgetItem(str(post_OCV_Mix)))
-        print("Will this be printed? 8")
         # Set The Min Value for Post-CCV & first check if there is a CCV value
         if not data_file["Post-CCV"].isnull().all():
             post_CCV_Mix = "%.3f" % round(data_file.loc[data_file["Post-CCV"].idxmin()]["Post-CCV"], 3)
             self.tableWidget.setItem(2, 3,
                                      QTableWidgetItem(str(post_CCV_Mix)))
         # Set the median for Post-OCV
-        print("Will this be printed? 3")
         if not data_file["Post-OCV"].isnull().all():
             self.tableWidget.setItem(3, 2, QTableWidgetItem(str("%.3f" % round(data_file["Post-OCV"].median(), 3))))
         # Set the Median for Post-CCV
@@ -661,59 +700,50 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         if not data_file["Post-CCV"].isnull().all():
             self.tableWidget.setItem(5, 3, QTableWidgetItem(str(round(data_file["Post-CCV"].std(), 5))))
         # set the 95% confidence interval Min/Max for Pre-OCV
-        print("Will this be printed? 2.5")
         if not data_file["Pre-OCV"].isnull().all():
             data_file1 = data_file["Pre-OCV"].dropna()
             x = self.mean_confidence_interval(data_file1)
             self.tableWidget.setItem(6, 0, QTableWidgetItem(str("%.3f" % round(x[1], 3))))
             self.tableWidget.setItem(7, 0, QTableWidgetItem(str("%.3f" % round(x[2], 3))))
         # set the 95% confidence interval Min/Max for Pre-CCV
-        print("Will this be printed? 3.1")
         if not data_file["Pre-CCV"].isnull().all():
             data_file1 = data_file["Pre-CCV"].dropna()
             x = self.mean_confidence_interval(data_file1)
             self.tableWidget.setItem(6, 1, QTableWidgetItem(str("%.3f" % round(x[1], 3))))
             self.tableWidget.setItem(7, 1, QTableWidgetItem(str("%.3f" % round(x[2], 3))))
         # set the 95% confidence interval Min/Max for Post-OCV
-        print("Will this be printed? 3.2")
         if not data_file["Post-OCV"].isnull().all():
             data_file1 = data_file["Post-OCV"].dropna()
             x = self.mean_confidence_interval(data_file1)
             self.tableWidget.setItem(6, 2, QTableWidgetItem(str("%.3f" % round(x[1], 3))))
             self.tableWidget.setItem(7, 2, QTableWidgetItem(str("%.3f" % round(x[2], 3))))
         # set the 95% confidence interval Min/Max for Post-CCV
-        print("Will this be printed? 3.3")
         if not data_file["Post-CCV"].isnull().all():
             data_file1 = data_file["Post-CCV"].dropna()
             x = self.mean_confidence_interval(data_file1)
             self.tableWidget.setItem(6, 3, QTableWidgetItem(str("%.3f" % round(x[1], 3))))
             self.tableWidget.setItem(7, 3, QTableWidgetItem(str("%.3f" % round(x[2], 3))))
         # set sample outlier pre-OCV
-        print("Will this be printed? 2.6")
         if not data_file["Pre-OCV"].isnull().all():
             data_file1 = data_file["Pre-OCV"].dropna()
             sampleOutlier = self.findSampleOutlier(data_file1)
             self.tableWidget.setItem(8, 0, QTableWidgetItem(str(sampleOutlier)))
         # set sample outlier pre-CCV
-        print("Will this be printed? 2.7")
         if not data_file["Pre-CCV"].isnull().all():
             data_file1 = data_file["Pre-CCV"].dropna()
             sampleOutlier = self.findSampleOutlier(data_file1)
             self.tableWidget.setItem(8, 1, QTableWidgetItem(str(sampleOutlier)))
         # set sample outlier post-OCV
-        print("Will this be printed? 2.8")
         if not data_file["Post-OCV"].isnull().all():
             data_file1 = data_file["Post-OCV"].dropna()
             sampleOutlier = self.findSampleOutlier(data_file1)
             self.tableWidget.setItem(8, 2, QTableWidgetItem(str(sampleOutlier)))
         # set sample outlier post-CCV
-        print("Will this be printed? 2.9")
         if not data_file["Post-CCV"].isnull().all():
             data_file1 = data_file["Post-CCV"].dropna()
             sampleOutlier = self.findSampleOutlier(data_file1)
             self.tableWidget.setItem(8, 3, QTableWidgetItem(str(sampleOutlier)))
         # Set the total tested Post-OCV
-        print("Will this be printed? 2.1")
         if not data_file["Post-OCV"].isnull().all():
             self.tableWidget.setItem(9, 2, QTableWidgetItem(
                 str(round(data_file["Post-OCV"].size - data_file["Post-OCV"].isnull().sum()))))
@@ -722,7 +752,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             self.tableWidget.setItem(9, 3, QTableWidgetItem(
                 str(round(data_file["Post-CCV"].size - data_file["Post-CCV"].isnull().sum()))))
         # Set The total Failures Post-OCV check to see if the cell is being tabbed?
-        print("Will this be printed? 2.2")
         if not data_file["Post-OCV"].isnull().all():
             if columns_1["Tabbed?"] == "Tabbed":
                 data_file2 = data_file[data_file["Pre-OCV"] >= columns_1["Pre-Tab OCV"]]
@@ -730,7 +759,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 allData = round(data_file2["Post-OCV"].dropna(), 3)
                 passingData = allData[allData >= columns_1["Post-Tab OCV"]]
                 ocvpassingdata = data_file2[data_file2["Post-OCV"] >= columns_1["Post-Tab OCV"]]["Pre-OCV"]
-                print("Post-Tab OCV " + str(columns_1["Post-Tab OCV"]))
                 pdata = {"OCV": ocvpassingdata, "POCV": passingData}
                 df = pd.DataFrame(pdata)
                 pw = df[round(abs(df["OCV"] - df["POCV"]), 3) <= columns_1["OCV Tab Tolerance"]]
@@ -745,14 +773,10 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 failures = len(data_file1[data_file1 < columns_1["Profile Two OCV Min"]])
                 self.tableWidget.setItem(10, 2, QTableWidgetItem(str(failures)))
         # Set The total Failures Pre-CCV check to see if the cell is being tabbed?
-        print("Will this be printed? 2.3")
         if not data_file["Post-CCV"].isnull().all():
             if columns_1["Tabbed?"] == "Tabbed":
                 data_file1 = data_file["Post-CCV"].dropna()
                 failures = len(data_file1[data_file1 < columns_1["Post-Tab CCV"]])
-
-
-                print(data_file1[data_file1 < columns_1["Post-Tab CCV"]])
                 self.tableWidget.setItem(10, 3, QTableWidgetItem(str(failures)))
             elif columns_1["Section No."] == 2:
                 data_file1 = data_file["Post-CCV"].dropna()
@@ -761,10 +785,8 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             else:
                 data_file1 = data_file["Post-CCV"].dropna()
                 failures = len(data_file1[data_file1 < columns_1["Profile Two CCV Min"]])
-                print(data_file1[data_file1 < columns_1["Profile Two CCV Min"]])
                 self.tableWidget.setItem(10, 3, QTableWidgetItem(str(failures)))
 
-        print("Will this be printed? 2")
         '''
         # Set Pre-OCV Criteria
         if columns_1["Tabbed?"] == "Not Tabbed":
@@ -779,7 +801,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             pre_CCV_Tabbed = "%.3f" % round(columns_1["Pre-Tab OCV"], 3)
             self.tableWidget.setItem(0, 0, QTableWidgetItem(str(pre_CCV_Tabbed)))
         '''
-        print("Will this be printed? 1")
         # Set The Max value for Pre-OCV
         self.tableWidget.setItem(1, 0, QTableWidgetItem(
             str("%.3f" % round(data_file.loc[data_file["Pre-OCV"].idxmax()]["Pre-OCV"], 3))))
@@ -787,7 +808,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         if not data_file["Pre-CCV"].isnull().all():
             self.tableWidget.setItem(1, 1, QTableWidgetItem(
                 str("%.3f" % round(data_file.loc[data_file["Pre-CCV"].idxmax()]["Pre-CCV"], 3))))
-        print("Will this be printed? 1.1")
         # Set The Min value for Pre-OCV
         self.tableWidget.setItem(2, 0, QTableWidgetItem(
             str("%.3f" % round(data_file.loc[data_file["Pre-OCV"].idxmin()]["Pre-OCV"], 3))))
@@ -798,13 +818,11 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         # Set the median for Pre-OCV
         self.tableWidget.setItem(3, 0, QTableWidgetItem(str("%.3f" % round(data_file["Pre-OCV"].median(), 3))))
         # Set the Median for pre-CCV
-        print("Will this be printed? 1.2")
         if not data_file["Pre-CCV"].isnull().all():
             self.tableWidget.setItem(3, 1, QTableWidgetItem(str("%.3f" % round(data_file["Pre-CCV"].median(), 3))))
         # set the Mean for Pre-OCV
         self.tableWidget.setItem(4, 0, QTableWidgetItem(str("%.3f" % round(data_file["Pre-OCV"].mean(), 3))))
         # Set the Mean for pre-CCV
-        print("Will this be printed? 1.3")
         if not data_file["Pre-CCV"].isnull().all():
             self.tableWidget.setItem(4, 1, QTableWidgetItem(str("%.3f" % round(data_file["Pre-CCV"].mean(), 3))))
         # set the S.D for Pre-OCV
@@ -812,7 +830,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         # set the S.D for Pre-CCV
         if not data_file["Pre-CCV"].isnull().all():
             self.tableWidget.setItem(5, 1, QTableWidgetItem(str(round(data_file["Pre-CCV"].std(), 5))))
-        print("Will this be printed? 1.4")
         # set the Range Min Pre-OCV
 
         # set the Range Min Pre-CCV
@@ -829,7 +846,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             self.tableWidget.setItem(9, 1, QTableWidgetItem(
                 str(round(data_file["Pre-CCV"].size - data_file["Pre-CCV"].isnull().sum()))))
         # Set The total Failures Pre-OCV check to see if the cell is being tabbed?
-        print("Will this be printed? 9.9")
         if not data_file["Pre-OCV"].isnull().all():
             if columns_1["Tabbed?"] == "Tabbed":
                 data_file2 = data_file[data_file["Pre-OCV"] >= columns_1["Pre-Tab OCV"]]
@@ -837,7 +853,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 allData = round(data_file2["Post-OCV"].dropna(), 3)
                 passingData = allData[allData >= columns_1["Post-Tab OCV"]]
                 ocvpassingdata = data_file2[data_file2["Post-OCV"] >= columns_1["Post-Tab OCV"]]["Pre-OCV"]
-                print("Post-Tab OCV " + str(columns_1["Post-Tab OCV"]))
                 pdata = {"OCV": ocvpassingdata, "POCV": passingData}
                 df = pd.DataFrame(pdata)
                 pw = df[round(abs(df["OCV"] - df["POCV"]), 3) <= columns_1["OCV Tab Tolerance"]]
@@ -885,12 +900,9 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             self.label_7.setText("OCV")
             self.label_8.setText("CCV")
 
-        print("Will this be printed? 1")
         # Show the Pre table_OCV first find the BinWith of the histgram
         if not data_file["Pre-OCV"].isnull().all():
             data_file["Pre-OCV"] = round(data_file["Pre-OCV"], 3)
-            print(data_file.loc[data_file["Pre-OCV"].idxmax()]["Pre-OCV"])
-            print(data_file.loc[data_file["Pre-OCV"].idxmin()]["Pre-OCV"])
             MaxtoMin = round(data_file.loc[data_file["Pre-OCV"].idxmax()]["Pre-OCV"] -
                              data_file.loc[data_file["Pre-OCV"].idxmin()]["Pre-OCV"], 3)
             HowManyBin = int(round(math.sqrt(data_file["Pre-OCV"].size - data_file["Pre-OCV"].isnull().sum()))) + 2
@@ -917,7 +929,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                         str(data_file["Pre-OCV"][data_file["Pre-OCV"].between(lowBin + 0.001, highBin)].size)))
                 eachBin = round(eachBin - round(histgram_BinWith, 3), 3)
                 pre_highIndex = pre_highIndex + 1
-        print("Will this be printed? 11.1")
         # Show the Pre table_CCV first find the BinWith of the histgram
         if not data_file["Pre-CCV"].isnull().all():
             data_file["Pre-CCV"] = round(data_file["Pre-CCV"], 3)
@@ -948,7 +959,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 eachBin = round(eachBin-round(histgram_BinWith, 3), 3)
                 pre_highIndex = pre_highIndex+1
         #self.tableWidget_2.sortItems(2, order=Qt.DescendingOrder)
-        print("Will this be printed? 11.2")
         # Show the Post table_OCV first find the BinWith of the histgram
         if not data_file["Post-OCV"].isnull().all():
 
@@ -981,8 +991,6 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                                 data_file["Post-OCV"].between(lowBin + 0.001, highBin)].size)))
                 eachBin = round(eachBin - round(histgram_BinWith, 3), 3)
                 pre_highIndex = pre_highIndex + 1
-
-        print("Will this be printed? 11.3")
         # Show the Post table first find the BinWith of the histgram
         if not data_file["Post-CCV"].isnull().all():
 
@@ -1020,7 +1028,7 @@ class Report_StatisticsTable_WithFunctions(QDialog):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     qt_app = Report_StatisticsTable_WithFunctions()
-    qt_app.getTestNumber2("14575A00.txt")
+    qt_app.getTestNumber2("14681B01.txt")
     qt_app.show()
     app.exec_()
 

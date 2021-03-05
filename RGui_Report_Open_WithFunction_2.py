@@ -9,6 +9,8 @@ from PyQt5.uic import loadUi
 from docx import Document
 import sys
 import _thread
+from docx import Document
+from docxcompose.composer import Composer
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -29,16 +31,28 @@ class Report_Open_WithFunctions(QDialog):
         self.lineEdit.setText(search)
 
     def combine_word_documents(self, files, testname):
-        merged_document = Document()
 
-        for index, file in enumerate(files):
-            sub_doc = Document(os.getcwd() + r"\\Report_Word\\" + file)
+        print(f"files= {files}, testname={testname}")
+        path_name = os.getcwd() + r"\\Report_Word\\"
+        master = Document(path_name + testname + '.docx')
+        composer = Composer(master)
+        for item in files:
+            doc_add = Document(path_name + item)
+            composer.append(doc_add)
 
-            for element in sub_doc.element.body:
-                merged_document.element.body.append(element)
-
-        merged_document.save(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
-
+        composer.save(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
+        # os.system(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
+        # merged_document = Document()
+        #
+        # for index, file in enumerate(files):
+        #     sub_doc = Document(os.getcwd() + r"\\Report_Word\\" + file)
+        #
+        #     for element in sub_doc.element.body:
+        #         merged_document.element.body.append(element)
+        #
+        # merged_document.save(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
+        #
+        # os.system(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
         _thread.start_new_thread(os.system, (os.getcwd() + r"\\Final_Report\\" + testname + '_Graph.docx',))
         _thread.start_new_thread(os.system, (os.getcwd() + r"\\Final_Report\\" + testname + '.docx',))
 
@@ -56,7 +70,7 @@ class Report_Open_WithFunctions(QDialog):
         GraphPicture_Report_Combin.graphPicture_combin(self.listWidget.currentItem().text())
         testName = self.listWidget.currentItem().text()[0:-4]
         files = []
-        files.append("merged" + testName + ".docx")
+        files.append("Note-"+testName + ".docx")
         files.append(testName + "Pre-StaticReport.docx")
         if os.path.exists(os.getcwd() + r"\\Report_Word\\" + testName + "Post-StaticReport.docx"):
             files.append(testName + "Post-StaticReport.docx")

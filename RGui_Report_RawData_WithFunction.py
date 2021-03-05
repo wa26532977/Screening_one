@@ -4,7 +4,7 @@ import datetime
 import pandas as pd
 import numpy as np
 import sys
-from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QMessageBox, QTableWidgetItem
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
 from scipy import stats
@@ -33,11 +33,18 @@ class Report_RawData_WithFunction(QDialog):
 
     def outlier_report_generator(self, x):
         path_data = os.getcwd() + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
-        df = pd.DataFrame(columns=["Barcode", "Outlier"])
+        df = pd.DataFrame(columns=["Barcode", "Pre-OCV", "Pre-CCV", "Post-OCV", "Post-CCV", "Outlier"])
         df.to_csv(path_data, sep="\t", index=False)
         i = 0
         while i < self.tableWidget.rowCount():
             df.loc[i, "Barcode"] = self.tableWidget.item(i, 0).text()
+            df.loc[i, "Pre-OCV"] = self.tableWidget.item(i, 3).text()
+            if self.tableWidget.item(i, 4) is not None:
+                df.loc[i, "Pre-CCV"] = self.tableWidget.item(i, 4).text()
+            if self.tableWidget.item(i, 5) is not None:
+                df.loc[i, "Post-OCV"] = self.tableWidget.item(i, 5).text()
+            if self.tableWidget.item(i, 6) is not None:
+                df.loc[i, "Post-CCV"] = self.tableWidget.item(i, 6).text()
             df.loc[i, "Outlier"] = self.tableWidget.item(i, 7).text()
             i += 1
         df.to_csv(path_data, sep="\t", index=False)
@@ -54,7 +61,6 @@ class Report_RawData_WithFunction(QDialog):
 
         # get the MFR date
         MFR_Date = columns_1["Mfg Date"]
-        print("Will this be printed? 1")
         # set the criteria
         # Get the Load info for Pre-screening
         if columns_1["Tabbed?"] == "Not Tabbed":
@@ -67,7 +73,6 @@ class Report_RawData_WithFunction(QDialog):
         else:
             self.label_5.setText("Pre-Tab")
 
-        print("Will this be printed? 2")
         # Get the load info for Post-Screening
         # Change to Post Table
         if columns_1["Tabbed?"] == "Not Tabbed":
@@ -90,12 +95,10 @@ class Report_RawData_WithFunction(QDialog):
 
         path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
         data_file = pd.read_csv(path_datafile, sep="\t")
-        print("Will this be printed? 3")
         # set the rowcount for the tablewidget
         self.tableWidget.setRowCount(len(data_file))
         i = 0
         pass_Cell = 0
-        print("Will this be printed? 4")
 
         while i < len(data_file):
             # Inspection
@@ -115,7 +118,6 @@ class Report_RawData_WithFunction(QDialog):
             # MFR. SN
             if MFR_Date != "None":
                 self.tableWidget.setItem(i, 2, QTableWidgetItem(str(MFR_Date)))
-            print("Will this be printed? 5")
             # Pre-OCV
             if not pd.isna(data_file.iloc[i]["Pre-OCV"]):
                 dropNan = data_file["Pre-OCV"].dropna()
@@ -134,10 +136,10 @@ class Report_RawData_WithFunction(QDialog):
                 # check the min of the outliter
                 elif data_file.iloc[i]["Pre-OCV"] < checkOutlier[0]:
                     self.tableWidget.setItem(i, 3, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-OCV"], 3))+" *"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-Low"))
+                    self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
                 elif data_file.iloc[i]["Pre-OCV"] > checkOutlier[1]:
                     self.tableWidget.setItem(i, 3, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-OCV"], 3)) + " *"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-High"))
+                    self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
                 else:
                     self.tableWidget.setItem(i, 3, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-OCV"], 3))))
             # Pre-CCV
@@ -156,15 +158,14 @@ class Report_RawData_WithFunction(QDialog):
                 elif data_file.iloc[i]["Pre-CCV"] < checkOutlier[0]:
                     self.tableWidget.setItem(i, 4, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-CCV"], 3))+" *"))
                     if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-Low"))
+                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
                 elif data_file.iloc[i]["Pre-CCV"] > checkOutlier[1]:
                     self.tableWidget.setItem(i, 4, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-CCV"], 3)) + " *"))
                     if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-High"))
+                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
                 else:
                     self.tableWidget.setItem(i, 4, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-CCV"], 3))))
             # Post-OCV
-            print("Will this be printed? 7")
             if not pd.isna(data_file.iloc[i]["Post-OCV"]):
                 dropNan = data_file["Post-OCV"].dropna()
                 checkOutlier = self.findSampleOutlier(dropNan)
@@ -179,21 +180,25 @@ class Report_RawData_WithFunction(QDialog):
                     criteria = columns_1["Profile Two OCV Min"]
 
                 # check if the data failed the criteria
-                if data_file.iloc[i]["Post-OCV"] < criteria:
+                if columns_1["Tabbed?"] == "Tabbed" and \
+                        round(data_file.iloc[i]["Pre-OCV"], 3) - round(data_file.iloc[i]["Post-OCV"], 3) > (columns_1["OCV Tab Tolerance"] + 0.0001):
+                    self.tableWidget.setItem(i, 5,
+                                             QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3)) + " ^"))
+                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Tolerance"))
+                elif data_file.iloc[i]["Post-OCV"] < criteria:
                     self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3)) + " !"))
                     self.tableWidget.setItem(i, 7, QTableWidgetItem("Fail"))
                 elif data_file.iloc[i]["Post-OCV"] < checkOutlier[0]:
                     self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3))+" *"))
                     if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-Low"))
+                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
                 elif data_file.iloc[i]["Post-OCV"] > checkOutlier[1]:
                     self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3)) + " *"))
                     if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-High"))
+                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
                 else:
                     self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3))))
             # Post-CCV
-            print("Will this be printed? 8")
             if not pd.isna(data_file.iloc[i]["Post-CCV"]):
                 dropNan = data_file["Post-CCV"].dropna()
                 checkOutlier = self.findSampleOutlier(dropNan)
@@ -215,21 +220,19 @@ class Report_RawData_WithFunction(QDialog):
                 elif data_file.iloc[i]["Post-CCV"] < checkOutlier[0]:
                     self.tableWidget.setItem(i, 6, QTableWidgetItem(str(round(data_file.iloc[i]["Post-CCV"], 3))+" *"))
                     if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-Low"))
+                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
                 elif data_file.iloc[i]["Post-CCV"] > checkOutlier[1]:
                     self.tableWidget.setItem(i, 6, QTableWidgetItem(str(round(data_file.iloc[i]["Post-CCV"], 3)) + " *"))
                     if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("Outlier-High"))
+                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
                 else:
                     self.tableWidget.setItem(i, 6, QTableWidgetItem(str(round(data_file.iloc[i]["Post-CCV"], 3))))
-            print("Will this be printed? 9")
             # getting the failed count number
             #if data_file.iloc[i]["Pre-screen pass"] == "Pass" and data_file.iloc[i]["Post-screen pass"] == "Pass":
             if self.tableWidget.item(i, 7).text() == "OK":
                 pass_Cell = pass_Cell + 1
             i = i + 1
 
-        print("Will this be printed? 10")
         # total number of sample tested
         self.label_10.setText(str(len(data_file)))
         # total number of sample failed

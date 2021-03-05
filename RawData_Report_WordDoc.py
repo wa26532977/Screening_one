@@ -16,13 +16,14 @@ def RawData_report_wordDoc(x):
     doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\RawData-template.docx")
 
     i = 0
-    for text in doc.paragraphs:
-        run_i = 0
-        for runs in text.runs:
-            print(runs.text)
-            print("This is " + str(i) + " lin and " + str(run_i) + " runs")
-            run_i = run_i + 1
-        i = i + 1
+    # show the doc
+    # for text in doc.paragraphs:
+    #     run_i = 0
+    #     for runs in text.runs:
+    #         print(runs.text)
+    #         print("This is " + str(i) + " lin and " + str(run_i) + " runs")
+    #         run_i = run_i + 1
+    #     i = i + 1
 
     # get the template info
     path_template = os.getcwd() + r"\\Screening_Template\\" + x
@@ -110,6 +111,7 @@ def RawData_report_wordDoc(x):
         # outlier.txt path
         path_data = os.getcwd() + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
         outlier_data = pd.read_csv(path_data, sep="\t")
+        outlier_data = outlier_data.replace(np.nan, '', regex=True)
         for cell in cell_info.cells:
             if cell_counter <= 1:
                 if data_file.iloc[indexCount][cell_counter] != "":
@@ -120,17 +122,9 @@ def RawData_report_wordDoc(x):
                 cell.text = str(columns_1["Mfg Date"])
             # the visual Inspection
             elif cell_counter == 7:
-                if data_file.iloc[indexCount]["Pre-screen pass"] == "Fail" or data_file.iloc[indexCount]["Post-screen pass"] == "Fail":
-                    cell.text = "Fail"
-                elif outlier_data["Outlier"][indexCount] == "Outlier-Low" or outlier_data["Outlier"][indexCount] == "Outlier-High":
-                    cell.text = "Outlier"
-                else:
-                    cell.text = "Pass"
+                cell.text = outlier_data["Outlier"][indexCount]
             else:
-                if data_file.iloc[indexCount][cell_counter-1] != "":
-                    cell.text = str(round(data_file.iloc[indexCount][cell_counter-1], 3))
-                else:
-                    cell.text = str(data_file.iloc[indexCount][cell_counter-1])
+                cell.text = str(outlier_data.iloc[indexCount][cell_counter-2])
             cell_counter += 1
 
         indexCount = indexCount + 1

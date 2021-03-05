@@ -9,7 +9,7 @@ import os
 from Screening_System_PyQt5 import RGui_Data_Converting
 from Screening_System_PyQt5 import RGui_Print
 from Screening_System_PyQt5 import RGui_SetPath
-from Screening_System_PyQt5 import RGui_Anaylsis_search
+from Screening_System_PyQt5 import RGui_Anaylsis_searchWIthFunctions
 from Screening_System_PyQt5 import RGui_Screening_DataCollection
 
 from Screening_System_PyQt5 import RGui_Data_OpenWithFunctions
@@ -64,11 +64,9 @@ class Screening_app(RGui_Screening_mainWindow.Ui_ScreeningSys_mainWindow, QtWidg
         DataCollection.exec_()
 
     def New_Ananylsis_Seach_Clicked(self):
-        Sample_Search = QtWidgets.QDialog()
-        ui = RGui_Anaylsis_search.Ui_Dialog()
-        ui.setupUi(Sample_Search)
-        Sample_Search.show()
-        Sample_Search.exec_()
+        ui = RGui_Anaylsis_searchWIthFunctions.AnalysisSearchWithFunction()
+        ui.show()
+        ui.exec_()
 
     def New_SetPath_Clicked(self):
         SetPath = QtWidgets.QDialog()
