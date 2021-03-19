@@ -4,8 +4,8 @@ import datetime
 import pandas as pd
 import numpy as np
 import sys
-from PyQt5.QtWidgets import QDialog, QMessageBox, QTableWidgetItem
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QDialog, QTableWidgetItem
+from PyQt5 import QtWidgets
 from PyQt5.uic import loadUi
 from scipy import stats
 from docx import Document
@@ -98,12 +98,13 @@ class Report_RawData_WithFunction(QDialog):
         # set the rowcount for the tablewidget
         self.tableWidget.setRowCount(len(data_file))
         i = 0
-        pass_Cell = 0
+        fall_cell = 0
+        inspection = ""
 
         while i < len(data_file):
             # Inspection
             if pd.isna(data_file.iloc[i]["Comments"]) is False:
-                #self.tableWidget.setItem(i, 7, QTableWidgetItem(str(data_file.iloc[i]["Comments"])))
+                # self.tableWidget.setItem(i, 7, QTableWidgetItem(str(data_file.iloc[i]["Comments"])))
                 self.tableWidget.setItem(i, 7, QTableWidgetItem("OK"))
             else:
                 self.tableWidget.setItem(i, 7, QTableWidgetItem("OK"))
@@ -123,7 +124,7 @@ class Report_RawData_WithFunction(QDialog):
                 dropNan = data_file["Pre-OCV"].dropna()
                 checkOutlier = self.findSampleOutlier(dropNan)
 
-                #check if tab for different criteria
+                # check if tab for different criteria
                 if columns_1["Tabbed?"] == "Tabbed":
                     criteria = columns_1["Pre-Tab OCV"]
                 else:
@@ -131,40 +132,37 @@ class Report_RawData_WithFunction(QDialog):
 
                 # check if the data failed the criteria
                 if data_file.iloc[i]["Pre-OCV"] < criteria:
-                    self.tableWidget.setItem(i, 3, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-OCV"], 3)) + " !"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Fail"))
-                # check the min of the outliter
+                    self.tableWidget.setItem(i, 3, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-OCV"], 3)) + " !"))
+                    inspection += " F"
+                # check the min of the outlier
                 elif data_file.iloc[i]["Pre-OCV"] < checkOutlier[0]:
-                    self.tableWidget.setItem(i, 3, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-OCV"], 3))+" *"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
+                    self.tableWidget.setItem(i, 3, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-OCV"], 3))+" *"))
+                    inspection += " OL"
                 elif data_file.iloc[i]["Pre-OCV"] > checkOutlier[1]:
-                    self.tableWidget.setItem(i, 3, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-OCV"], 3)) + " *"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
+                    self.tableWidget.setItem(i, 3, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-OCV"], 3)) + " *"))
+                    inspection += " OH"
                 else:
-                    self.tableWidget.setItem(i, 3, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-OCV"], 3))))
+                    self.tableWidget.setItem(i, 3, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-OCV"], 3))))
             # Pre-CCV
             # Check if the data failed the criteria
             if not pd.isna(data_file.iloc[i]["Pre-CCV"]):
                 dropNan = data_file["Pre-CCV"].dropna()
                 checkOutlier = self.findSampleOutlier(dropNan)
                 # Check to see if Pre-CCV fail
-
                 if data_file.iloc[i]["Pre-CCV"] < columns_1["Profile One CCV Min"]:
                     self.tableWidget.setItem(i, 4,
-                                             QTableWidgetItem(str(round(data_file.iloc[i]["Pre-CCV"], 3)) + " !"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Fail"))
-
+                                             QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-CCV"], 3)) + " !"))
+                    inspection += " F"
                 # check the min of the outliter
                 elif data_file.iloc[i]["Pre-CCV"] < checkOutlier[0]:
-                    self.tableWidget.setItem(i, 4, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-CCV"], 3))+" *"))
-                    if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
+                    self.tableWidget.setItem(i, 4, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-CCV"], 3))+" *"))
+                    inspection += " OL"
                 elif data_file.iloc[i]["Pre-CCV"] > checkOutlier[1]:
-                    self.tableWidget.setItem(i, 4, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-CCV"], 3)) + " *"))
-                    if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
+                    self.tableWidget.setItem(i, 4, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-CCV"], 3)) + " *"))
+                    inspection += " OH"
                 else:
-                    self.tableWidget.setItem(i, 4, QTableWidgetItem(str(round(data_file.iloc[i]["Pre-CCV"], 3))))
+                    self.tableWidget.setItem(i, 4, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Pre-CCV"], 3))))
+
             # Post-OCV
             if not pd.isna(data_file.iloc[i]["Post-OCV"]):
                 dropNan = data_file["Post-OCV"].dropna()
@@ -183,21 +181,19 @@ class Report_RawData_WithFunction(QDialog):
                 if columns_1["Tabbed?"] == "Tabbed" and \
                         round(data_file.iloc[i]["Pre-OCV"], 3) - round(data_file.iloc[i]["Post-OCV"], 3) > (columns_1["OCV Tab Tolerance"] + 0.0001):
                     self.tableWidget.setItem(i, 5,
-                                             QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3)) + " ^"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Tolerance"))
+                                             QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-OCV"], 3)) + " ^"))
+                    inspection = inspection + ' T'
                 elif data_file.iloc[i]["Post-OCV"] < criteria:
-                    self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3)) + " !"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Fail"))
+                    self.tableWidget.setItem(i, 5, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-OCV"], 3)) + " !"))
+                    inspection = inspection + ' F'
                 elif data_file.iloc[i]["Post-OCV"] < checkOutlier[0]:
-                    self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3))+" *"))
-                    if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
+                    self.tableWidget.setItem(i, 5, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-OCV"], 3))+" *"))
+                    inspection = inspection + ' OL'
                 elif data_file.iloc[i]["Post-OCV"] > checkOutlier[1]:
-                    self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3)) + " *"))
-                    if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
+                    self.tableWidget.setItem(i, 5, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-OCV"], 3)) + " *"))
+                    inspection = inspection + ' OH'
                 else:
-                    self.tableWidget.setItem(i, 5, QTableWidgetItem(str(round(data_file.iloc[i]["Post-OCV"], 3))))
+                    self.tableWidget.setItem(i, 5, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-OCV"], 3))))
             # Post-CCV
             if not pd.isna(data_file.iloc[i]["Post-CCV"]):
                 dropNan = data_file["Post-CCV"].dropna()
@@ -215,28 +211,30 @@ class Report_RawData_WithFunction(QDialog):
                 # check if the data failed the criteria
                 if data_file.iloc[i]["Post-CCV"] < criteria:
                     self.tableWidget.setItem(i, 6,
-                                             QTableWidgetItem(str(round(data_file.iloc[i]["Post-CCV"], 3)) + " !"))
-                    self.tableWidget.setItem(i, 7, QTableWidgetItem("Fail"))
+                                             QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-CCV"], 3)) + " !"))
+                    inspection += ' F'
                 elif data_file.iloc[i]["Post-CCV"] < checkOutlier[0]:
-                    self.tableWidget.setItem(i, 6, QTableWidgetItem(str(round(data_file.iloc[i]["Post-CCV"], 3))+" *"))
-                    if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierL"))
+                    self.tableWidget.setItem(i, 6, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-CCV"], 3))+" *"))
+                    inspection += ' OL'
                 elif data_file.iloc[i]["Post-CCV"] > checkOutlier[1]:
-                    self.tableWidget.setItem(i, 6, QTableWidgetItem(str(round(data_file.iloc[i]["Post-CCV"], 3)) + " *"))
-                    if self.tableWidget.item(i, 7).text() != "Fail":
-                        self.tableWidget.setItem(i, 7, QTableWidgetItem("OutlierH"))
+                    self.tableWidget.setItem(i, 6, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-CCV"], 3)) + " *"))
+                    inspection += ' OH'
                 else:
-                    self.tableWidget.setItem(i, 6, QTableWidgetItem(str(round(data_file.iloc[i]["Post-CCV"], 3))))
+                    self.tableWidget.setItem(i, 6, QTableWidgetItem("%.3f" % (round(data_file.iloc[i]["Post-CCV"], 3))))
+                if inspection == "":
+                    inspection = "OK"
+                self.tableWidget.setItem(i, 7, QTableWidgetItem(inspection.lstrip()))
+                inspection = ""
             # getting the failed count number
             #if data_file.iloc[i]["Pre-screen pass"] == "Pass" and data_file.iloc[i]["Post-screen pass"] == "Pass":
-            if self.tableWidget.item(i, 7).text() == "OK":
-                pass_Cell = pass_Cell + 1
+            if "T" in self.tableWidget.item(i, 7).text() or "F" in self.tableWidget.item(i, 7).text():
+                fall_cell = fall_cell + 1
             i = i + 1
 
         # total number of sample tested
         self.label_10.setText(str(len(data_file)))
         # total number of sample failed
-        self.label_8.setText(str(len(data_file)-pass_Cell))
+        self.label_8.setText(str(fall_cell))
         # set the column header
         if columns_1["Tabbed?"] == "Tabbed":
             self.tableWidget.setHorizontalHeaderLabels(

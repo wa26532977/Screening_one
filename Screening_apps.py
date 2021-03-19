@@ -2,9 +2,9 @@ from PyQt5 import QtWidgets
 import sys
 from Screening_System_PyQt5 import RGui_Screening_mainWindow
 import pandas as pd
-import dcload
-import glob
-import os
+# import dcload
+# import glob
+# import os
 
 from Screening_System_PyQt5 import RGui_Data_Converting
 from Screening_System_PyQt5 import RGui_Print
@@ -54,7 +54,6 @@ class Screening_app(RGui_Screening_mainWindow.Ui_ScreeningSys_mainWindow, QtWidg
         #self.actionPrint_All_Peport_And_Graph.triggered.connect(self.Selected_Report_Open_Clicked)
         #Just for now, later need to change under data.
         self.actionPrinter_Setup.triggered.connect(self.New_Screening_DataCollection_Clicked)
-        #Just For Testing
 
     def New_Screening_DataCollection_Clicked(self):
         DataCollection = QtWidgets.QDialog()

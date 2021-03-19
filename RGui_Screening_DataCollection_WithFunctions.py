@@ -1,18 +1,12 @@
 import os
 import math
 import pandas as pd
-import time
 from PyQt5.QtWidgets import QDialog
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5 import QtWidgets
 from PyQt5.uic import loadUi
-from Screening_System_PyQt5 import client
 import datetime
-from multiprocessing import Process
 import sys
-from PyQt5.QtCore import QThread
 import time
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
 
 from win32com.client import Dispatch
 from PyQt5.QtCore import QTimer, QTime
@@ -118,8 +112,9 @@ class Screening_DataCollection_WithFunction(QDialog):
 
     def pwCCV(self, timer, testing_type, testing_value2,):
         load = Dispatch('BKServers.DCLoad85xx')
-        port = "COM6"
+        port = "COM2"
         baudrate = "19200"
+
         def test(cmd, results):
             if results:
                 print(cmd + "failed:")
@@ -135,32 +130,39 @@ class Screening_DataCollection_WithFunction(QDialog):
             testing_value = testing_value2 / 1000
             test("Set to constant current", load.Setmode("cc"))
             test("Set Transient to CC ",
-                 load.SetTransient("cc", 0, 0.01, testing_value, int(timer) * 10, "pulse"))
+                 load.SetTransient("cc", 0, 1, testing_value, int(timer)*10, "toggled"))
         elif testing_type == "Constant Resistor":
             test("Set to constant Resistor", load.Setmode("cr"))
-            test("Set Transient to CC ",
-                 load.SetTransient("cr", 4000, 1, testing_value2, int(timer) * 10, "pulse"))
+            test("Set Transient to CR ",
+                 load.SetTransient("cr", 4000, 1, testing_value2, int(timer)*10, "toggled"))
 
         test("Set function to Transient", load.SetFunction("transient"))
         load.TurnLoadOn()
         load.TriggerLoad()
 
         start_time = time.time()
-        t_end = time.time() + int(timer) + 1
+        t_end = time.time() + int(timer)
         values = []
-        ProBarcount = 0
-        # this is increament for progressbar in while loop
-        ProBarIncreamnt = 7/(int(timer) + 1)
+        data_log = []
+        trigger_blo = True
 
-        while time.time() < t_end:
+        # the adding one sec is for latency
+        while time.time() < (t_end + 1):
             values.append(load.GetInputValues()[0])
+            data_log.append((load.GetInputValues()[0], load.GetInputValues()[1], round(time.time()-start_time, 5)))
             time.sleep(0.01)
-            ProBarcount = ProBarcount + ProBarIncreamnt
+            if time.time() > t_end and trigger_blo:
+                load.TriggerLoad()
+                trigger_blo = False
+
+        load.TurnLoadOff()
 
         print("Final values is ")
         print(values)
+        print(len(values))
+        print(data_log)
+        # print(time_log)
 
-        load.TurnLoadOff()
         test("Set Function to fix", load.SetFunction("fixed"))
         test("Set to local control", load.SetLocalControl())
         value = min(values)
@@ -186,16 +188,16 @@ class Screening_DataCollection_WithFunction(QDialog):
 
     def SaveButton(self):
         print("SaveButton pressed")
-        #dir_path = os.path.dirname(os.path.realpath(__file__))
+        # dir_path = os.path.dirname(os.path.realpath(__file__))
         dir_path = os.path.dirname(sys.argv[0])
         path_data = dir_path + r"\Screening_Data\\" + self.label_1.text()+".txt"
-        #if there is no file, created the file
+        # if there is no file, created the file
         if os.path.exists(path_data) is False:
             df = pd.DataFrame(columns=["Barcode", "Serial#", "Pre-OCV", "Pre-CCV", "Post-OCV", "Post-CCV", "Date",
                                        "Lot Number", "Comments", "Pre-screen pass", "Post-screen pass"])
             df.to_csv(path_data, sep="\t", index=False)
         columns_1 = []
-        #if this is pre-screening, store in here
+        # if this is pre-screening, store in here
         if self.label.text() == "Profile One" or self.label.text() == "Pre-Tabbed" or self.label.text() == "Section One":
             if self.replace_data:
                 print("replacing Data")
@@ -231,7 +233,7 @@ class Screening_DataCollection_WithFunction(QDialog):
                 columns_1.append(self.lineEdit_3.text())
                 columns_1.append(self.lot_number)
                 columns_1.append(self.lineEdit_6.text())
-                #check if the criteria was met
+                # check if the criteria was met
                 if float(self.lineEdit_4.text()) < float(self.label_33.text()):
                     columns_1.append("Fail")
                 elif (self.label.text() == "Profile One" or self.label.text() == "Section One") and (float(self.lineEdit_5.text()) < float(self.label_35.text())):
@@ -257,7 +259,7 @@ class Screening_DataCollection_WithFunction(QDialog):
             ui.show()
             ui.exec_()
         else:
-            #this is post-screening, store within the pre-screening
+            # this is post-screening, store within the pre-screening
             data_file = pd.read_csv(path_data, sep="\t")
             if int(self.lineEdit_1.text()) in data_file["Barcode"].values:
                 data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[0], "Post-OCV"] = self.lineEdit_4.text()
@@ -286,14 +288,13 @@ class Screening_DataCollection_WithFunction(QDialog):
             testing_value2 = float(self.label_30.text())
             timer = int(self.lcdNumber.value())
 
-            # passin all the varabile to QThread
-            # peterfixing1
+            # passing all the variable to QThread
             self.pwCCV(timer=timer, testing_type=testing_type, testing_value2=testing_value2)
 
-            #self.calc = External(timer=timer, testing_type=testing_type, testing_value2=testing_value2)
-            #self.calc.countChanged.connect(self.onCountChanged)
-            #self.calc.finalOutput.connect(self.onCountChanged2)
-            #self.calc.start()
+            # self.calc = External(timer=timer, testing_type=testing_type, testing_value2=testing_value2)
+            # self.calc.countChanged.connect(self.onCountChanged)
+            # self.calc.finalOutput.connect(self.onCountChanged2)
+            # self.calc.start()
 
     # def onCountChanged(self, value):
     #     # receive the emit singal to change ProgressBar
@@ -312,7 +313,7 @@ class Screening_DataCollection_WithFunction(QDialog):
 
     def getOCVpw(self):
         load = Dispatch('BKServers.DCLoad85xx')
-        port = "COM6"
+        port = "COM2"
         baudrate = "19200"
 
         def test(cmd, results):
@@ -322,7 +323,6 @@ class Screening_DataCollection_WithFunction(QDialog):
                 exit(1)
             else:
                 print(cmd)
-
         load.Initialize(port, baudrate)
         test("Set to remote control", load.SetRemoteControl())
         test("Set Remote Sense to enable", load.SetRemoteSense(1))
@@ -347,17 +347,17 @@ class Screening_DataCollection_WithFunction(QDialog):
 
     def scanBarcode(self):
         self.lineEdit_2.setFocus()
-        #dir_path = os.path.dirname(os.path.realpath(__file__))
+        # dir_path = os.path.dirname(os.path.realpath(__file__))
         dir_path = os.path.dirname(sys.argv[0])
         path_data = dir_path + r"\Screening_Data\\" + self.label_1.text() + ".txt"
-        #check if barcode exit for pre-screening or barcode doesn't exit in post-screening or scanne twice with post-screening
+        # check if barcode exit for pre-screening or barcode doesn't exit in post-screening or scanne twice with post-screening
         if os.path.exists(path_data) is True:
             data_file = pd.read_csv(path_data, sep="\t")
             if self.label.text() == "Profile One" or self.label.text() == "Section One" or self.label.text() == "Pre-Tabbed":
                 if int(self.lineEdit_1.text()) in data_file["Barcode"].values:
-                    #msgbox = QtWidgets.QMessageBox(self)
-                    #msgbox.setText("This Barcode is already used, please check.")
-                    #msgbox.exec()
+                    # msgbox = QtWidgets.QMessageBox(self)
+                    # msgbox.setText("This Barcode is already used, please check.")
+                    # msgbox.exec()
                     buttonReply = QtWidgets.QMessageBox.question(self, 'Warning',
                                                                  "Barcode already exists, "
                                                                  "do you want to replace value for the same barcode?",
@@ -372,16 +372,19 @@ class Screening_DataCollection_WithFunction(QDialog):
                 else:
                     self.lineEdit_2.setFocus()
             else:
-                if int(self.lineEdit_1.text()) in data_file["Barcode"].values and math.isnan(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Post-OCV"]):
+                # has ocv and CCV is nan
+                if int(self.lineEdit_1.text()) in data_file["Barcode"].values and \
+                        math.isnan(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Post-OCV"]):
                     # pre-value show up
-                    self.label_36.setText('Pre-Value: ')
-                    print(str(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-OCV"]))
-                    self.label_39.setText(str(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-OCV"].item()))
+                    self.label_36.setText('Pre-OCV: ')
+                    print("Peter finding")
+                    self.label_39.setText(str(round(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-OCV"].item(), 4)))
                     if self.label.text() != "Post-Tabbed":
-                        self.label_37.setText('Pre-Value: ' + str(
-                            data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-CCV"].values))
+                        self.label_37.setText("Pre-CCV:  " + str(
+                            round(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-CCV"].item(), 4)))
                     self.lineEdit_2.setFocus()
-                else:
+                # has OCV and CCV is not nan
+                elif int(self.lineEdit_1.text()) in data_file["Barcode"].values:
                     buttonReply = QtWidgets.QMessageBox.question(self, 'Warning',
                                                                  "Barcode already exists, "
                                                                  "do you want to replace value for the same barcode?",
@@ -392,6 +395,12 @@ class Screening_DataCollection_WithFunction(QDialog):
                         self.lineEdit_2.setFocus()
                     else:
                         self.lineEdit_1.setFocus()
+                # has not OCV give warning
+                else:
+                    msgbox = QtWidgets.QMessageBox(self)
+                    msgbox.setText("This Barcode has NO OCV, please check.")
+                    msgbox.exec()
+                    self.lineEdit_1.setFocus()
 
     def getTestNumber(self, x):
         if "Post" in x:
@@ -629,7 +638,7 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     qt_app = Screening_DataCollection_WithFunction()
     qt_app.getTestNumber("14665A01.txt")
-    #qt_app.getTestNumber2("14575A00.txt")
+    # qt_app.getTestNumber2("14575A00.txt")
     qt_app.show()
     app.exec_()
 

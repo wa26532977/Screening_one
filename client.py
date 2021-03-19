@@ -167,33 +167,36 @@ def TalkToLoad(load, port, baudrate):
             print(cmd)
     # Open a serial connection
     print(load.Initialize(port, baudrate))
-    #load.Initialize(port, baudrate)
     test("Set to remote control", load.SetRemoteControl())
     print("Time from DC Load =" + str(load.TimeNow()))
-    test("Set to constant current", load.Setmode("cr"))
-    #test("Set to remote control", load.SetRemoteControl())
+    # test("Set to constant current", load.Setmode("cr"))
+
+    ##test("Set to remote control", load.SetRemoteControl())
+
     test("Set max current to 3 A", load.SetMaxCurrent(3))
     test("Set Max Voltage to 15V", load.SetMaxVoltage(15))
-    #test("Set CC current to 0.1 A", load.SetCCCurrent(0.03))
-    test("Set Transient to CC ", load.SetTransient("cr", 4000, 1, 200, 40, "pulse"))
+
+    ##test("Set CC current to 0.1 A", load.SetCCCurrent(0.03))
+
+    test("Set Transient to CC ", load.SetTransient("cc", 0, 1, 0.2, 40, "pulse"))
     test("Set Remote Sense to enable", load.SetRemoteSense(1))
     test("Set function to Transient", load.SetFunction("transient"))
-    print("Settings:")
-    print("  Transient state     =" + str(load.GetTransient('cr')))
-    print("  Mode                =" + str(load.GetMode()))
-    print("  Max voltage         =" + str(load.GetMaxVoltage()))
-    print("  Max current         =" + str(load.GetMaxCurrent()))
-    print("  Max power           =" + str(load.GetMaxPower()))
-    print("  CC current          =" + str(load.GetCCCurrent()))
-    print("  CV voltage          =" + str(load.GetCVVoltage()))
-    print("  CW power            =" + str(load.GetCWPower()))
-    print("  CR resistance       =" + str(load.GetCRResistance()))
-    print("  Load on timer time  =" + str(load.GetLoadOnTimer()))
-    print("  Load on timer state =" + str(load.GetLoadOnTimerState()))
-    print("  Trigger source      =" + str(load.GetTriggerSource()))
-    print("  Function            =" + str(load.GetFunction()))
-    print("  Remote Sense        =" + str(load.GetRemoteSense()))
-    print("  Input values:")
+    # print("Settings:")
+    # # print("  Transient state     =" + str(load.GetTransient('cr')))
+    # print("  Mode                =" + str(load.GetMode()))
+    # print("  Max voltage         =" + str(load.GetMaxVoltage()))
+    # print("  Max current         =" + str(load.GetMaxCurrent()))
+    # print("  Max power           =" + str(load.GetMaxPower()))
+    # print("  CC current          =" + str(load.GetCCCurrent()))
+    # print("  CV voltage          =" + str(load.GetCVVoltage()))
+    # print("  CW power            =" + str(load.GetCWPower()))
+    # print("  CR resistance       =" + str(load.GetCRResistance()))
+    # print("  Load on timer time  =" + str(load.GetLoadOnTimer()))
+    # print("  Load on timer state =" + str(load.GetLoadOnTimerState()))
+    # print("  Trigger source      =" + str(load.GetTriggerSource()))
+    # print("  Function            =" + str(load.GetFunction()))
+    # print("  Remote Sense        =" + str(load.GetRemoteSense()))
+    # print("  Input values:")
 
     load.TurnLoadOn()
     load.TriggerLoad()
@@ -209,7 +212,7 @@ def TalkToLoad(load, port, baudrate):
     #test("Set to constant current", load.Setmode("cc"))
 
     start_time = time.time()
-    t_end = time.time()+11
+    t_end = time.time()+3
     values = []
     while time.time() < t_end:
         print(str(time.time()-start_time))
@@ -239,7 +242,7 @@ baudrate is the baud rate setting of the DC load.
 
 if __name__ == '__main__':
     access_type = "com"
-    port        = "COM3"
+    port        = "COM2"
     #baudrate = "9200"
     baudrate    = "19200"
     if access_type == "com":

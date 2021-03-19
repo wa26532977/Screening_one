@@ -76,7 +76,7 @@ class InstrumentInterface:
     # Values for setting modes of CC, CV, CW, or CR
     modes = {"cc":0, "cv":1, "cw":2, "cr":3}
     def Initialize(self, com_port, baudrate, address=0):
-        self.sp = serial.Serial("COM3", baudrate)
+        self.sp = serial.Serial(com_port, baudrate)
         self.address = address
     def DumpCommand(self, bytes):
         '''Print out the contents of a 26 byte command.  Example:
@@ -450,12 +450,12 @@ class DCLoad(InstrumentInterface):
         "CC", "CV", "CW", or "CR".
         '''
         print("Will this get printed?")
-        print(mode)
-        print(A)
-        print(A_time_s)
-        print(B)
-        print(B_time_s)
-        print(operation)
+        print(f"mode: {mode}")
+        print(f"A: {A}")
+        print(f"A_time_s: {A_time_s}")
+        print(f"B: {B}")
+        print(f"B_time_s(peter): {B_time_s}")
+        print(f"operation: {operation}")
         if mode.lower() not in self.modes:
             raise Exception("Unknown mode")
         opcodes = {"cc":0x32, "cv":0x34, "cw":0x36, "cr":0x38}

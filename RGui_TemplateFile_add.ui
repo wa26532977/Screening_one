@@ -488,8 +488,11 @@
                    <height>16777215</height>
                   </size>
                  </property>
+                 <property name="text">
+                  <string>0.002</string>
+                 </property>
                  <property name="placeholderText">
-                  <string>0.02</string>
+                  <string notr="true"/>
                  </property>
                 </widget>
                </item>

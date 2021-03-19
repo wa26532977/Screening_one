@@ -359,6 +359,19 @@
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>1020</y>
+        <width>571</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Key: ^ for Tab Tolerance Fail(T)   ! for Criteria Fall (F)   * for Outlier (OH for High) (OL for Low)</string>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>
