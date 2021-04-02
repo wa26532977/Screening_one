@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -1392,6 +1392,8 @@
      a. Data file preparation:
      b. Technical review:
      c. Final review:
+
+3. The outlier is identified by use 1.5*Interquartile Range rule (IQR). Q1, Q3 = [25% percentile, 75% percentile], the minimum for outliner = Q1 – 1.5* IQR, the maximum for outlier = Q3 +1.5* IQR.
 </string>
        </property>
       </widget>

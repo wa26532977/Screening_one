@@ -1,8 +1,5 @@
 import os
-import pyodbc
-import datetime
 import pandas as pd
-import numpy as np
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -10,6 +7,7 @@ from Screening_System_PyQt5 import RGui_Report_StatisticsTable_WithFunctions
 from Screening_System_PyQt5 import RGui_Report_RawData_WithFunction
 from Screening_System_PyQt5 import RGui_Report_FrontPage_WithFunction
 from Screening_System_PyQt5 import RGui_Graph_Pre_WithFunction
+from Screening_System_PyQt5 import RGui_Graph_FastData_withFunctions
 from PyQt5.uic import loadUi
 
 pd.options.display.max_columns = 999
@@ -30,10 +28,10 @@ class Report_Open_WithFunctions(QDialog):
         search = self.listWidget.currentItem().text()
         self.lineEdit.setText(search)
 
-
     def OK_Pressed(self):
         # the first gui is for statistic table
         ui = RGui_Report_StatisticsTable_WithFunctions.Report_StatisticsTable_WithFunctions()
+
         while self.listWidget.currentItem() is None:
             msgbox = QtWidgets.QMessageBox(self)
             msgbox.setText("No item is selected, please select an item.")
@@ -51,11 +49,19 @@ class Report_Open_WithFunctions(QDialog):
         # The PreGraph of the report
         ui4 = RGui_Graph_Pre_WithFunction.Graph_Pre_WithFunction()
         ui4.getTestNumber5(self.listWidget.currentItem().text(), "Pre")
+        # show the fast data collection
+        dir_path = os.path.dirname(sys.argv[0])
+        fast_data_dir = dir_path + r"\Fast_data_collection\\" + self.listWidget.currentItem().text()
 
         ui.show()
         ui2.show()
         ui3.show()
         ui4.show()
+
+        # if fast_data exit show it
+        if os.path.exists(fast_data_dir):
+            ui6 = RGui_Graph_FastData_withFunctions.GraphFastDataWithFunction(self.listWidget.currentItem().text())
+            ui6.show()
 
         # The PostGraph of the Report
         # first check if there is any postData
@@ -67,9 +73,6 @@ class Report_Open_WithFunctions(QDialog):
             ui5.show()
 
         ui.exec_()
-
-
-
 
     def search_In_List(self):
         search = self.lineEdit.text()

@@ -1,0 +1,2 @@
+Barcode	Serial#	Pre-OCV	Pre-CCV	Post-OCV	Post-CCV	Date	Lot Number	Comments	Pre-screen pass	Post-screen pass
+11111		1.782	1.702			2021-03-30	10945		Pass	

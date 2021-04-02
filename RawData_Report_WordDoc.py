@@ -15,7 +15,7 @@ def RawData_report_wordDoc(x):
     # import the template
     doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\RawData-template.docx")
 
-    i = 0
+    # i = 0
     # show the doc
     # for text in doc.paragraphs:
     #     run_i = 0
@@ -32,6 +32,12 @@ def RawData_report_wordDoc(x):
     # get the testing data
     path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
     data_file = pd.read_csv(path_datafile, sep="\t")
+    data_file = data_file.fillna("")
+    # get the outlier data
+    path_outlier_data = os.getcwd() + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
+    outlier_data = pd.read_csv(path_outlier_data, sep="\t")
+    outlier_data = outlier_data.replace(np.nan, '', regex=True)
+    print(outlier_data)
 
     page_number = len(data_file["Barcode"]) // 24
     if len(data_file["Barcode"]) % 24 != 0:
@@ -107,11 +113,7 @@ def RawData_report_wordDoc(x):
         cell_info = table.add_row()
         # set the data to the table
         cell_counter = 0
-        data_file = data_file.fillna("")
-        # outlier.txt path
-        path_data = os.getcwd() + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
-        outlier_data = pd.read_csv(path_data, sep="\t")
-        outlier_data = outlier_data.replace(np.nan, '', regex=True)
+
         for cell in cell_info.cells:
             if cell_counter <= 1:
                 if data_file.iloc[indexCount][cell_counter] != "":
@@ -124,10 +126,15 @@ def RawData_report_wordDoc(x):
             elif cell_counter == 7:
                 cell.text = outlier_data["Outlier"][indexCount]
             else:
-                cell.text = str(outlier_data.iloc[indexCount][cell_counter-2])
+                if isinstance(outlier_data.iloc[indexCount][cell_counter-2], float):
+                    cell.text = "%.3f" % (round(outlier_data.iloc[indexCount][cell_counter-2], 3))
+                else:
+                    cell.text = str(outlier_data.iloc[indexCount][cell_counter-2])
             cell_counter += 1
 
         indexCount = indexCount + 1
+
+    doc.add_paragraph("Key: ^ for Tab Tolerance Fail(T), ! for Criteria Fall(F), * for outlier(OH for High)(OL for Low)")
 
     for row in table.rows:
         for cell in row.cells:
@@ -139,12 +146,8 @@ def RawData_report_wordDoc(x):
             font.name = "Times New Roman"
             font.size = Pt(9)
 
-    doc.save(os.getcwd() + r"\\Report_Word\\" + x[0:-4] +"RawData.docx")
-    # Test Number
-    #doc.paragraphs[1].runs[1].text = str(x[:-4])
-    # Report Data
-    #doc.paragraphs[1].runs[6].text = str(datetime.date.today())
+    doc.save(os.getcwd() + r"\\Report_Word\\" + x[0:-4] + "RawData.docx")
 
 
 if __name__ == '__main__':
-    RawData_report_wordDoc("14575A00.txt")
+    RawData_report_wordDoc("peterTest12345.txt")

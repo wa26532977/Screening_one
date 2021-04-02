@@ -106,14 +106,15 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.timer = QTimer()
         self.counter = 0
         self.replace_data = False
-
-    storing_data = []
-    lot_number = 0
+        self.fast_data = False
+        self.storing_data = []
+        self.lot_number = 0
 
     def pwCCV(self, timer, testing_type, testing_value2,):
         load = Dispatch('BKServers.DCLoad85xx')
         port = "COM2"
         baudrate = "19200"
+
 
         def test(cmd, results):
             if results:
@@ -142,12 +143,16 @@ class Screening_DataCollection_WithFunction(QDialog):
 
         start_time = time.time()
         t_end = time.time() + int(timer)
+        if self.fast_data:
+            t_end_space = time.time() + int(timer) + 4
+        else:
+            t_end_space = time.time() + int(timer)
         values = []
         data_log = []
         trigger_blo = True
 
         # the adding one sec is for latency
-        while time.time() < (t_end + 1):
+        while time.time() < (t_end_space + 1):
             values.append(load.GetInputValues()[0])
             data_log.append((load.GetInputValues()[0], load.GetInputValues()[1], round(time.time()-start_time, 5)))
             time.sleep(0.01)
@@ -160,7 +165,6 @@ class Screening_DataCollection_WithFunction(QDialog):
         print("Final values is ")
         print(values)
         print(len(values))
-        print(data_log)
         # print(time_log)
 
         test("Set Function to fix", load.SetFunction("fixed"))
@@ -178,6 +182,7 @@ class Screening_DataCollection_WithFunction(QDialog):
             if abs(float(self.label_39.text()) - float(self.lineEdit_4.text())) > float(self.label_40.text()):
                 self.label_15.setText(self.label_15.text() + " The ocv tolerance is exceed!")
         self.lineEdit_6.setFocus()
+        self.storing_data = data_log
 
     def CancelButton(self):
         self.close()
@@ -191,17 +196,34 @@ class Screening_DataCollection_WithFunction(QDialog):
         # dir_path = os.path.dirname(os.path.realpath(__file__))
         dir_path = os.path.dirname(sys.argv[0])
         path_data = dir_path + r"\Screening_Data\\" + self.label_1.text()+".txt"
+        fast_data_dir = dir_path + r"\Fast_data_collection\\" + self.label_1.text() + ".txt"
         # if there is no file, created the file
         if os.path.exists(path_data) is False:
             df = pd.DataFrame(columns=["Barcode", "Serial#", "Pre-OCV", "Pre-CCV", "Post-OCV", "Post-CCV", "Date",
                                        "Lot Number", "Comments", "Pre-screen pass", "Post-screen pass"])
             df.to_csv(path_data, sep="\t", index=False)
+        if self.fast_data:
+            if os.path.exists(fast_data_dir) is False:
+                df = pd.DataFrame(columns=["Barcode", "Pre", "Post"])
+                df.to_csv(fast_data_dir, sep="\t", index=False)
         columns_1 = []
+        fast_data_column = []
         # if this is pre-screening, store in here
         if self.label.text() == "Profile One" or self.label.text() == "Pre-Tabbed" or self.label.text() == "Section One":
             if self.replace_data:
                 print("replacing Data")
                 data_file = pd.read_csv(path_data, sep="\t")
+
+                if self.fast_data:
+                    fast_data_file = pd.read_csv(fast_data_dir, sep="\t")
+                    if self.label.text() != "Pre-Tabbed":
+                        fast_data_file.at[fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                         0], "Pre"] = str(self.storing_data)
+                    else:
+                        fast_data_file.at[fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                              0], "Pre"] = ''
+                    fast_data_file.to_csv(fast_data_dir, sep="\t", index=False)
+
                 print(f"Testing3 {data_file[data_file['Barcode'] == int(self.lineEdit_1.text())].index[0]}")
                 if int(self.lineEdit_1.text()) in data_file["Barcode"].values:
                     data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
@@ -222,12 +244,18 @@ class Screening_DataCollection_WithFunction(QDialog):
                 data_file.to_csv(path_data, sep="\t", index=False)
             else:
                 columns_1.append(self.lineEdit_1.text())
+                fast_data_column.append(self.lineEdit_1.text())
                 columns_1.append(self.lineEdit_2.text())
                 columns_1.append(self.lineEdit_4.text())
                 if self.label.text() == "Pre-Tabbed":
                     columns_1.append("")
+                    fast_data_column.append("")
                 else:
                     columns_1.append(self.lineEdit_5.text())
+                    fast_data_column.append(self.storing_data)
+
+                # placeholder for the post
+                fast_data_column.append('')
                 columns_1.append("")
                 columns_1.append("")
                 columns_1.append(self.lineEdit_3.text())
@@ -249,9 +277,13 @@ class Screening_DataCollection_WithFunction(QDialog):
                 else:
                     BarcodeCunt = BarcodeCunt + 1
 
-                print("PeterTesting333:"+str(columns_1))
                 data_file.loc[BarcodeCunt] = columns_1
                 data_file.to_csv(path_data, sep="\t", index=False)
+
+                if self.fast_data:
+                    fast_data_file = pd.read_csv(fast_data_dir, sep="\t")
+                    fast_data_file.loc[BarcodeCunt] = fast_data_column
+                    fast_data_file.to_csv(fast_data_dir, sep="\t", index=False)
 
             ui = Screening_DataCollection_WithFunction()
             ui.getTestNumber(self.label_1.text()+".txt")
@@ -272,6 +304,12 @@ class Screening_DataCollection_WithFunction(QDialog):
             else:
                 data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[0], "Post-screen pass"] = "Pass"
             data_file.to_csv(path_data, sep="\t", index=False)
+            if self.fast_data:
+                fast_data_file = pd.read_csv(fast_data_dir, sep="\t")
+                fast_data_file.loc[fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[0],
+                                  "Post"] = str(self.storing_data)
+                fast_data_file.to_csv(fast_data_dir, sep="\t", index=False)
+
             ui = Screening_DataCollection_WithFunction()
             ui.getTestNumber("Post" + self.label_1.text() + ".txt")
             self.close()
@@ -414,6 +452,9 @@ class Screening_DataCollection_WithFunction(QDialog):
             path_Template = dir_path + r"\\Screening_Template\\" + x
         data_file = pd.read_csv(path_Template, sep="\t")
         columns_1 = data_file.loc[0].fillna("")
+        # fast Data
+        if data_file["High Rate?"].item() == "Yes":
+            self.fast_data = True
         self.lot_number = columns_1[0]
         self.label_1.setText(str(columns_1[1]))
         self.label_5.setText(str(columns_1[1]))
@@ -514,125 +555,6 @@ class Screening_DataCollection_WithFunction(QDialog):
             else:
                 self.label_19.setText(self.label_27.text())
 
-'''
-    def GettingCCV(self):
-        if self.lcdNumber.value() == 0.0 or self.label.text() == "Pre-Tabbed":
-            return
-        else:
-            self.label_36.setText("Taking CCV Right Now")
-            self.lineEdit_5.setText("Taking CCV Right Now")
-            testing_type = str(self.label_28.text())
-            testing_value2 = float(self.label_30.text())
-            timer = int(self.lcdNumber.value())
-
-            load = Dispatch('BKServers.DCLoad85xx')
-            port = "COM3"
-            baudrate = "19200"
-
-            def test(cmd, results):
-                if results:
-                    print(cmd + "failed:")
-                    print(results)
-                    exit(1)
-                else:
-                    print(cmd)
-
-            load.Initialize(port, baudrate)
-            test("Set to remote control", load.SetRemoteControl())
-            test("Set Remote Sense to enable", load.SetRemoteSense(1))
-
-            if testing_type == "Constant Current":
-                print("Peterlooking")
-                print(int(timer) * 10)
-                testing_value = testing_value2 / 1000
-                print(testing_value)
-                test("Set to constant current", load.Setmode("cc"))
-                test("Set Transient to CC ",
-                     load.SetTransient("cc", 0, 0.01, testing_value, int(timer) * 10, "pulse"))
-            elif testing_type == "Constant Resistor":
-                test("Set to constant current", load.Setmode("cr"))
-                test("Set Transient to CC ",
-                     load.SetTransient("cr", 0, 0.01, testing_value2, int(timer) * 10, "pulse"))
-
-            test("Set function to Transient", load.SetFunction("transient"))
-            load.TurnLoadOn()
-            load.TriggerLoad()
-
-            msgbox = QtWidgets.QMessageBox(self)
-            msgbox.setWindowTitle("Taking CCV")
-            msgbox.show()
-
-            #self.timer.setInterval(100)
-            #self.timer.timeout.connect(self.storing_data.append(load.GetInputValues()[0]))
-            #self.timer.start()
-
-            start_time = time.time()
-            t_end = time.time() + int(timer) + 1
-            values = []
-
-            while time.time() < t_end:
-                values.append(load.GetInputValues()[0])
-                time.sleep(0.05)
-
-            msgbox.close()
-            self.label_36.setText("")
-            self.lineEdit_5.setText(min(values))
-            self.lineEdit_6.setFocus()
-            print("Final values is ")
-            print(values)
-            print(self.storing_data)
-            load.TurnLoadOff()
-            test("Set Function to fix", load.SetFunction("fixed"))
-            test("Set to local control", load.SetLocalControl())
-
-    def recurring_timer(self):
-        self.storing_data.append(client.gettingValue()[0])
-
-        self.counter += 1
-        #self.lineEdit_5.setText(str(values))
-        if self.counter >= 5000:
-            self.timer.stop()
-        def timer_start(self):
-        if self.lcdNumber.value() == 0.0 or self.label.text() == "Pre-Tabbed":
-            self.lineEdit_6.setFocus()
-        else:
-            self.storing_data = []
-            self.time_left_int = self.lcdNumber.value()
-            self.my_qtimer = QtCore.QTimer(self)
-            self.my_qtimer.timeout.connect(self.timer_timeout)
-            self.my_qtimer.start(350)
-            self.update_gui()
-
-    def timer_timeout(self):
-        self.time_left_int -= .5
-
-        self.storing_data.append(client.gettingValue()[0])
-        #storing_data_2.append(client.gettingValue()[0])
-
-        if self.time_left_int <= 0:
-            self.lineEdit_6.setFocus()
-            self.my_qtimer.stop()
-
-            values = min(self.storing_data)
-            self.lineEdit_5.setText(values)
-            self.lineEdit_6.setFocus()
-            self.my_qtimer.stop()
-            #here is the fast data collection
-            print(self.storing_data)
-            #print(storing_data_2)
-            #checking with criteria
-            if self.label.text() is not "Pre-Tabbed":
-                print("Not Pre Tabbed")
-                if float(values) < float(self.label_35.text()):
-                    self.label_15.setText(self.label_15.text()+"The CCV criteria was not met!")
-                else:
-                    self.label_15.setText(self.label_15.text() + " ")
-
-        self.update_gui()
-
-    def update_gui(self):
-        self.lcdNumber.display(str(self.time_left_int))
-'''
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
@@ -640,6 +562,7 @@ if __name__ == '__main__':
     qt_app.getTestNumber("14665A01.txt")
     # qt_app.getTestNumber2("14575A00.txt")
     qt_app.show()
+
     app.exec_()
 
 
