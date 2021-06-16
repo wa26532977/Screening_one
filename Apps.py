@@ -9,7 +9,6 @@ pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
 pd.set_option("display.precision", 6)
 
-
 #update the file_link here
 file_link = r"C:\Users\wangp\PycharmProjects\untitled\Screening_System_PyQt5\Screening_Data\435823-04CCK.086.txt"
 data_file = pd.read_csv(file_link, skiprows=3, sep="\t")

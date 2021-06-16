@@ -4,6 +4,7 @@ import docx
 import os
 import datetime
 from docx import Document
+import sys
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -14,7 +15,7 @@ def combine_word_documents(files):
     merged_document = Document()
 
     for index, file in enumerate(files):
-        sub_doc = Document(os.getcwd() + r"\\Report_Word\\" + file)
+        sub_doc = Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + file)
 
         # Don't add a page break if you've reached the last file.
         if index < len(files)-1:
@@ -22,20 +23,20 @@ def combine_word_documents(files):
 
         for element in sub_doc.element.body:
             merged_document.element.body.append(element)
-        print(os.getcwd() + r"\\Report_Word\\" + 'merged' + files[0])
-    merged_document.save(os.getcwd() + r"\\Report_Word\\" + 'merged' + files[0])
+        print(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + 'merged' + files[0])
+    merged_document.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + 'merged' + files[0])
 
 
 def screening_Report_wordGenerator(x):
     sub = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
     # import the template
-    doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\demo.docx")
+    doc = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\demo.docx")
     # get the template info
-    path_template = os.getcwd() + r"\\Screening_Template\\" + x
+    path_template = os.path.dirname(sys.argv[0]) + r"\\Screening_Template\\" + x
     data_file1 = pd.read_csv(path_template, sep="\t")
     columns_1 = data_file1.loc[0].fillna("")
     # get the testing data
-    path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
+    path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x
     data_file = pd.read_csv(path_datafile, sep="\t")
 
     '''
@@ -205,16 +206,16 @@ def screening_Report_wordGenerator(x):
     doc.paragraphs[27].runs[5].text = str(columns_1["Finished Date"])
     # save the doc
     report_name = x[:-3]+"docx"
-    doc.save(os.getcwd() + r"\\Report_Word\\" + report_name)
+    doc.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + report_name)
 
     # generate the Note doc
-    doc1 = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Note-template.docx")
+    doc1 = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\Note-template.docx")
     # Test number
     doc1.paragraphs[0].runs[1].text = str(x[:-4])
     # add note
     doc1.paragraphs[1].runs[0].text = str(columns_1["Note"])
     note_name = "Note-" + x[:-3] + "docx"
-    doc1.save(os.getcwd() + r"\\Report_Word\\" + note_name)
+    doc1.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + note_name)
     files = [report_name, note_name]
     combine_word_documents(files)
 

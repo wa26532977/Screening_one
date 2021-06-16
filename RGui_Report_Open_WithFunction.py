@@ -65,7 +65,7 @@ class Report_Open_WithFunctions(QDialog):
 
         # The PostGraph of the Report
         # first check if there is any postData
-        path_datafile = os.getcwd() + r"\\Screening_Data\\" + self.listWidget.currentItem().text()
+        path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + self.listWidget.currentItem().text()
         data_file = pd.read_csv(path_datafile, sep="\t")
         if not data_file["Post-OCV"].isnull().all():
             ui5 = RGui_Graph_Pre_WithFunction.Graph_Pre_WithFunction()

@@ -84,6 +84,10 @@ pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
 pd.set_option("display.precision", 6)
 
+print(os.path.dirname(sys.argv[0]))
+print(1)
+print(os.getcwd())
+
 # search_dir = r"C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\Screening_Data\\"
 # # remove anything from the list that is not a file (directories, symlinks)
 # # of files (presumably not including directories)
@@ -111,28 +115,28 @@ pd.set_option("display.precision", 6)
 #             ('1.665', '0.0861 A', 5.40291), ('1.684', '0.0 A', 5.56935), ('1.685', '0.0 A', 5.70194),
 #             ('1.686', '0.0 A', 5.91985), ('1.686', '0.0 A', 6.08108)]
 #
-import numpy as np
-dir_path = os.path.dirname(sys.argv[0])
-path_fast_data = dir_path + r"\\Report_word_Outlier\\" + "14872B00outlier.txt"
-fast_data_file = pd.read_csv(path_fast_data, sep="\t")
-outlier_data = fast_data_file.replace(np.nan, '', regex=True)
-# # print(fast_data_file[fast_data_file["Barcode"] == 1111]["Pre"].values[0])
-# # print(fast_data_file[fast_data_file["Barcode"] == 1111]["Pre"].values[0])
-# # print(fast_data_file[fast_data_file["Barcode"] == 2222]["Pre"].values[0])
-# print(fast_data_file[fast_data_file["Barcode"] == 1111])
-# print(fast_data_file[fast_data_file["Barcode"] == 1111]["Pre"])
-# value = fast_data_file[fast_data_file["Barcode"] == 1111]["Post"].values[0]
-# print(pd.isna(value))
-print(outlier_data)
-print(outlier_data.iloc[0][3])
-print(outlier_data.loc[0][3])
-print(type(outlier_data.loc[0][2]))
-print(type(outlier_data.iloc[0][2]))
-for i in range(3):
-    for c in range(5):
-        if isinstance(outlier_data.iloc[i][c], float):
-            print(f"float!!! = {outlier_data.iloc[i][c]}")
-        else:
-            print(outlier_data.iloc[i][c])
+# import numpy as np
+# dir_path = os.path.dirname(sys.argv[0])
+# path_fast_data = dir_path + r"\\Report_word_Outlier\\" + "14872B00outlier.txt"
+# fast_data_file = pd.read_csv(path_fast_data, sep="\t")
+# outlier_data = fast_data_file.replace(np.nan, '', regex=True)
+# # # print(fast_data_file[fast_data_file["Barcode"] == 1111]["Pre"].values[0])
+# # # print(fast_data_file[fast_data_file["Barcode"] == 1111]["Pre"].values[0])
+# # # print(fast_data_file[fast_data_file["Barcode"] == 2222]["Pre"].values[0])
+# # print(fast_data_file[fast_data_file["Barcode"] == 1111])
+# # print(fast_data_file[fast_data_file["Barcode"] == 1111]["Pre"])
+# # value = fast_data_file[fast_data_file["Barcode"] == 1111]["Post"].values[0]
+# # print(pd.isna(value))
+# print(outlier_data)
+# print(outlier_data.iloc[0][3])
+# print(outlier_data.loc[0][3])
+# print(type(outlier_data.loc[0][2]))
+# print(type(outlier_data.iloc[0][2]))
+# for i in range(3):
+#     for c in range(5):
+#         if isinstance(outlier_data.iloc[i][c], float):
+#             print(f"float!!! = {outlier_data.iloc[i][c]}")
+#         else:
+#             print(outlier_data.iloc[i][c])
 
 

@@ -283,11 +283,11 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         # to use Pre-Tab template
         if table_one.horizontalHeaderItem(0).text() == "Pre-Tab OCV":
             # report for the pre-tab
-            doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template-PreTab-New.docx")
+            doc = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\Static-template-PreTab-New.docx")
             self.screening_Report_partone(doc, x, column_1, table_one, label_4)
             PreTab_table = doc.tables[0]
             # load the data for passing samples
-            path_datafile = os.getcwd() + r"\\Screening_Data\\" + x + ".txt"
+            path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x + ".txt"
             data_file = pd.read_csv(path_datafile, sep="\t")
             # finding the pass data file
             data_file2 = data_file[data_file["Pre-OCV"] >= column_1["Pre-Tab OCV"]]
@@ -324,10 +324,10 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                         cell_info.cells[2].text = str(sampleTabTolerance[0][i])
                         cell_info.cells[3].text = str(sampleTabTolerance[1][i])
 
-            doc.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            doc.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
 
             # update the info with docxtpl
-            doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            doc_1 = DocxTemplate(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
             # set ocv 95% confidence Interval
             context = {'c_1': table_one.item(6, 2).text(), "c_2": table_one.item(7, 2).text()}
             # set total sample outside the range
@@ -340,14 +340,14 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             context['c_4'] = str(outlier_max_min[0])
             context['c_5'] = str(outlier_max_min[1])
             doc_1.render(context)
-            doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            doc_1.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
 
             # report for the post
-            doc1 = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template-PostTab-New.docx")
+            doc1 = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\Static-template-PostTab-New.docx")
             self.screening_Report_partTwo(doc1, x, column_1, table_one, label_5)
 
             # load the data for passing samples
-            path_datafile = os.getcwd() + r"\\Screening_Data\\" + x + ".txt"
+            path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x + ".txt"
             data_file = pd.read_csv(path_datafile, sep="\t")
             if not data_file["Post-OCV"].isnull().all():
                 df1 = df["POCV"]
@@ -407,10 +407,10 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                     cell_info.cells[6].text = str(sampleTabTolerance_post_CCV[0][i])
                     cell_info.cells[7].text = str(sampleTabTolerance_post_CCV[1][i])
 
-            doc1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+            doc1.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
 
             # update the info with docxtpl_post
-            doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+            doc_1 = DocxTemplate(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
 
             # post-ocv
             # set ocv 95% confidence Interval
@@ -438,13 +438,13 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             context['c_9'] = str(outlier_max_min[1])
 
             doc_1.render(context)
-            doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+            doc_1.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
         else:
             # pre_report
-            doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template.docx")
+            doc = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\Static-template.docx")
             self.screening_Report_partone(doc, x, column_1, table_one, label_4)
 
-            path_datafile = os.getcwd() + r"\\Screening_Data\\" + x + ".txt"
+            path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x + ".txt"
             data_file = pd.read_csv(path_datafile, sep="\t")
 
             PostTab_table = doc.tables[0]
@@ -470,11 +470,11 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 else:
                     cell_info.cells[2].text = ""
                     cell_info.cells[3].text = ""
-            doc.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            doc.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
 
             # update the info with docxtpl
             # pre-ocv
-            doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            doc_1 = DocxTemplate(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
             # set ocv 95% confidence Interval
             context = {'c_1': table_one.item(6, 0).text(), "c_2": table_one.item(7, 0).text()}
             # set total sample outside the range
@@ -503,11 +503,11 @@ class Report_StatisticsTable_WithFunctions(QDialog):
             context['c_8'] = str(outlier_max_min[1])
 
             doc_1.render(context)
-            doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
+            doc_1.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Pre-StaticReport.docx')
 
             if table_one.horizontalHeaderItem(3).text() != '':
                 # report for the post
-                doc1 = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Static-template.docx")
+                doc1 = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\Static-template.docx")
                 self.screening_Report_partTwo(doc1, x, column_1, table_one, label_5)
                 PostTab_table = doc1.tables[0]
 
@@ -532,11 +532,11 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                     else:
                         cell_info.cells[2].text = ""
                         cell_info.cells[3].text = ""
-                doc1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+                doc1.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
 
                 # update the info with docxtpl
                 # post-ocv
-                doc_1 = DocxTemplate(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+                doc_1 = DocxTemplate(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
                 # set ocv 95% confidence Interval
                 context = {'c_1': table_one.item(6, 2).text(), "c_2": table_one.item(7, 2).text()}
                 # set total sample outside the range
@@ -565,7 +565,7 @@ class Report_StatisticsTable_WithFunctions(QDialog):
                 context['c_8'] = str(outlier_max_min[1])
 
                 doc_1.render(context)
-                doc_1.save(os.getcwd() + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
+                doc_1.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x + 'Post-StaticReport.docx')
     
     def findSampleOutlierMinMax(self, data):
         iqr = stats.iqr(data)
@@ -591,10 +591,10 @@ class Report_StatisticsTable_WithFunctions(QDialog):
         return m, m - h, m + h
 
     def getTestNumber2(self, x):
-        path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
+        path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x
         data_file = pd.read_csv(path_datafile, sep="\t")
         #Load the template info for report
-        path_template = os.getcwd() + r"\\Screening_Template\\" + x
+        path_template = os.path.dirname(sys.argv[0]) + r"\\Screening_Template\\" + x
         data_file1 = pd.read_csv(path_template, sep="\t")
         columns_1 = data_file1.loc[0].fillna("")
         testNumber = x[:-4]

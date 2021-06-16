@@ -2,8 +2,7 @@ import pandas as pd
 import numpy as np
 import docx
 import os
-import datetime
-from docx import Document
+import sys
 from docx.shared import Inches
 
 pd.options.display.max_columns = 999
@@ -13,11 +12,11 @@ pd.set_option("display.precision", 6)
 def graphPicture_combin(x):
     report_name = x[:-4]
     # import the template
-    path_template = os.getcwd() + r"\\Screening_Template\\" + x
+    path_template = os.path.dirname(sys.argv[0]) + r"\\Screening_Template\\" + x
     data_file1 = pd.read_csv(path_template, sep="\t")
     columns_1 = data_file1.loc[0].fillna("")
 
-    doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\Graph_combin.docx")
+    doc = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\Graph_combin.docx")
     # if the cell is tabbed
     if columns_1["Tabbed?"] == "Tabbed":
         doc.add_picture("OCV.png", width=Inches(10.5))
@@ -63,8 +62,7 @@ def graphPicture_combin(x):
         doc.add_picture("OCV-CCV.png", width=Inches(10.5))
         doc.add_picture("Pre OCV-CCV WITHIN SD RANGE.png", width=Inches(10.5))
 
-
-    doc.save(os.getcwd() + r"\\Final_Report\\" + report_name + "_Graph.docx")
+    doc.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + report_name + "_Graph.docx")
 
 
 # for debugging propose

@@ -313,10 +313,10 @@ class Graph_Pre_WithFunction(QDialog):
         fig.savefig(type + ".png", dpi=100)
 
     def getTestNumber5(self, x, PreOrPost):
-        path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
+        path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x
         data_file = pd.read_csv(path_datafile, sep="\t")
         # Load the template info for report
-        path_template = os.getcwd() + r"\\Screening_Template\\" + x
+        path_template = os.path.dirname(sys.argv[0]) + r"\\Screening_Template\\" + x
         data_file1 = pd.read_csv(path_template, sep="\t")
         columns_1 = data_file1.loc[0].fillna("")
         testNumber = x[:-4]

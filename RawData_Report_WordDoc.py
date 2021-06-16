@@ -5,6 +5,7 @@ import os
 import datetime
 from docx import Document
 from docx.shared import Pt
+import sys
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -13,7 +14,7 @@ pd.set_option("display.precision", 6)
 
 def RawData_report_wordDoc(x):
     # import the template
-    doc = docx.Document(os.getcwd() + r"\\Report_Word\\Doc Template\\RawData-template.docx")
+    doc = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\RawData-template.docx")
 
     # i = 0
     # show the doc
@@ -26,15 +27,15 @@ def RawData_report_wordDoc(x):
     #     i = i + 1
 
     # get the template info
-    path_template = os.getcwd() + r"\\Screening_Template\\" + x
+    path_template = os.path.dirname(sys.argv[0]) + r"\\Screening_Template\\" + x
     data_file1 = pd.read_csv(path_template, sep="\t")
     columns_1 = data_file1.loc[0].fillna("")
     # get the testing data
-    path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
+    path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x
     data_file = pd.read_csv(path_datafile, sep="\t")
     data_file = data_file.fillna("")
     # get the outlier data
-    path_outlier_data = os.getcwd() + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
+    path_outlier_data = os.path.dirname(sys.argv[0]) + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
     outlier_data = pd.read_csv(path_outlier_data, sep="\t")
     outlier_data = outlier_data.replace(np.nan, '', regex=True)
     print(outlier_data)
@@ -146,7 +147,7 @@ def RawData_report_wordDoc(x):
             font.name = "Times New Roman"
             font.size = Pt(9)
 
-    doc.save(os.getcwd() + r"\\Report_Word\\" + x[0:-4] + "RawData.docx")
+    doc.save(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + x[0:-4] + "RawData.docx")
 
 
 if __name__ == '__main__':

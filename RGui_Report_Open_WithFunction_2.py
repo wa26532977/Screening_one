@@ -25,6 +25,7 @@ class Report_Open_WithFunctions(QDialog):
         self.lineEdit.textChanged.connect(self.search_In_List)
         self.listWidget.itemClicked.connect(self.item_Clicked)
         self.pushButton_2.clicked.connect(self.OK_Pressed)
+        self.dir_path = os.path.dirname(sys.argv[0])
 
     def item_Clicked(self):
         search = self.listWidget.currentItem().text()
@@ -33,29 +34,34 @@ class Report_Open_WithFunctions(QDialog):
     def combine_word_documents(self, files, testname):
 
         print(f"files= {files}, testname={testname}")
-        path_name = os.getcwd() + r"\\Report_Word\\"
+        path_name = os.path.dirname(sys.argv[0]) + r"\\Report_Word\\"
         master = Document(path_name + testname + '.docx')
+        print(path_name + testname + '.docx')
         composer = Composer(master)
         for item in files:
+            print(path_name + item)
             doc_add = Document(path_name + item)
             composer.append(doc_add)
 
-        composer.save(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
-        # os.system(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
+        composer.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx')
+
+        # old working version
         # merged_document = Document()
+        # files.insert(0, testname+'.docx')
         #
         # for index, file in enumerate(files):
-        #     sub_doc = Document(os.getcwd() + r"\\Report_Word\\" + file)
+        #     sub_doc = Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + file)
+        #
+        #     # if index < len(files) - 1:
+        #     #     sub_doc.add_page_break()
         #
         #     for element in sub_doc.element.body:
         #         merged_document.element.body.append(element)
         #
-        # merged_document.save(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
+        # merged_document.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx')
         #
-        # os.system(os.getcwd() + r"\\Final_Report\\" + testname + '.docx')
-        _thread.start_new_thread(os.system, (os.getcwd() + r"\\Final_Report\\" + testname + '_Graph.docx',))
-        _thread.start_new_thread(os.system, (os.getcwd() + r"\\Final_Report\\" + testname + '.docx',))
-
+        _thread.start_new_thread(os.system, (os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '_Graph.docx',))
+        _thread.start_new_thread(os.system, (os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx',))
 
     def OK_Pressed(self):
         # the first gui is for statistic table
@@ -72,19 +78,17 @@ class Report_Open_WithFunctions(QDialog):
         files = []
         files.append("Note-"+testName + ".docx")
         files.append(testName + "Pre-StaticReport.docx")
-        if os.path.exists(os.getcwd() + r"\\Report_Word\\" + testName + "Post-StaticReport.docx"):
+        if os.path.exists(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + testName + "Post-StaticReport.docx"):
             files.append(testName + "Post-StaticReport.docx")
         files.append(testName + "RawData.docx")
-        print(files)
         self.combine_word_documents(files, testName)
         self.close()
 
     def search_In_List(self):
         search = self.lineEdit.text()
         self.listWidget.clear()
-        #dir_path = os.path.dirname(os.path.realpath(__file__))
-        dir_path = os.path.dirname(sys.argv[0])
-        path_data = dir_path + r"\\Screening_Data"
+        # dir_path = os.path.dirname(os.path.realpath(__file__))
+        path_data = self.dir_path + r"\\Screening_Data"
         if search == "":
             self.populate_list_widget()
         else:
@@ -99,7 +103,7 @@ class Report_Open_WithFunctions(QDialog):
 
     def populate_list_widget(self):
         self.listWidget.clear()
-        #dir_path = os.path.dirname(os.path.realpath(__file__))
+        # dir_path = os.path.dirname(os.path.realpath(__file__))
         dir_path = os.path.dirname(sys.argv[0])
         path_data = dir_path + r"\\Screening_Data"
 

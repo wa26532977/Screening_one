@@ -1,11 +1,14 @@
 First plug in the BK percision 8500 and find out which com port it's using. (Under devices manager>ports)
-Then find the dcload.py under "C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\dcload.py" open it, and find the "COM, change the "COM +( currect com port)" like "COM4"
-Thne find the RGui_Screening_DataCollection_WithFunctions.py under "C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\RGui_Screening_DataCollection_WithFunctions.py" open it, change all COM to "COM4"
+"Then find the dcload.py under ""C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\dcload.py"" open it, and find the ""COM, change the ""COM +( currect com port)"" like ""COM4"""
+"Thne find the RGui_Screening_DataCollection_WithFunctions.py under ""C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\RGui_Screening_DataCollection_WithFunctions.py"" open it, change all COM to ""COM4"""
 Then open cmd and enter following command:
-1, cd C:\Users\wangp.BTC\PycharmProjects\untitledNew\BTC-Work\Scripts
-2, pyinstaller --onefile C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\Screening_apps.py
-3, let it run
-4, when finished looking for Screening_apps.exe under "C:\Users\wangp.BTC\PycharmProjects\untitledNew\BTC-Work\Scripts\dist"
-5, place Screening_apps.exe under folder "C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5" 
-6, copy the whole folder to the new system 
-7, run Screening_apps.exe
+"1, cd C:\Users\wangp.BTC\PycharmProjects\untitledNew\BTC-Work\Scripts"
+"2, pyinstaller --onefile C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\Screening_apps.py"
+"3, let it run"
+"4, when finished looking for Screening_apps.exe under ""C:\Users\wangp.BTC\PycharmProjects\untitledNew\BTC-Work\Scripts\dist"""
+"5, place Screening_apps.exe under folder ""C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5"" "
+"6, copy the whole folder to the new system "
+"7, run Screening_apps.exe"
+
+
+"Hint: on peter's desk port ""COM2"",  At the Lab port""COM3"""

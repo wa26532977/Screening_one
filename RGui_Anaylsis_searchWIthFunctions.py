@@ -25,7 +25,7 @@ class AnalysisSearchWithFunction(QDialog):
             msgbox.setText("No item is selected, please select an item.")
             msgbox.exec()
             return
-        os.system(os.getcwd() + r"\\Screening_Data\\" + self.listWidget.currentItem().text() + '.txt')
+        os.system(os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + self.listWidget.currentItem().text() + '.txt')
 
     def clear_button(self):
         self.listWidget.clear()
@@ -37,7 +37,7 @@ class AnalysisSearchWithFunction(QDialog):
     def search_button(self):
         self.listWidget.clear()
         search_term = self.lineEdit.text()
-        search_dir = os.getcwd() + r"\\Screening_Data\\"
+        search_dir = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\"
         # create the screening data files name
         all_files = list(filter(os.path.isfile, glob.glob(search_dir + "*")))
         all_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)

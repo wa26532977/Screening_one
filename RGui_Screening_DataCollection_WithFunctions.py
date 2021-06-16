@@ -109,10 +109,11 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.fast_data = False
         self.storing_data = []
         self.lot_number = 0
+        self.com_port = "COM2"
 
     def pwCCV(self, timer, testing_type, testing_value2,):
         load = Dispatch('BKServers.DCLoad85xx')
-        port = "COM2"
+        port = self.com_port
         baudrate = "19200"
 
 
@@ -351,7 +352,7 @@ class Screening_DataCollection_WithFunction(QDialog):
 
     def getOCVpw(self):
         load = Dispatch('BKServers.DCLoad85xx')
-        port = "COM2"
+        port = self.com_port
         baudrate = "19200"
 
         def test(cmd, results):
@@ -388,7 +389,15 @@ class Screening_DataCollection_WithFunction(QDialog):
         # dir_path = os.path.dirname(os.path.realpath(__file__))
         dir_path = os.path.dirname(sys.argv[0])
         path_data = dir_path + r"\Screening_Data\\" + self.label_1.text() + ".txt"
-        # check if barcode exit for pre-screening or barcode doesn't exit in post-screening or scanne twice with post-screening
+        # if the barcode is empty pop up error window
+        if self.lineEdit_1.text() == "":
+            msgbox = QtWidgets.QMessageBox(self)
+            msgbox.setText("Barcode can't be empty, please scan barcode.")
+            msgbox.exec()
+            self.lineEdit_1.setFocus()
+            return
+        # check if barcode exit for pre-screening or barcode doesn't exit in post-screening or scan twice with
+        # post-screening
         if os.path.exists(path_data) is True:
             data_file = pd.read_csv(path_data, sep="\t")
             if self.label.text() == "Profile One" or self.label.text() == "Section One" or self.label.text() == "Pre-Tabbed":

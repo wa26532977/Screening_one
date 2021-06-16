@@ -242,8 +242,7 @@ baudrate is the baud rate setting of the DC load.
 
 if __name__ == '__main__':
     access_type = "com"
-    port        = "COM2"
-    #baudrate = "9200"
+    port        = "COM3"
     baudrate    = "19200"
     if access_type == "com":
         load = Dispatch('BKServers.DCLoad85xx')

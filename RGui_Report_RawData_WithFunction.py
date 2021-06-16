@@ -32,7 +32,7 @@ class Report_RawData_WithFunction(QDialog):
         return min, max
 
     def outlier_report_generator(self, x):
-        path_data = os.getcwd() + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
+        path_data = os.path.dirname(sys.argv[0]) + r"\\Report_word_Outlier\\" + x[0: -4] + r"outlier.txt"
         df = pd.DataFrame(columns=["Barcode", "Pre-OCV", "Pre-CCV", "Post-OCV", "Post-CCV", "Outlier"])
         df.to_csv(path_data, sep="\t", index=False)
         i = 0
@@ -55,7 +55,7 @@ class Report_RawData_WithFunction(QDialog):
         self.label_4.setText(testNumber)
 
         # Load the template for criteria
-        path_template = os.getcwd() + r"\\Screening_Template\\" + x
+        path_template = os.path.dirname(sys.argv[0]) + r"\\Screening_Template\\" + x
         data_file1 = pd.read_csv(path_template, sep="\t")
         columns_1 = data_file1.loc[0].fillna("")
 
@@ -93,7 +93,7 @@ class Report_RawData_WithFunction(QDialog):
 
         # load the data file
 
-        path_datafile = os.getcwd() + r"\\Screening_Data\\" + x
+        path_datafile = os.path.dirname(sys.argv[0]) + r"\\Screening_Data\\" + x
         data_file = pd.read_csv(path_datafile, sep="\t")
         # set the rowcount for the tablewidget
         self.tableWidget.setRowCount(len(data_file))
