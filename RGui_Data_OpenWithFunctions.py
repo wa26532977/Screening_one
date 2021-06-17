@@ -1,7 +1,7 @@
 import os
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
-from Screening_System_PyQt5 import RGui_Screening_DataCollection_WithFunctions
+from Screening_System_PyQt5 import RGui_Data_TestTypeSelector, RGui_Screening_DataCollection_WithFunctions
 import pandas as pd
 import sys
 pd.options.display.max_columns = 999
@@ -30,15 +30,20 @@ class Data_Open_WithFunctions(QDialog):
         if self.listWidget.currentItem() is None:
             print("NO item is selected, please select an item!")
             return
-        ui = RGui_Screening_DataCollection_WithFunctions.Screening_DataCollection_WithFunction()
-        # sent the selected name to RGui_Screening_DataCollection_WithFunctions so I can load the template
-        if self.radioButton.isChecked():
-            ui.getTestNumber(self.listWidget.currentItem().text())
-        if self.radioButton_2.isChecked():
-            ui.getTestNumber("Post"+self.listWidget.currentItem().text())
+
+        ui = RGui_Data_TestTypeSelector.DataTestTypeSelector(test_name=self.listWidget.currentItem().text())
         self.close()
         ui.show()
         ui.exec_()
+        # ui = RGui_Screening_DataCollection_WithFunctions.Screening_DataCollection_WithFunction()
+        # # sent the selected name to RGui_Screening_DataCollection_WithFunctions so I can load the template
+        # print(f"Looking for {self.listWidget.currentItem().text()}")
+        # if self.radioButton.isChecked():
+        #     ui.getTestNumber(self.listWidget.currentItem().text())
+        # if self.radioButton_2.isChecked():
+        #     ui.getTestNumber("Post"+self.listWidget.currentItem().text())
+        # ui.show()
+        # ui.exec_()
 
     def item_Clicked(self):
         search = self.listWidget.currentItem().text()

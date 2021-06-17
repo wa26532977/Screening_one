@@ -20,61 +20,55 @@ pd.set_option("display.precision", 6)
 class Report_Open_WithFunctions(QDialog):
     def __init__(self):
         super(Report_Open_WithFunctions, self).__init__()
-        loadUi("RGui_Report_Open.ui", self)
-        self.populate_list_widget()
-        self.lineEdit.textChanged.connect(self.search_In_List)
-        self.listWidget.itemClicked.connect(self.item_Clicked)
-        self.pushButton_2.clicked.connect(self.OK_Pressed)
         self.dir_path = os.path.dirname(sys.argv[0])
-
-    def item_Clicked(self):
-        search = self.listWidget.currentItem().text()
-        self.lineEdit.setText(search)
 
     def combine_word_documents(self, files, testname):
 
-        print(f"files= {files}, testname={testname}")
-        path_name = os.path.dirname(sys.argv[0]) + r"\\Report_Word\\"
-        master = Document(path_name + testname + '.docx')
-        print(path_name + testname + '.docx')
-        composer = Composer(master)
-        for item in files:
-            print(path_name + item)
-            doc_add = Document(path_name + item)
-            composer.append(doc_add)
-
-        composer.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx')
+        # print(f"files= {files}, testname={testname}")
+        # path_name = os.path.dirname(sys.argv[0]) + r"\\Report_Word\\"
+        # master = Document(path_name + testname + '.docx')
+        # print(path_name + testname + '.docx')
+        # composer = Composer(master)
+        # for item in files:
+        #     print(path_name + item)
+        #     doc_add = Document(path_name + item)
+        #     print("this is doc_add")
+        #     print(doc_add)
+        #     composer.append(doc_add)
+        #     print("this get print or not: composer.append")
+        #     print(composer.append(doc_add))
+        #
+        # composer.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx')
 
         # old working version
-        # merged_document = Document()
-        # files.insert(0, testname+'.docx')
-        #
-        # for index, file in enumerate(files):
-        #     sub_doc = Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + file)
-        #
-        #     # if index < len(files) - 1:
-        #     #     sub_doc.add_page_break()
-        #
-        #     for element in sub_doc.element.body:
-        #         merged_document.element.body.append(element)
-        #
-        # merged_document.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx')
+        merged_document = Document()
+        files.insert(0, testname+'.docx')
+        print(files)
+        # it was the post-static report giving the error
+        # files.pop(3)
+        # print(files)
+
+        for index, file in enumerate(files):
+            sub_doc = Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + file)
+
+            # if index < len(files) - 1:
+            #     sub_doc.add_page_break()
+
+            for element in sub_doc.element.body:
+                merged_document.element.body.append(element)
+
+        merged_document.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx')
         #
         _thread.start_new_thread(os.system, (os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '_Graph.docx',))
         _thread.start_new_thread(os.system, (os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testname + '.docx',))
 
-    def OK_Pressed(self):
-        # the first gui is for statistic table
-        while self.listWidget.currentItem() is None:
-            msgbox = QtWidgets.QMessageBox(self)
-            msgbox.setText("No item is selected, please select an item.")
-            msgbox.exec()
-            return
-        Screening_Report_WordGenerator.screening_Report_wordGenerator(self.listWidget.currentItem().text())
+    def OK_Pressed(self, selected_file):
+        # self.listWidget.currentItem().text() = 14872B00.txt
+        Screening_Report_WordGenerator.screening_Report_wordGenerator(selected_file)
         # the statistic table report is generated when gui is generate the code are together
-        RawData_Report_WordDoc.RawData_report_wordDoc(self.listWidget.currentItem().text())
-        GraphPicture_Report_Combin.graphPicture_combin(self.listWidget.currentItem().text())
-        testName = self.listWidget.currentItem().text()[0:-4]
+        RawData_Report_WordDoc.RawData_report_wordDoc(selected_file)
+        GraphPicture_Report_Combin.graphPicture_combin(selected_file)
+        testName = selected_file[0:-4]
         files = []
         files.append("Note-"+testName + ".docx")
         files.append(testName + "Pre-StaticReport.docx")
@@ -84,30 +78,3 @@ class Report_Open_WithFunctions(QDialog):
         self.combine_word_documents(files, testName)
         self.close()
 
-    def search_In_List(self):
-        search = self.lineEdit.text()
-        self.listWidget.clear()
-        # dir_path = os.path.dirname(os.path.realpath(__file__))
-        path_data = self.dir_path + r"\\Screening_Data"
-        if search == "":
-            self.populate_list_widget()
-        else:
-            for r, d, f in os.walk(path_data):
-                for file in f:
-                    if search in file:
-                        self.listWidget.addItem(file)
-        # hightlight the item when list size is 1
-        if self.listWidget.count() == 1:
-            self.listWidget.setCurrentRow(0)
-            print(self.listWidget.currentItem().text())
-
-    def populate_list_widget(self):
-        self.listWidget.clear()
-        # dir_path = os.path.dirname(os.path.realpath(__file__))
-        dir_path = os.path.dirname(sys.argv[0])
-        path_data = dir_path + r"\\Screening_Data"
-
-        for r, d, f in os.walk(path_data):
-            for file in f:
-                if ".txt" in file:
-                    self.listWidget.addItem(file)

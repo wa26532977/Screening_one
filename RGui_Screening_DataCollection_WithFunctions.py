@@ -109,7 +109,7 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.fast_data = False
         self.storing_data = []
         self.lot_number = 0
-        self.com_port = "COM2"
+        self.com_port = "COM3"
 
     def pwCCV(self, timer, testing_type, testing_value2,):
         load = Dispatch('BKServers.DCLoad85xx')
@@ -449,7 +449,7 @@ class Screening_DataCollection_WithFunction(QDialog):
                     msgbox.exec()
                     self.lineEdit_1.setFocus()
 
-    def getTestNumber(self, x):
+    def getTestNumber(self, x, bare_cell):
         if "Post" in x:
             y = x[4:]
             # dir_path = os.path.dirname(os.path.realpath(__file__))

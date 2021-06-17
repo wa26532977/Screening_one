@@ -33,7 +33,7 @@
      <x>0</x>
      <y>0</y>
      <width>910</width>
-     <height>26</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -70,7 +70,6 @@
      <property name="title">
       <string>Hardware</string>
      </property>
-     <addaction name="actionBarcode_Config"/>
      <addaction name="actionBK_Power_Bank_Config"/>
     </widget>
     <addaction name="menuHardware"/>
@@ -82,7 +81,6 @@
      <string>Analysis</string>
     </property>
     <addaction name="actionSample_Data_Viewing"/>
-    <addaction name="actionSample_Search"/>
    </widget>
    <widget class="QMenu" name="menuReport">
     <property name="title">
@@ -91,11 +89,6 @@
     <addaction name="actionView_All_Report_And_Graph"/>
     <addaction name="separator"/>
     <addaction name="actionPrint_All_Peport_And_Graph"/>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -106,7 +99,6 @@
    <addaction name="menuOptions"/>
    <addaction name="menuAnalysis"/>
    <addaction name="menuReport"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

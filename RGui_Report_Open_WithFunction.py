@@ -3,11 +3,9 @@ import pandas as pd
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Screening_System_PyQt5 import RGui_Report_StatisticsTable_WithFunctions
-from Screening_System_PyQt5 import RGui_Report_RawData_WithFunction
-from Screening_System_PyQt5 import RGui_Report_FrontPage_WithFunction
-from Screening_System_PyQt5 import RGui_Graph_Pre_WithFunction
-from Screening_System_PyQt5 import RGui_Graph_FastData_withFunctions
+from Screening_System_PyQt5 import RGui_Report_StatisticsTable_WithFunctions, RGui_Report_Open_WithFunction_2, \
+    RGui_Report_RawData_WithFunction, RGui_Report_FrontPage_WithFunction, RGui_Graph_Pre_WithFunction, \
+    RGui_Graph_FastData_withFunctions
 from PyQt5.uic import loadUi
 
 pd.options.display.max_columns = 999
@@ -23,10 +21,14 @@ class Report_Open_WithFunctions(QDialog):
         self.lineEdit.textChanged.connect(self.search_In_List)
         self.listWidget.itemClicked.connect(self.item_Clicked)
         self.pushButton_2.clicked.connect(self.OK_Pressed)
+        self.show_report = False
 
     def item_Clicked(self):
         search = self.listWidget.currentItem().text()
         self.lineEdit.setText(search)
+
+    def show_report_toggle(self):
+        self.show_report = True
 
     def OK_Pressed(self):
         # the first gui is for statistic table
@@ -38,6 +40,7 @@ class Report_Open_WithFunctions(QDialog):
             msgbox.exec()
             return
         ui.getTestNumber2(self.listWidget.currentItem().text())
+        print(f"pete looking {self.listWidget.currentItem().text()}")
         self.close()
 
         # the second GUI is for RawData Table
@@ -71,6 +74,10 @@ class Report_Open_WithFunctions(QDialog):
             ui5 = RGui_Graph_Pre_WithFunction.Graph_Pre_WithFunction()
             ui5.getTestNumber5(self.listWidget.currentItem().text(), "Post")
             ui5.show()
+
+        if self.show_report:
+            ui7 = RGui_Report_Open_WithFunction_2.Report_Open_WithFunctions()
+            ui7.OK_Pressed(self.listWidget.currentItem().text())
 
         ui.exec_()
 
