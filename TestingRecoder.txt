@@ -1284,7 +1284,29 @@ Peter
      b. Technical review:
      c. Final review:
 "
-10945	peterTest1234	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PeterRequest	PeterTask	PeterPOC	PeterTest	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2020-01-03	2020-01-03	5	200	4	1.6	1.5							10	5	1.6	1.5	Battery	Not Tabbed	1	2	Yes	Constant Current	Constant Resistor	"Note(s):
+10945	peterTest1234	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PeterRequest	PeterTask	PeterPOC	PeterTest	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2020-01-03	2020-01-03	5.0	200	4	1.6	1.5							10	5.0	1.6	1.5	Battery	Not Tabbed	1	2	Yes	Constant Current	Constant Resistor	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+"
+1951	asdfasf123414													564645												0.002					Cell	Not Tabbed	1	1	No	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+
+3. The outlier is identified by use 1.5*Interquartile Range rule (IQR). Q1, Q3 = [25% percentile, 75% percentile], the minimum for outliner = Q1 – 1.5* IQR, the maximum for outlier = Q3 +1.5* IQR.
+"
+10945	peterTest12345	VDL VDL6062100	Li-Ion (Polymer)	Pouch Pouch	5.3	PeterRequest	PeterTask	PeterPOC	PeterTest	2018-03-05	2018-03-27	100.0(H) X62.0(W) X6.0(D)	24	2020-01-03	2020-01-03	5	100	4	1.6	1.5							150	5	1.6	1.5	Battery	Not Tabbed	2	1	Yes	Constant Current	Constant Resistor	"Note(s):
 
 1. Report Date:
 

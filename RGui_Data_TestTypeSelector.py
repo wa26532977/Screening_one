@@ -31,9 +31,9 @@ class DataTestTypeSelector(QDialog):
         ui = RGui_Screening_DataCollection_WithFunctions.Screening_DataCollection_WithFunction()
         if self.radioButton_1.isChecked():
             print(self.test_name)
-            ui.getTestNumber(self.test_name, self.bare_cell)
+            ui.getTestNumber(self.test_name)
         else:
-            ui.getTestNumber("Post" + self.test_name, self.bare_cell)
+            ui.getTestNumber("Post" + self.test_name)
         self.close()
         ui.show()
         ui.exec_()

@@ -84,9 +84,9 @@ pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
 pd.set_option("display.precision", 6)
 
-print(os.path.dirname(sys.argv[0]))
-print(1)
-print(os.getcwd())
+# print(os.path.dirname(sys.argv[0]))
+# print(1)
+# print(os.getcwd())
 
 # search_dir = r"C:\Users\wangp.BTC\PycharmProjects\BTC-Work\Screening_System_PyQt5\Screening_Data\\"
 # # remove anything from the list that is not a file (directories, symlinks)
@@ -138,5 +138,5 @@ print(os.getcwd())
 #             print(f"float!!! = {outlier_data.iloc[i][c]}")
 #         else:
 #             print(outlier_data.iloc[i][c])
-
-
+if "x" in ['x', 'y', 'z']:
+    print("good")

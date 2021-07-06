@@ -638,10 +638,10 @@
       <widget class="QProgressBar" name="progressBar">
        <property name="geometry">
         <rect>
-         <x>690</x>
-         <y>340</y>
-         <width>371</width>
-         <height>31</height>
+         <x>780</x>
+         <y>310</y>
+         <width>261</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="value">
@@ -677,12 +677,12 @@
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>30</x>
          <y>140</y>
-         <width>131</width>
+         <width>111</width>
          <height>31</height>
         </rect>
        </property>
@@ -703,12 +703,12 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>140</x>
          <y>140</y>
-         <width>121</width>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>

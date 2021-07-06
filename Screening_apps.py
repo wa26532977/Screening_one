@@ -1,3 +1,5 @@
+import os
+
 from PyQt5 import QtWidgets, uic
 import sys
 import pandas as pd
@@ -129,7 +131,8 @@ if __name__ == '__main__':
     sys._excepthook = sys.excepthook
 
     def exception_hook(exctype, value, traceback):
-        print(exctype, value, traceback)
+        # print(exctype, value, traceback)
+        # error_log = pd.read_csv(os.path.dirname(sys.argv[0]) + r"\\Error_log.txt", sep='\t')
         sys.excepthook(exctype, value, traceback)
         sys.exit(1)
 

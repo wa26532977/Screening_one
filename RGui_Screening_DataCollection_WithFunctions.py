@@ -109,21 +109,22 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.fast_data = False
         self.storing_data = []
         self.lot_number = 0
-        self.com_port = "COM3"
+        # on peter's desk port COM2,  At the Lab port COM3
+        self.com_port = "COM2"
 
-    def pwCCV(self, timer, testing_type, testing_value2,):
+    def pwCCV(self, timer, testing_type, testing_value2, ):
         load = Dispatch('BKServers.DCLoad85xx')
         port = self.com_port
         baudrate = "19200"
-
 
         def test(cmd, results):
             if results:
                 print(cmd + "failed:")
                 print(results)
-                exit(1)
+                exit()
             else:
                 print(cmd)
+
         load.Initialize(port, baudrate)
         test("Set to remote control", load.SetRemoteControl())
         test("Set Remote Sense to enable", load.SetRemoteSense(1))
@@ -132,40 +133,53 @@ class Screening_DataCollection_WithFunction(QDialog):
             testing_value = testing_value2 / 1000
             test("Set to constant current", load.Setmode("cc"))
             test("Set Transient to CC ",
-                 load.SetTransient("cc", 0, 1, testing_value, int(timer)*10, "toggled"))
+                 load.SetTransient("cc", 0, 1, testing_value, int(timer) * 10, "toggled"))
         elif testing_type == "Constant Resistor":
             test("Set to constant Resistor", load.Setmode("cr"))
             test("Set Transient to CR ",
-                 load.SetTransient("cr", 4000, 1, testing_value2, int(timer)*10, "toggled"))
+                 load.SetTransient("cr", 4000, 1, testing_value2, int(timer) * 10, "toggled"))
 
         test("Set function to Transient", load.SetFunction("transient"))
         load.TurnLoadOn()
         load.TriggerLoad()
 
+        values = []
+        data_log = []
+        trigger_blo = True
+        completed = 0
+        progressbar_step = int(timer)
         start_time = time.time()
         t_end = time.time() + int(timer)
         if self.fast_data:
             t_end_space = time.time() + int(timer) + 4
+            progressbar_step += 5
         else:
             t_end_space = time.time() + int(timer)
-        values = []
-        data_log = []
-        trigger_blo = True
+            progressbar_step += 1
+
+        progressbar_step = 100/(progressbar_step*10)
 
         # the adding one sec is for latency
         while time.time() < (t_end_space + 1):
             values.append(load.GetInputValues()[0])
-            data_log.append((load.GetInputValues()[0], load.GetInputValues()[1], round(time.time()-start_time, 5)))
+            data_log.append((load.GetInputValues()[0], load.GetInputValues()[1], round(time.time() - start_time, 5)))
             time.sleep(0.01)
+
+            if completed < 100:
+                completed += progressbar_step
+                self.progressBar.setValue(completed)
+
             if time.time() > t_end and trigger_blo:
                 load.TriggerLoad()
                 trigger_blo = False
 
         load.TurnLoadOff()
+        self.progressBar.setValue(100)
 
         print("Final values is ")
-        print(values)
-        print(len(values))
+        print(data_log)
+        # print(values)
+        # print(len(values))
         # print(time_log)
 
         test("Set Function to fix", load.SetFunction("fixed"))
@@ -196,7 +210,7 @@ class Screening_DataCollection_WithFunction(QDialog):
         print("SaveButton pressed")
         # dir_path = os.path.dirname(os.path.realpath(__file__))
         dir_path = os.path.dirname(sys.argv[0])
-        path_data = dir_path + r"\Screening_Data\\" + self.label_1.text()+".txt"
+        path_data = dir_path + r"\Screening_Data\\" + self.label_1.text() + ".txt"
         fast_data_dir = dir_path + r"\Fast_data_collection\\" + self.label_1.text() + ".txt"
         # if there is no file, created the file
         if os.path.exists(path_data) is False:
@@ -218,25 +232,26 @@ class Screening_DataCollection_WithFunction(QDialog):
                 if self.fast_data:
                     fast_data_file = pd.read_csv(fast_data_dir, sep="\t")
                     if self.label.text() != "Pre-Tabbed":
-                        fast_data_file.at[fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[
-                                         0], "Pre"] = str(self.storing_data)
+                        fast_data_file.at[
+                            fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                0], "Pre"] = str(self.storing_data)
                     else:
-                        fast_data_file.at[fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[
-                                              0], "Pre"] = ''
+                        fast_data_file.at[
+                            fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                0], "Pre"] = ''
                     fast_data_file.to_csv(fast_data_dir, sep="\t", index=False)
 
                 print(f"Testing3 {data_file[data_file['Barcode'] == int(self.lineEdit_1.text())].index[0]}")
                 if int(self.lineEdit_1.text()) in data_file["Barcode"].values:
                     data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
                                      0], "Pre-OCV"] = self.lineEdit_4.text()
-                    data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
-                                     0], "Pre-CCV"] = self.lineEdit_5.text()
+                    if self.label.text() != "Pre-Tabbed":
+                        data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                         0], "Pre-CCV"] = self.lineEdit_5.text()
                 if float(self.lineEdit_4.text()) < float(self.label_33.text()):
                     data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
                                       0], "Pre-screen pass"] = "Fail"
-                elif float(self.lineEdit_5.text()) < float(self.label_35.text()) and (
-                        self.label.text() == "Profile One" or
-                        self.label.text() == "Section One"):
+                elif self.label.text() != "Pre-Tabbed" and float(self.lineEdit_5.text()) < float(self.label_35.text()):
                     data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
                                       0], "Pre-screen pass"] = "Fail"
                 else:
@@ -265,7 +280,8 @@ class Screening_DataCollection_WithFunction(QDialog):
                 # check if the criteria was met
                 if float(self.lineEdit_4.text()) < float(self.label_33.text()):
                     columns_1.append("Fail")
-                elif (self.label.text() == "Profile One" or self.label.text() == "Section One") and (float(self.lineEdit_5.text()) < float(self.label_35.text())):
+                elif (self.label.text() == "Profile One" or self.label.text() == "Section One") and (
+                        float(self.lineEdit_5.text()) < float(self.label_35.text())):
                     columns_1.append("Fail")
                 else:
                     columns_1.append("Pass")
@@ -287,7 +303,7 @@ class Screening_DataCollection_WithFunction(QDialog):
                     fast_data_file.to_csv(fast_data_dir, sep="\t", index=False)
 
             ui = Screening_DataCollection_WithFunction()
-            ui.getTestNumber(self.label_1.text()+".txt")
+            ui.getTestNumber(self.label_1.text() + ".txt")
             self.close()
             ui.show()
             ui.exec_()
@@ -295,20 +311,25 @@ class Screening_DataCollection_WithFunction(QDialog):
             # this is post-screening, store within the pre-screening
             data_file = pd.read_csv(path_data, sep="\t")
             if int(self.lineEdit_1.text()) in data_file["Barcode"].values:
-                data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[0], "Post-OCV"] = self.lineEdit_4.text()
-                data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[0], "Post-CCV"] = self.lineEdit_5.text()
+                data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                 0], "Post-OCV"] = self.lineEdit_4.text()
+                data_file.at[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                 0], "Post-CCV"] = self.lineEdit_5.text()
             if float(self.lineEdit_4.text()) < float(self.label_33.text()):
-                data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[0], "Post-screen pass"] = "Fail"
+                data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                  0], "Post-screen pass"] = "Fail"
             elif float(self.lineEdit_5.text()) < float(self.label_35.text()) and (self.label.text() == "Profile Two" or
                                                                                   self.label.text() == "Section Two"):
-                data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[0], "Post-screen pass"] = "Fail"
+                data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                  0], "Post-screen pass"] = "Fail"
             else:
-                data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[0], "Post-screen pass"] = "Pass"
+                data_file.loc[data_file[data_file["Barcode"] == int(self.lineEdit_1.text())].index[
+                                  0], "Post-screen pass"] = "Pass"
             data_file.to_csv(path_data, sep="\t", index=False)
             if self.fast_data:
                 fast_data_file = pd.read_csv(fast_data_dir, sep="\t")
                 fast_data_file.loc[fast_data_file[fast_data_file["Barcode"] == int(self.lineEdit_1.text())].index[0],
-                                  "Post"] = str(self.storing_data)
+                                   "Post"] = str(self.storing_data)
                 fast_data_file.to_csv(fast_data_dir, sep="\t", index=False)
 
             ui = Screening_DataCollection_WithFunction()
@@ -359,9 +380,10 @@ class Screening_DataCollection_WithFunction(QDialog):
             if results:
                 print(cmd + "failed:")
                 print(results)
-                exit(1)
+                exit()
             else:
                 print(cmd)
+
         load.Initialize(port, baudrate)
         test("Set to remote control", load.SetRemoteControl())
         test("Set Remote Sense to enable", load.SetRemoteSense(1))
@@ -384,6 +406,29 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.lineEdit_3.setText(str(datetime.date.today()))
         self.lineEdit_3.setFocus()
 
+    def check_duplicated_barcode(self, data_file, state):
+        data_file_2 = data_file.fillna("")
+        if int(self.lineEdit_1.text()) in data_file["Barcode"].values:
+            buttonReply = QtWidgets.QMessageBox.question(self, 'Warning',
+                                                         "Barcode already exists, "
+                                                         "do you want to replace value for the same barcode?",
+                                                         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                                                         QtWidgets.QMessageBox.No)
+            if buttonReply == QtWidgets.QMessageBox.Yes:
+                self.replace_data = True
+                self.lineEdit_2.setText(
+                    data_file_2[data_file_2["Barcode"] == int(self.lineEdit_1.text())]['Serial#'].item())
+                self.lineEdit_3.setText(
+                    data_file_2[data_file_2["Barcode"] == int(self.lineEdit_1.text())]['Date'].item())
+                self.lineEdit_4.setText(str(
+                    data_file_2[data_file_2["Barcode"] == int(self.lineEdit_1.text())][state + '-OCV'].item()))
+                if self.label.text() != "Pre-Tabbed":
+                    self.lineEdit_5.setText(str(
+                        data_file_2[data_file_2["Barcode"] == int(self.lineEdit_1.text())][state + '-CCV'].item()))
+                self.lineEdit_6.setFocus()
+            else:
+                self.lineEdit_1.setFocus()
+
     def scanBarcode(self):
         self.lineEdit_2.setFocus()
         # dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -397,59 +442,37 @@ class Screening_DataCollection_WithFunction(QDialog):
             self.lineEdit_1.setFocus()
             return
         # check if barcode exit for pre-screening or barcode doesn't exit in post-screening or scan twice with
-        # post-screening
         if os.path.exists(path_data) is True:
             data_file = pd.read_csv(path_data, sep="\t")
-            if self.label.text() == "Profile One" or self.label.text() == "Section One" or self.label.text() == "Pre-Tabbed":
-                if int(self.lineEdit_1.text()) in data_file["Barcode"].values:
-                    # msgbox = QtWidgets.QMessageBox(self)
-                    # msgbox.setText("This Barcode is already used, please check.")
-                    # msgbox.exec()
-                    buttonReply = QtWidgets.QMessageBox.question(self, 'Warning',
-                                                                 "Barcode already exists, "
-                                                                 "do you want to replace value for the same barcode?",
-                                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-                                                                 QtWidgets.QMessageBox.No)
-                    if buttonReply == QtWidgets.QMessageBox.Yes:
-                        self.replace_data = True
-                        self.lineEdit_2.setFocus()
-                    else:
-                        self.lineEdit_1.setFocus()
-                    return
-                else:
-                    self.lineEdit_2.setFocus()
+            # pre-screening
+            if self.label.text() in ["Profile One", "Section One", "Pre-Tabbed"]:
+                # duplicated barcode
+                self.check_duplicated_barcode(data_file, 'Pre')
             else:
-                # has ocv and CCV is nan
-                if int(self.lineEdit_1.text()) in data_file["Barcode"].values and \
-                        math.isnan(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Post-OCV"]):
-                    # pre-value show up
-                    self.label_36.setText('Pre-OCV: ')
-                    print("Peter finding")
-                    self.label_39.setText(str(round(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-OCV"].item(), 4)))
-                    if self.label.text() != "Post-Tabbed":
-                        self.label_37.setText("Pre-CCV:  " + str(
-                            round(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-CCV"].item(), 4)))
-                    self.lineEdit_2.setFocus()
-                # has OCV and CCV is not nan
-                elif int(self.lineEdit_1.text()) in data_file["Barcode"].values:
-                    buttonReply = QtWidgets.QMessageBox.question(self, 'Warning',
-                                                                 "Barcode already exists, "
-                                                                 "do you want to replace value for the same barcode?",
-                                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-                                                                 QtWidgets.QMessageBox.No)
-                    if buttonReply == QtWidgets.QMessageBox.Yes:
-                        self.replace_data = True
-                        self.lineEdit_2.setFocus()
-                    else:
-                        self.lineEdit_1.setFocus()
-                # has not OCV give warning
-                else:
+                # has ocv and CCV is not nan
+                # check for no OCV
+                if int(self.lineEdit_1.text()) not in data_file["Barcode"].values:
                     msgbox = QtWidgets.QMessageBox(self)
                     msgbox.setText("This Barcode has NO OCV, please check.")
                     msgbox.exec()
                     self.lineEdit_1.setFocus()
+                    return
 
-    def getTestNumber(self, x, bare_cell):
+                if int(self.lineEdit_1.text()) in data_file["Barcode"].values and \
+                        not math.isnan(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Post-OCV"]):
+                    self.check_duplicated_barcode(data_file, 'Post')
+
+                # pre-value show up
+                self.label_36.setText('Pre-OCV: ')
+                self.label_39.setText(
+                    str(round(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-OCV"].item(),
+                              4)))
+                if self.label.text() != "Post-Tabbed":
+                    self.label_37.setText("Pre-CCV:  " + str(
+                        round(data_file[data_file["Barcode"] == int(self.lineEdit_1.text())]["Pre-CCV"].item(),
+                              4)))
+
+    def getTestNumber(self, x):
         if "Post" in x:
             y = x[4:]
             # dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -541,9 +564,9 @@ class Screening_DataCollection_WithFunction(QDialog):
         else:
             print(path_data)
             data_file = pd.read_csv(path_data, sep="\t")
-            total_number = data_file["Barcode"].last_valid_index()+1
+            total_number = data_file["Barcode"].last_valid_index() + 1
             self.label_17.setText(str(total_number))
-            pre_sc_number = data_file["Pre-OCV"].last_valid_index()+1
+            pre_sc_number = data_file["Pre-OCV"].last_valid_index() + 1
             self.label_21.setText(str(pre_sc_number))
             if self.label.text() == "Profile One" or self.label.text() == "Section One" or self.label.text() == "Pre-Tabbed":
                 if total_number >= columns_1[16]:
@@ -557,7 +580,8 @@ class Screening_DataCollection_WithFunction(QDialog):
             if data_file["Post-OCV"].dropna().size is not 0:
                 self.label_25.setText(str(data_file["Post-OCV"].dropna().size))
                 if data_file[data_file["Post-screen pass"] == "fail"].last_valid_index() is not None:
-                    self.label_27.setText(str(data_file[data_file["Post-screen pass"] == "fail"]["Post-screen pass"].size))
+                    self.label_27.setText(
+                        str(data_file[data_file["Post-screen pass"] == "fail"]["Post-screen pass"].size))
 
             if float(self.label_23.text()) >= float(self.label_27.text()):
                 self.label_19.setText(self.label_23.text())
@@ -573,13 +597,3 @@ if __name__ == '__main__':
     qt_app.show()
 
     app.exec_()
-
-
-
-
-
-
-
-
-
-
