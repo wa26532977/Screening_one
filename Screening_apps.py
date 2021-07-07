@@ -2,10 +2,11 @@ import os
 from PyQt5 import QtWidgets, uic
 import sys
 import pandas as pd
-from Screening_System_PyQt5 import RGui_Data_Converting, RGui_Print, RGui_SetPath, RGui_Anaylsis_searchWIthFunctions, \
+from Screening_System_PyQt5 import RGui_Data_Converting, RGui_Print, RGui_Anaylsis_searchWIthFunctions, \
     RGui_Screening_DataCollection, RGui_Data_OpenWithFunctions, RGui_TemplateFile_add_withFunction, \
-    RGui_templateFile_Open_withFunction, RGui_Data_add_withFunctions, RGui_TemplateFile_Dupplicate_withFunction,\
-    RGui_Report_Open_WithFunction, RGui_Report_FrontPage_WithFunction, RGui_BK_PRECISION_setting_withFuction
+    RGui_templateFile_Open_withFunction, RGui_Data_add_withFunctions, RGui_TemplateFile_Dupplicate_withFunction, \
+    RGui_Report_Open_WithFunction, RGui_Report_FrontPage_WithFunction, RGui_BK_PRECISION_setting_withFuction, \
+    RGui_SetPath_withFunctions
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -50,11 +51,9 @@ class Screening_app(QtWidgets.QMainWindow):
         ui.exec_()
 
     def New_SetPath_Clicked(self):
-        set_path = QtWidgets.QDialog()
-        ui = RGui_SetPath.Ui_Dialog()
-        ui.setupUi(set_path)
-        set_path.show()
-        set_path.exec_()
+        ui = RGui_SetPath_withFunctions.SetPathWithFunction()
+        ui.show()
+        ui.exec_()
 
     def New_Print_Clicked(self):
         gui_print = QtWidgets.QDialog()

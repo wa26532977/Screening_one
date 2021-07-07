@@ -95,7 +95,7 @@
          </font>
         </property>
         <property name="title">
-         <string>Screening Note Directory</string>
+         <string>Final Report Directory</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
          <item row="0" column="0">
@@ -127,7 +127,7 @@
          </font>
         </property>
         <property name="title">
-         <string>Final Transfer Screening Data Directory</string>
+         <string>Fast Data Directory</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="0" column="0">
