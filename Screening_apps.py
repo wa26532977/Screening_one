@@ -1,26 +1,11 @@
 import os
-
 from PyQt5 import QtWidgets, uic
 import sys
 import pandas as pd
-# import dcload
-# import glob
-# import os
-from Screening_System_PyQt5 import RGui_Data_Converting
-from Screening_System_PyQt5 import RGui_Print
-from Screening_System_PyQt5 import RGui_SetPath
-from Screening_System_PyQt5 import RGui_Anaylsis_searchWIthFunctions
-from Screening_System_PyQt5 import RGui_Screening_DataCollection
-from Screening_System_PyQt5 import RGui_Data_OpenWithFunctions
-from Screening_System_PyQt5 import RGui_TemplateFile_add_withFunction
-from Screening_System_PyQt5 import RGui_templateFile_Open_withFunction
-from Screening_System_PyQt5 import RGui_Data_add_withFunctions
-from Screening_System_PyQt5 import RGui_TemplateFile_Dupplicate_withFunction
-from Screening_System_PyQt5 import RGui_Report_Open_WithFunction
-from Screening_System_PyQt5 import RGui_Report_FrontPage_WithFunction
-# from Screening_System_PyQt5 import RGui_Report_Open_WithFunction_2
-# from Screening_System_PyQt5 import RGui_Report_RawData_WithFunction
-
+from Screening_System_PyQt5 import RGui_Data_Converting, RGui_Print, RGui_SetPath, RGui_Anaylsis_searchWIthFunctions, \
+    RGui_Screening_DataCollection, RGui_Data_OpenWithFunctions, RGui_TemplateFile_add_withFunction, \
+    RGui_templateFile_Open_withFunction, RGui_Data_add_withFunctions, RGui_TemplateFile_Dupplicate_withFunction,\
+    RGui_Report_Open_WithFunction, RGui_Report_FrontPage_WithFunction, RGui_BK_PRECISION_setting_withFuction
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -44,10 +29,13 @@ class Screening_app(QtWidgets.QMainWindow):
         self.actionSample_Data_Viewing.triggered.connect(self.New_Ananylsis_Seach_Clicked)
         self.actionView_All_Report_And_Graph.triggered.connect(self.Selected_Report_Open_Clicked)
         self.actionPrint_All_Peport_And_Graph.triggered.connect(self.Selected_Report_Open_Clicked_2)
-        # need work, this will print all the report and graph
-        # self.actionPrint_All_Peport_And_Graph.triggered.connect(self.Selected_Report_Open_Clicked)
-        # Just for now, later need to change under data.
         self.actionPrinter_Setup.triggered.connect(self.New_Screening_DataCollection_Clicked)
+        self.actionBK_Power_Bank_Config.triggered.connect(self.new_bk_setting_clicked)
+
+    def new_bk_setting_clicked(self):
+        ui = RGui_BK_PRECISION_setting_withFuction.BKPrecisionSettingWithFunction()
+        ui.show()
+        ui.exec_()
 
     def New_Screening_DataCollection_Clicked(self):
         data_collection = QtWidgets.QDialog()
@@ -130,11 +118,13 @@ if __name__ == '__main__':
     qt_app.show()
     sys._excepthook = sys.excepthook
 
+
     def exception_hook(exctype, value, traceback):
         # print(exctype, value, traceback)
         # error_log = pd.read_csv(os.path.dirname(sys.argv[0]) + r"\\Error_log.txt", sep='\t')
         sys.excepthook(exctype, value, traceback)
         sys.exit(1)
+
 
     sys.excepthook = exception_hook
     # this is fun

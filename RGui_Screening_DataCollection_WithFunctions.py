@@ -8,85 +8,12 @@ import datetime
 import sys
 import time
 
-from win32com.client import Dispatch
+from Screening_System_PyQt5 import dcload
 from PyQt5.QtCore import QTimer, QTime
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
 pd.set_option("display.precision", 6)
-
-'''
-class External(QThread):
-    """
-    Runs a counter thread.
-    """
-    countChanged = pyqtSignal(int)
-    finalOutput = pyqtSignal(str)
-
-    def __init__(self, timer, testing_type, testing_value2, parent=None):
-        QThread.__init__(self, parent)
-        self.timer = timer
-        self.testing_type = testing_type
-        self.testing_value2 = testing_value2
-        self.load = Dispatch('BKServers.DCLoad85xx')
-
-    def run(self):
-
-        port = "COM3"
-        baudrate = "19200"
-
-        def test(cmd, results):
-            if results:
-                print(cmd + "failed:")
-                print(results)
-                exit(1)
-            else:
-                print(cmd)
-
-        self.load.Initialize(port, baudrate)
-        test("Set to remote control", self.load.SetRemoteControl())
-        test("Set Remote Sense to enable", self.load.SetRemoteSense(1))
-
-        if self.testing_type == "Constant Current":
-            print("Peterlooking")
-            print(int(self.timer) * 10)
-            testing_value = self.testing_value2 / 1000
-            print(testing_value)
-            test("Set to constant current", self.load.Setmode("cc"))
-            test("Set Transient to CC ",
-                 self.load.SetTransient("cc", 0, 0.01, testing_value, int(self.timer) * 10, "pulse"))
-        elif self.testing_type == "Constant Resistor":
-            test("Set to constant current", self.load.Setmode("cr"))
-            test("Set Transient to CC ",
-                 self.load.SetTransient("cr", 4000, 1, self.testing_value2, int(self.timer) * 10, "pulse"))
-
-        test("Set function to Transient", self.load.SetFunction("transient"))
-        self.load.TurnLoadOn()
-        self.load.TriggerLoad()
-
-        start_time = time.time()
-        t_end = time.time() + int(self.timer) + 1
-        values = []
-        ProBarcount = 0
-        # this is increament for progressbar in while loop
-        ProBarIncreamnt = 7/(int(self.timer) + 1)
-
-        while time.time() < t_end:
-            values.append(self.load.GetInputValues()[0])
-            time.sleep(0.01)
-            ProBarcount = ProBarcount + ProBarIncreamnt
-            self.countChanged.emit(ProBarcount)
-
-        self.countChanged.emit(100)
-        print("Final values is ")
-        print(values)
-
-        self.load.TurnLoadOff()
-        test("Set Function to fix", self.load.SetFunction("fixed"))
-        test("Set to local control", self.load.SetLocalControl())
-
-        self.finalOutput.emit(str(min(values)))
-'''
 
 
 class Screening_DataCollection_WithFunction(QDialog):
@@ -110,12 +37,14 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.storing_data = []
         self.lot_number = 0
         # on peter's desk port COM2,  At the Lab port COM3
-        self.com_port = "COM2"
+        self.setting_file_path = os.path.dirname(sys.argv[0]) + r'\\BK_Prescions_setting.csv'
+        self.setting_file = pd.read_csv(self.setting_file_path, sep=',')
+        self.com_port = self.setting_file['com_port'].values[0]
+        self.baudrate = self.setting_file['baurate'].values[0]
+        self.BK_model = self.setting_file['model'].values[0]
 
     def pwCCV(self, timer, testing_type, testing_value2, ):
-        load = Dispatch('BKServers.DCLoad85xx')
-        port = self.com_port
-        baudrate = "19200"
+        load = dcload.DCLoad()
 
         def test(cmd, results):
             if results:
@@ -124,20 +53,28 @@ class Screening_DataCollection_WithFunction(QDialog):
                 exit()
             else:
                 print(cmd)
-
-        load.Initialize(port, baudrate)
+        load.Initialize(self.com_port, self.baudrate)
         test("Set to remote control", load.SetRemoteControl())
         test("Set Remote Sense to enable", load.SetRemoteSense(1))
 
         if testing_type == "Constant Current":
             testing_value = testing_value2 / 1000
-            test("Set to constant current", load.Setmode("cc"))
-            test("Set Transient to CC ",
-                 load.SetTransient("cc", 0, 1, testing_value, int(timer) * 10, "toggled"))
+            test("Set to constant current", load.SetMode("cc"))
+
+            if str(self.BK_model) == "8500":
+                test("Set Transient to CC ",
+                     load.SetTransient("cc", 0, 1, testing_value, int(timer) * 10, "toggled"))
+            else:
+                test("Set Transient to CC ",
+                     load.SetTransient("cc", testing_value, int(timer) * 10, 0, 1, "toggled"))
         elif testing_type == "Constant Resistor":
-            test("Set to constant Resistor", load.Setmode("cr"))
-            test("Set Transient to CR ",
-                 load.SetTransient("cr", 4000, 1, testing_value2, int(timer) * 10, "toggled"))
+            test("Set to constant Resistor", load.SetMode("cr"))
+            if str(self.BK_model) == "8500":
+                test("Set Transient to CR ",
+                     load.SetTransient("cr", 4000, 1, testing_value2, int(timer) * 10, "toggled"))
+            else:
+                test("Set Transient to CR ",
+                     load.SetTransient("cr", testing_value2, int(timer) * 10, 4000, 1, "toggled"))
 
         test("Set function to Transient", load.SetFunction("transient"))
         load.TurnLoadOn()
@@ -181,7 +118,6 @@ class Screening_DataCollection_WithFunction(QDialog):
         # print(values)
         # print(len(values))
         # print(time_log)
-
         test("Set Function to fix", load.SetFunction("fixed"))
         test("Set to local control", load.SetLocalControl())
         value = min(values)
@@ -372,10 +308,7 @@ class Screening_DataCollection_WithFunction(QDialog):
         self.lineEdit_6.setFocus()
 
     def getOCVpw(self):
-        load = Dispatch('BKServers.DCLoad85xx')
-        port = self.com_port
-        baudrate = "19200"
-
+        load = dcload.DCLoad()
         def test(cmd, results):
             if results:
                 print(cmd + "failed:")
@@ -384,7 +317,7 @@ class Screening_DataCollection_WithFunction(QDialog):
             else:
                 print(cmd)
 
-        load.Initialize(port, baudrate)
+        load.Initialize(self.com_port, self.baudrate)
         test("Set to remote control", load.SetRemoteControl())
         test("Set Remote Sense to enable", load.SetRemoteSense(1))
         load.TurnLoadOn()
