@@ -1,4 +1,6 @@
 import os
+import docx
+from docx.shared import Inches
 import pandas as pd
 import sys
 from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox
@@ -8,6 +10,7 @@ import ast
 import matplotlib.pyplot as plt
 from PyQt5.QtGui import *
 import numpy as np
+
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -25,6 +28,7 @@ class GraphFastDataWithFunction(QDialog):
         self.fast_data_file = pd.read_csv(self.path_fast_data, sep="\t")
         self.path_start_data = self.dir_path + r"\\Screening_Data\\" + self.test_name
         self.start_data_file = pd.read_csv(self.path_start_data, sep="\t")
+        self.data_set = []
         if self.fast_data_file["Pre"].dropna().size == 0:
             self.radioButton.setCheckable(False)
             self.radioButton_2.setChecked(True)
@@ -36,8 +40,16 @@ class GraphFastDataWithFunction(QDialog):
         self.pushButton_3.clicked.connect(self.graph_all)
         self.pushButton_4.clicked.connect(self.set_y_axis)
         self.pushButton_5.clicked.connect(self.reset_y_axis)
-        print("happyyyyyyyyy")
-        print(self.test_name)
+        self.pushButton.clicked.connect(self.print_graph)
+
+    def print_graph(self):
+        doc = docx.Document(self.dir_path + r'\\Report_Word\\Doc Template\\FastData_Graph.docx')
+        doc.add_picture("fast_data_test.png", width=Inches(10))
+        print(self.data_set)
+        if self.data_set:
+            doc.add_paragraph(str(self.data_set))
+        doc.save(self.dir_path + r"\\Final_Report\\fast_data_" + self.test_name + '.docx')
+        os.startfile(self.dir_path + r"\\Final_Report\\fast_data_" + self.test_name + '.docx')
 
     def set_test_name(self, test_name):
         self.test_name = test_name
@@ -51,14 +63,14 @@ class GraphFastDataWithFunction(QDialog):
         self.y_axis_max = 0
         self.lineEdit.setText("")
         self.lineEdit_2.setText("")
+        self.graph_one()
 
     def set_y_axis(self):
         if self.lineEdit.text() != '':
             self.y_axis_min = float(self.lineEdit.text())
+        if self.lineEdit_2.text() != "":
             self.y_axis_max = float(self.lineEdit_2.text())
-        else:
-            self.y_axis_min = 0
-            self.y_axis_max = 0
+        self.graph_one()
 
     def graph_all(self):
         profile_select = "Post"
@@ -77,7 +89,6 @@ class GraphFastDataWithFunction(QDialog):
         for index, item in self.fast_data_file.iterrows():
             if not pd.isna(item[profile_select]):
                 select_data_1 = ast.literal_eval(item[profile_select])
-                select_data_list = []
                 voltage_list = []
                 time_list = []
                 for data in select_data_1:
@@ -138,14 +149,16 @@ class GraphFastDataWithFunction(QDialog):
 
         for item in select_data_1:
             if not voltage_list:
-                init_data = self.start_data_file[self.start_data_file["Barcode"] == int(self.listWidget.currentItem().text())][profile_number + '-OCV']
+                init_data = self.start_data_file[self.start_data_file["Barcode"] == int(self.listWidget.currentItem().text())][profile_number + '-OCV'].values[0]
                 voltage_list.append(init_data)
                 time_list.append(-1)
                 voltage_list.append(init_data)
                 time_list.append(-0.1)
+                self.data_set = [(round(float(init_data), 4), -1), (round(float(init_data), 4), -0.1)]
             else:
                 voltage_list.append(float(item[0]))
                 time_list.append(item[2] - time_check)
+                self.data_set.append((round(float(item[0]), 4), round((item[2] - time_check), 4)))
             # time_list.append(item[2] - time_check)
         if self.x_axis_max == 0:
             self.x_axis_max = round(time_list[-1]) + 5
@@ -157,6 +170,7 @@ class GraphFastDataWithFunction(QDialog):
         plt.tick_params(labelsize=22)
         if self.x_axis_max <= 15:
             plt.xticks(np.arange(-1, self.x_axis_max, 1.0))
+
         plt.plot(time_list, voltage_list,)
         plt.xlabel('time (S)', fontsize=22)
         plt.ylabel('Voltage (V)', fontsize=22)
@@ -177,7 +191,7 @@ class GraphFastDataWithFunction(QDialog):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    qt_app = GraphFastDataWithFunction("peterTest12345.txt")
+    qt_app = GraphFastDataWithFunction("14891D00.txt")
     qt_app.show()
 
     def exception_hook(exctype, value, traceback):

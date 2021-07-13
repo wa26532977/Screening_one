@@ -6,7 +6,7 @@ from Screening_System_PyQt5 import RGui_Data_Converting, RGui_Print, RGui_Anayls
     RGui_Screening_DataCollection, RGui_Data_OpenWithFunctions, RGui_TemplateFile_add_withFunction, \
     RGui_templateFile_Open_withFunction, RGui_Data_add_withFunctions, RGui_TemplateFile_Dupplicate_withFunction, \
     RGui_Report_Open_WithFunction, RGui_Report_FrontPage_WithFunction, RGui_BK_PRECISION_setting_withFuction, \
-    RGui_SetPath_withFunctions
+    RGui_SetPath_withFunctions, RGui_FastData_select_withFuntion
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -30,20 +30,18 @@ class Screening_app(QtWidgets.QMainWindow):
         self.actionSample_Data_Viewing.triggered.connect(self.New_Ananylsis_Seach_Clicked)
         self.actionView_All_Report_And_Graph.triggered.connect(self.Selected_Report_Open_Clicked)
         self.actionPrint_All_Peport_And_Graph.triggered.connect(self.Selected_Report_Open_Clicked_2)
-        self.actionPrinter_Setup.triggered.connect(self.New_Screening_DataCollection_Clicked)
         self.actionBK_Power_Bank_Config.triggered.connect(self.new_bk_setting_clicked)
+        self.actionFast_Data_Graph.triggered.connect(self.fast_data_select)
+
+    def fast_data_select(self):
+        ui = RGui_FastData_select_withFuntion.FastDataWithFunction()
+        ui.show()
+        ui.exec_()
 
     def new_bk_setting_clicked(self):
         ui = RGui_BK_PRECISION_setting_withFuction.BKPrecisionSettingWithFunction()
         ui.show()
         ui.exec_()
-
-    def New_Screening_DataCollection_Clicked(self):
-        data_collection = QtWidgets.QDialog()
-        ui = RGui_Screening_DataCollection.Ui_Dialog()
-        ui.setupUi(data_collection)
-        data_collection.show()
-        data_collection.exec_()
 
     def New_Ananylsis_Seach_Clicked(self):
         ui = RGui_Anaylsis_searchWIthFunctions.AnalysisSearchWithFunction()

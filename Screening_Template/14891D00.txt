@@ -1,0 +1,13 @@
+Lot No	Test No	Cell Name	Chemistry	Form Factor	Capacity	Request Number	Task Number	Tech POC.	Test Purpose	Mfg Date	Date Received	Dimension (mm)	Screening Temp(°C)	Begin Date	Finished Date	Total Sample Count	Profile One Values	Profile One Timer	Profile One OCV Min	Profile One CCV Min	High Rate Min(Y-axis)	High Rate Max (Y-axis)	Pre-Tab OCV	Post-Tab OCV	Post-Tab CCV	OCV Tab Tolerance	Profile Two Value	Profile Two Timer	Profile Two OCV Min	Profile Two CCV Min	Battery/Cell	Tabbed?	Profile No.	Section No.	High Rate?	Profile One Type	Profile Two Type	Note
+13031	14891D00	Panasonic CR2032	Li/MnO2	Coin	0.23	210609-2	12827	CJH	Screening	2019-06-15	2021-05-13	3.2(H) X 20.0(D)	24	07/07/2021	07/01/2021	35	100	3	3.2	2.7						0.002					Cell	Not Tabbed	1	1	Yes	Constant Current	Constant Current	"Note(s):
+
+1. Report Date:
+
+2. Test Responsibility:
+	
+     a. Data file preparation:
+     b. Technical review:
+     c. Final review:
+
+3. The outlier is identified by use 1.5*Interquartile Range rule (IQR). Q1, Q3 = [25% percentile, 75% percentile], the minimum for outliner = Q1 – 1.5* IQR, the maximum for outlier = Q3 +1.5* IQR.
+"

@@ -1,0 +1,2 @@
+Barcode	Serial#	Pre-OCV	Pre-CCV	Post-OCV	Post-CCV	Date	Lot Number	Comments	Pre-screen pass	Post-screen pass
+9999999	1	1.8159999999999998	1.8130000000000002	1.815	1.725	2020-12-11	12779		Fail	Fail

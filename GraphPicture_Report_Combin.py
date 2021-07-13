@@ -1,9 +1,12 @@
 import pandas as pd
 import numpy as np
+import time
 import docx
 import os
 import sys
 from docx.shared import Inches
+from docx.enum.section import WD_ORIENTATION
+
 
 pd.options.display.max_columns = 999
 pd.options.display.max_rows = 999
@@ -17,6 +20,7 @@ def graphPicture_combin(x):
     columns_1 = data_file1.loc[0].fillna("")
 
     doc = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\Doc Template\\Graph_combin.docx")
+    # doc = docx.Document(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + report_name + '.docx')
     # if the cell is tabbed
     if columns_1["Tabbed?"] == "Tabbed":
         doc.add_picture("OCV.png", width=Inches(10.5))
@@ -67,4 +71,4 @@ def graphPicture_combin(x):
 
 # for debugging propose
 if __name__ == '__main__':
-    graphPicture_combin("14462C00.txt")
+    graphPicture_combin("14872B00.txt")

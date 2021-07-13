@@ -56,29 +56,41 @@ class Screening_DataCollection_WithFunction(QDialog):
         load.Initialize(self.com_port, self.baudrate)
         test("Set to remote control", load.SetRemoteControl())
         test("Set Remote Sense to enable", load.SetRemoteSense(1))
+        test("Set Function to fix", load.SetFunction("fixed"))
+
+        # if testing_type == "Constant Current":
+        #     testing_value = testing_value2 / 1000
+        #     test("Set to constant current", load.SetMode("cc"))
+        #
+        #     if str(self.BK_model) == "8500":
+        #         test("Set Transient to CC ",
+        #              load.SetTransient("cc", 0, 1, testing_value, int(timer) * 10, "toggled"))
+        #     else:
+        #         test("Set Transient to CC ",
+        #              load.SetTransient("cc", testing_value, int(timer) * 10, 0, 1, "toggled"))
+        # elif testing_type == "Constant Resistor":
+        #     test("Set to constant Resistor", load.SetMode("cr"))
+        #     if str(self.BK_model) == "8500":
+        #         test("Set Transient to CR ",
+        #              load.SetTransient("cr", 4000, 1, testing_value2, int(timer) * 10, "toggled"))
+        #     else:
+        #         test("Set Transient to CR ",
+        #              load.SetTransient("cr", testing_value2, int(timer) * 10, 4000, 1, "toggled"))
+        #
+        # test("Set function to Transient", load.SetFunction("transient"))
+        # load.TurnLoadOn()
+        # load.TriggerLoad()
+
+        testing_value = testing_value2 / 1000
+        print(f"testing_value: {testing_value}")
+        print(f"testing_value2: {testing_value2}")
 
         if testing_type == "Constant Current":
-            testing_value = testing_value2 / 1000
             test("Set to constant current", load.SetMode("cc"))
-
-            if str(self.BK_model) == "8500":
-                test("Set Transient to CC ",
-                     load.SetTransient("cc", 0, 1, testing_value, int(timer) * 10, "toggled"))
-            else:
-                test("Set Transient to CC ",
-                     load.SetTransient("cc", testing_value, int(timer) * 10, 0, 1, "toggled"))
+            test("Set CC Current: ", load.SetCCCurrent(testing_value))
         elif testing_type == "Constant Resistor":
             test("Set to constant Resistor", load.SetMode("cr"))
-            if str(self.BK_model) == "8500":
-                test("Set Transient to CR ",
-                     load.SetTransient("cr", 4000, 1, testing_value2, int(timer) * 10, "toggled"))
-            else:
-                test("Set Transient to CR ",
-                     load.SetTransient("cr", testing_value2, int(timer) * 10, 4000, 1, "toggled"))
-
-        test("Set function to Transient", load.SetFunction("transient"))
-        load.TurnLoadOn()
-        load.TriggerLoad()
+            test("Set CC Current: ", load.SetCRResistance(testing_value2))
 
         values = []
         data_log = []
@@ -88,29 +100,29 @@ class Screening_DataCollection_WithFunction(QDialog):
         start_time = time.time()
         t_end = time.time() + int(timer)
         if self.fast_data:
-            t_end_space = time.time() + int(timer) + 4
-            progressbar_step += 5
+            t_end_space = time.time() + int(timer) + 3
+            progressbar_step += 4
         else:
             t_end_space = time.time() + int(timer)
             progressbar_step += 1
 
-        progressbar_step = 100/(progressbar_step*10)
+        progressbar_step = 100/(86*progressbar_step)
+
+        load.TurnLoadOn()
 
         # the adding one sec is for latency
         while time.time() < (t_end_space + 1):
             values.append(load.GetInputValues()[0])
             data_log.append((load.GetInputValues()[0], load.GetInputValues()[1], round(time.time() - start_time, 5)))
-            time.sleep(0.01)
 
             if completed < 100:
                 completed += progressbar_step
                 self.progressBar.setValue(completed)
 
             if time.time() > t_end and trigger_blo:
-                load.TriggerLoad()
+                load.TurnLoadOff()
                 trigger_blo = False
 
-        load.TurnLoadOff()
         self.progressBar.setValue(100)
 
         print("Final values is ")

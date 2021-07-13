@@ -1028,7 +1028,7 @@ class Report_StatisticsTable_WithFunctions(QDialog):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     qt_app = Report_StatisticsTable_WithFunctions()
-    qt_app.getTestNumber2("14681B01.txt")
+    qt_app.getTestNumber2("14872C00.txt")
     qt_app.show()
     app.exec_()
 

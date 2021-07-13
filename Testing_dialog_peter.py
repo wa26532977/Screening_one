@@ -34,6 +34,11 @@
 #         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
 #         self.label.setText(_translate("Dialog", "Happy Peter"))
 from docx import Document
+from docx.enum.section import WD_SECTION
+from docx.enum.section import WD_ORIENT
+from docx.text.paragraph import Paragraph
+from docx.oxml.xmlchemy import OxmlElement
+from docx.shared import Inches
 from docxcompose.composer import Composer
 import os
 # # import pandas as pd
@@ -73,16 +78,17 @@ import os
 # composer.append(doc2)
 # composer.append(doc3)
 # composer.save("Testing_123.docx")
-from os import listdir
-from os.path import isfile, join
-import glob
+# from os import listdir
+# from os.path import isfile, join
+# import glob
 import sys
-import os
-import pandas as pd
 
-pd.options.display.max_columns = 999
-pd.options.display.max_rows = 999
-pd.set_option("display.precision", 6)
+# import os
+# import pandas as pd
+#
+# pd.options.display.max_columns = 999
+# pd.options.display.max_rows = 999
+# pd.set_option("display.precision", 6)
 
 # print(os.path.dirname(sys.argv[0]))
 # print(1)
@@ -138,5 +144,84 @@ pd.set_option("display.precision", 6)
 #             print(f"float!!! = {outlier_data.iloc[i][c]}")
 #         else:
 #             print(outlier_data.iloc[i][c])
-if "x" in ['x', 'y', 'z']:
-    print("good")
+
+# report_doc = Document(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\14872B00.docx")
+# document = Document(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\14872B00.docx")
+
+# document = Document()
+# section = document.sections[-1]  # Sections object
+# new_width, new_height = section.page_height, section.page_width
+# section.orientation = WD_ORIENT.LANDSCAPE
+# section.page_width = new_width
+# section.page_height = new_height
+# doc = document.add_paragraph().add_run()
+# doc.add_picture("Pre OCV 95% confidence interval.png", width=Inches(9))
+#
+# print(section.start_type, section.orientation)
+# document.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + "thisISTest" + '.docx')
+
+selected_file = "14872C00"+".txt"
+testName = selected_file[0:-4]
+files = [testName+'.docx', "Note-" + testName + ".docx", testName + "Pre-StaticReport.docx"]
+if os.path.exists(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + testName + "Post-StaticReport.docx"):
+    files.append(testName + "Post-StaticReport.docx")
+files.append(testName + "RawData.docx")
+files.append(testName + "_Graph.docx")
+
+# files.pop(2)
+print(files)
+
+merged_document = Document()
+'''
+for index, file in enumerate(files):
+    sub_doc = Document(os.path.dirname(sys.argv[0]) + r"\\Report_Word\\" + file)
+    for element in sub_doc.element.body:
+        print(element)
+        merged_document.element.body.append(element)
+merged_document.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\1_" + testName + '.docx')
+
+merged_document = Document(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\1_" + testName + '.docx')
+# add pictures
+for section in merged_document.sections:
+    print(section.start_type, section.orientation)
+section = merged_document.sections[-1]  # Sections object
+new_width, new_height = section.page_height, section.page_width
+section.orientation = WD_ORIENT.LANDSCAPE
+section.page_width = new_width
+section.page_height = new_height
+print("Second sections:")
+for section in merged_document.sections:
+    print(section.start_type, section.orientation)
+merged_document.add_paragraph("this works?")
+'''
+
+# merged_document.add_picture("OCV.png", width=Inches(9))
+# doc = merged_document.add_paragraph().add_run()
+# doc.add_picture("Pre OCV 95% confidence interval.png", width=Inches(9))
+
+# doc.add_picture("OCV.png", width=Inches(9))
+# doc.add_picture("Pre OCV WITHIN SD RANGE.png", width=Inches(9))
+# doc.add_picture("Pre OCV 95% confidence interval.png", width=Inches(9))
+#
+# doc.add_picture("OCV 2.png", width=Inches(9))
+# doc.add_picture("Post OCV WITHIN SD RANGE.png", width=Inches(9))
+# doc.add_picture("CCV 2.png", width=Inches(9))
+# doc.add_picture("Post CCV WITHIN SD RANGE.png", width=Inches(9))
+# doc.add_picture("Post OCV 95% confidence interval.png", width=Inches(9))
+# doc.add_picture("Post CCV 95% confidence interval.png", width=Inches(9))
+# doc.add_picture("OCV-CCV 2.png", width=Inches(9))
+# doc.add_picture("Post OCV-CCV WITHIN SD RANGE.png", width=Inches(9))
+
+
+path_name = os.path.dirname(sys.argv[0]) + r"\\Report_Word\\"
+master = Document(path_name + testName + '.docx')
+composer = Composer(master)
+for item in files:
+    doc_add = Document(path_name + item)
+    composer.append(doc_add)
+
+composer.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testName + '.docx')
+# merged_document.save(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testName + '.docx')
+os.startfile(os.path.dirname(sys.argv[0]) + r"\\Final_Report\\" + testName + '.docx')
+
+
